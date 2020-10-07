@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "179647861018",
+    "firebase_url": "https://crimson-ministry.firebaseio.com",
+    "project_id": "crimson-ministry",
+    "storage_bucket": "crimson-ministry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179647861018:android:0d2fc97a33308844c15ca3",
+        "android_client_info": {
+          "package_name": "com.example.CrimsonMinistry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179647861018-c9hok782bh1pspvftv4ma417ukiefm3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiSU1_3qaSimO956qccVtHbnXCMqF7pis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179647861018-c9hok782bh1pspvftv4ma417ukiefm3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "179647861018-428tipammkgaiu639dvmjj4a0fqs2ab3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.CrimsonMinistry"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

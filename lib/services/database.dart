@@ -1,4 +1,17 @@
-import 'package:firebase/firebase.dart';
-import 'package:firebase/firebase_io.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-//This file will contain the functions for communication between the UI and database
+class DatabaseService {
+  final String uid;
+  DatabaseService({this.uid});
+
+  // collection reference
+  final CollectionReference userCollection =
+      Firestore.instance.collection('users');
+
+  Future updateUserData(String fname, String lname) async {
+    return await userCollection.document(uid).setData({
+      'First Name': fname,
+      'Last Name': lname,
+    });
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:CrimsonMinistry/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -22,6 +23,11 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+
+      // create a new document for the new user in the database
+      await DatabaseService(uid: user.uid)
+          .updateUserData('First Name', 'Last Name');
+
       return user;
     } catch (error) {
       print(error.toString());
