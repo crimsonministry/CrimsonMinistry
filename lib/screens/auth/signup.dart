@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
+import 'package:CrimsonMinistry/services/database.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -89,8 +90,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(height: 50.0),
                       RaisedButton(
                         onPressed: () async {
-                          dynamic result = await _auth
-                              .registerWithEmailAndPassword(email, password);
+                          dynamic result =
+                              await _auth.registerWithEmailAndPassword(
+                                  email, password, fname, lname);
                           print(result);
                         },
                         child: const Text('Sign Up',
