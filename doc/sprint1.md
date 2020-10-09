@@ -40,3 +40,5 @@
   - types of events: bible study, worship, social event, other
 - [ ] Add prayer request page
   - fields: title, description, anonymous (boolean)
+- [ ] Navigation Bar
+  - tabs: events, prayers, account
