@@ -30,23 +30,22 @@ class _SignInState extends State<SignInPage> {
     return new Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               child: Stack(
                 children: <Widget>[
                   Container(
-                      padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
+                      padding: EdgeInsets.fromLTRB(8.0, 110.0, 0.0, 0.0),
                       child: Text('Crimson',
                           style: TextStyle(
-                              fontSize: 75.0,
+                              fontSize: 70.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.red))),
                   Container(
-                    padding: EdgeInsets.fromLTRB(16.0, 175.0, 0.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(8.0, 175.0, 0.0, 0.0),
                     child: Text('Ministry',
                         style: TextStyle(
-                            fontSize: 77.0,
+                            fontSize: 71.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.grey)),
                   ),
@@ -65,7 +64,6 @@ class _SignInState extends State<SignInPage> {
                       decoration: InputDecoration(
                           labelText: 'EMAIL',
                           labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
                               color: Colors.grey),
                           focusedBorder: UnderlineInputBorder(
@@ -80,7 +78,6 @@ class _SignInState extends State<SignInPage> {
                       decoration: InputDecoration(
                           labelText: 'PASSWORD',
                           labelStyle: TextStyle(
-                              fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
                               color: Colors.grey),
                           focusedBorder: UnderlineInputBorder(
@@ -114,8 +111,7 @@ class _SignInState extends State<SignInPage> {
                               'CREATE PROFILE',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat'),
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
