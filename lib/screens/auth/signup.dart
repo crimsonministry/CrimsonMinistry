@@ -12,6 +12,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String fname = '';
   String lname = '';
   String email = '';
+  String username = '';
   String password = '';
 
   @override
@@ -19,7 +20,6 @@ class _SignUpPageState extends State<SignUpPage> {
     return new Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 50.0),
               Container(
@@ -34,7 +34,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         decoration: InputDecoration(
                             labelText: 'FIRST NAME',
                             labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
@@ -49,12 +48,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         decoration: InputDecoration(
                             labelText: 'LAST NAME',
                             labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red))),
                       ),
+                      SizedBox(height: 10.0),
                       TextField(
                         onChanged: (val) {
                           setState(() => email = val);
@@ -63,11 +62,24 @@ class _SignUpPageState extends State<SignUpPage> {
                         decoration: InputDecoration(
                             labelText: 'EMAIL',
                             labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                             // hintText: 'EMAIL',
                             // hintStyle: ,
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red))),
+                      ),
+                      SizedBox(height: 10.0),
+                      TextField(
+                        onChanged: (val) {
+                          setState(() => username = val);
+                          print(username);
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'USERNAME',
+                            labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red))),
                       ),
@@ -80,7 +92,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         decoration: InputDecoration(
                             labelText: 'PASSWORD ',
                             labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
@@ -92,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onPressed: () async {
                           dynamic result =
                               await _auth.registerWithEmailAndPassword(
-                                  email, password, fname, lname);
+                                  email, password, fname, lname); // username to be added
                           print(result);
                         },
                         child: const Text('Sign Up',
@@ -117,8 +128,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: Center(
                               child: Text('GO BACK',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat')),
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ),
