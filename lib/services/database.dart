@@ -9,10 +9,14 @@ class DatabaseService {
   final CollectionReference userCollection =
       Firestore.instance.collection('users');
 
-  Future updateUserData(String fname, String lname, String email) async {
-    return await userCollection
-        .document(uid)
-        .setData({'First Name': fname, 'Last Name': lname, 'Email': email});
+  Future updateUserData(
+      String fname, String lname, String username, String email) async {
+    return await userCollection.document(uid).setData({
+      'firstName': fname,
+      'lastName': lname,
+      'username': username,
+      'email': email
+    });
   }
 
   final CollectionReference postCollection =
@@ -21,12 +25,12 @@ class DatabaseService {
   Future updatePostData(String userId, GpsLatlng coordinates, Timestamp time,
       String title, String eventType, String description) async {
     return await postCollection.document(uid).setData({
-      'User Id': userId,
-      'Location': coordinates,
-      'Time:': time,
-      'Title:': title,
-      'Event Type:': eventType,
-      'Description': description
+      'userID': userId,
+      'location': coordinates,
+      'time:': time,
+      'title': title,
+      'eventType': eventType,
+      'description': description
     });
   }
 }
