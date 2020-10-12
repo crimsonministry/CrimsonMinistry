@@ -7,7 +7,7 @@
 ### Authentication
 
 - [x] Install and set up Firebase
-- [ ] Wrapper
+- [x] Wrapper
   - listen to authentication change using Stream
   - switch pages according to the user state
 - [x] Sign Up using Email and Password
@@ -17,7 +17,7 @@
 ### Database
 
 - [x] Install and set up Cloud Firestore
-- [ ] Create and store user accounts database
+- [x] Create and store user accounts database
   - fields: firstname, lastname, username, email, profile image, description, social media
 - [ ] Create and store events database
   - fields: user id, time created, title, location, time, type of event, description
