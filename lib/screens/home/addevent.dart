@@ -107,7 +107,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   RaisedButton(
                     onPressed: () async {
                       await _data.updatePostData(
-                          title, location, time, typeOfEvent, description);
+                          location, time, title, typeOfEvent, description);
                       showAlertDialog(context);
                       Navigator.of(context).pop();
                     },
