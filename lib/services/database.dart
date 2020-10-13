@@ -21,11 +21,11 @@ class DatabaseService {
   final CollectionReference postCollection =
       Firestore.instance.collection('posts');
 
-  Future updatePostData(String coordinates, String time, String title,
+  Future updatePostData(String location, String time, String title,
       String eventType, String description) async {
     return await postCollection.document(uid).setData({
-      'location': coordinates,
-      'time:': time,
+      'location': location,
+      'time': time,
       'title': title,
       'eventType': eventType,
       'description': description
