@@ -23,6 +23,8 @@
   - fields: user id, time created, title, location, time, type of event, description
 - [x] Create and store prayer requests database
   - fields: user id, time created, title, description, anonymous (boolean), prayer counter (integer)
+- [ ] Read events database to be printed in the UI
+- [ ] Read prayer requests database to be printed in the UI
 
 ### User Interface
 
@@ -32,13 +34,13 @@
   - sign up reference button
 - [x] Sign Up page
   - fields: firstname, lastname, username, email, password
-- [ ] Feed home page
-  - view list of events
-  - sign out button here for now
 - [x] Add event page
   - fields: title, location, time, type of event, description
   - types of events: bible study, worship, social event, other
 - [x] Add prayer request page
   - fields: title, description, anonymous (boolean)
+- [ ] Feed home page
+  - view list of events
+  - sign out button here for now
 - [ ] Navigation Bar
   - tabs: events, prayers, account
