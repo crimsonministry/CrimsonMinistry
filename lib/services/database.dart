@@ -5,7 +5,6 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  // collection reference
   final CollectionReference userCollection =
       Firestore.instance.collection('users');
 
@@ -22,15 +21,25 @@ class DatabaseService {
   final CollectionReference postCollection =
       Firestore.instance.collection('posts');
 
-  Future updatePostData(String userId, GpsLatlng coordinates, Timestamp time,
-      String title, String eventType, String description) async {
+  Future updatePostData(String location, String time, String title,
+      String eventType, String description) async {
     return await postCollection.document(uid).setData({
-      'userID': userId,
-      'location': coordinates,
-      'time:': time,
+      'location': location,
+      'time': time,
       'title': title,
       'eventType': eventType,
       'description': description
+    });
+  }
+
+  final CollectionReference prayerCollection =
+      Firestore.instance.collection('prayers');
+
+  Future updatePrayerData(String title, String description) async {
+    return await prayerCollection.document(uid).setData({
+      'title': title,
+      'description': description,
+      'count': 0,
     });
   }
 }
