@@ -19,10 +19,12 @@
 - [x] Install and set up Cloud Firestore
 - [x] Create and store user accounts database
   - fields: firstname, lastname, username, email, profile image, description, social media
-- [ ] Create and store events database
+- [x] Create and store events database
   - fields: user id, time created, title, location, time, type of event, description
-- [ ] Create and store prayer requests database
+- [x] Create and store prayer requests database
   - fields: user id, time created, title, description, anonymous (boolean), prayer counter (integer)
+- [ ] Read events database to be printed in the UI
+- [ ] Read prayer requests database to be printed in the UI
 
 ### User Interface
 
@@ -32,13 +34,13 @@
   - sign up reference button
 - [x] Sign Up page
   - fields: firstname, lastname, username, email, password
+- [x] Add event page
+  - fields: title, location, time, type of event, description
+  - types of events: bible study, worship, social event, other
+- [x] Add prayer request page
+  - fields: title, description, anonymous (boolean)
 - [ ] Feed home page
   - view list of events
   - sign out button here for now
-- [ ] Add event page
-  - fields: title, location, time, type of event, description
-  - types of events: bible study, worship, social event, other
-- [ ] Add prayer request page
-  - fields: title, description, anonymous (boolean)
 - [ ] Navigation Bar
   - tabs: events, prayers, account
