@@ -5,6 +5,7 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
+  // User data collection
   final CollectionReference userCollection =
       Firestore.instance.collection('users');
 
@@ -18,6 +19,7 @@ class DatabaseService {
     });
   }
 
+  // Post data collection
   final CollectionReference postCollection =
       Firestore.instance.collection('posts');
 
@@ -32,6 +34,7 @@ class DatabaseService {
     });
   }
 
+  // Prayer data collection
   final CollectionReference prayerCollection =
       Firestore.instance.collection('prayers');
 
@@ -41,5 +44,15 @@ class DatabaseService {
       'description': description,
       'count': 0,
     });
+  }
+
+  // Get the post collection of data
+  Stream<QuerySnapshot> get posts {
+    return postCollection.snapshots();
+  }
+
+  // Get the prayer collection of data
+  Stream<QuerySnapshot> get prayers {
+    return prayerCollection.snapshots();
   }
 }
