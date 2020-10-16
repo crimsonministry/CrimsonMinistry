@@ -1,8 +1,7 @@
-import 'package:CrimsonMinistry/screens/prayers/prayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/user.dart';
-import 'package:CrimsonMinistry/screens/home/home.dart';
+import 'package:CrimsonMinistry/screens/home.dart';
 import 'package:CrimsonMinistry/screens/auth/signin.dart';
 
 class Wrapper extends StatelessWidget {
