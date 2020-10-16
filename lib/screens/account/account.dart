@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:CrimsonMinistry/screens/home/home.dart';
-import 'package:CrimsonMinistry/screens/prayers/prayers.dart';
+import 'package:CrimsonMinistry/services/auth.dart';
 
 class Account extends StatefulWidget {
   @override
@@ -8,18 +7,23 @@ class Account extends StatefulWidget {
 }
 
 class _AccountPageState extends State<Account> {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+        appBar: AppBar(
+          title: Text("Account"),
+          backgroundColor: Colors.red,
+        ),
         resizeToAvoidBottomPadding: false,
         body: Column(children: <Widget>[
-          Container(
-              padding: EdgeInsets.fromLTRB(8.0, 110.0, 0.0, 0.0),
-              child: Text('Account',
-                  style: TextStyle(
-                      fontSize: 70.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red))),
+          RaisedButton(
+            onPressed: () async {
+              dynamic result = await _auth.signOut();
+              print(result);
+            },
+            child: const Text('Sign Out', style: TextStyle(fontSize: 20)),
+          ),
         ]));
   }
 }
