@@ -22,9 +22,28 @@ class PrayersPage extends StatefulWidget {
 
 class _EventsPageState extends State<PrayersPage> {
   Widget _buildList(BuildContext context, DocumentSnapshot document) {
-    return ListTile(
-        title: Text(document['title']),
-        subtitle: Text(document['description']));
+    return Card(
+        child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.menu_book),
+            title: Text(document['title']),
+            subtitle: Text(document['description']),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FlatButton(
+                textColor: Colors.grey,
+                onPressed: () async {},
+                child: Icon(
+                  Icons.arrow_upward,
+                  size: 26.0,
+                ),
+                shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+              ),
+            ],
+          )
+        ]));
   }
 
   @override
@@ -56,7 +75,7 @@ class _EventsPageState extends State<PrayersPage> {
                     return Text("No Prayer Requests At This Time...");
                   }
                   return ListView.builder(
-                      itemExtent: 80.0,
+                      itemExtent: 128.0,
                       itemCount: snapshot.data.documents.length,
                       itemBuilder: (context, index) {
                         return _buildList(
