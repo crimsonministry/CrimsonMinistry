@@ -26,14 +26,22 @@ class _EventsPageState extends State<EventsPage> {
       appBar: AppBar(
         title: Text("Events"),
         backgroundColor: Colors.red,
+        actions: <Widget>[
+          FlatButton(
+            textColor: Colors.white,
+            onPressed: () async {
+              Navigator.of(context).pushNamed('/addevent');
+            },
+            child: Icon(
+              Icons.add,
+              size: 26.0,
+            ),
+            shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+          ),
+        ],
       ),
       body: Column(children: <Widget>[
-        RaisedButton(
-          onPressed: () async {
-            Navigator.of(context).pushNamed('/addevent');
-          },
-          child: const Text('Add Event', style: TextStyle(fontSize: 20)),
-        ),
+        // this is where the feed goes
       ]),
     );
   }

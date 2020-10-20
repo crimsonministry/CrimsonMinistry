@@ -33,6 +33,19 @@ class _EventsPageState extends State<PrayersPage> {
         appBar: AppBar(
           title: Text("Prayers"),
           backgroundColor: Colors.red,
+          actions: <Widget>[
+            FlatButton(
+              textColor: Colors.white,
+              onPressed: () async {
+                Navigator.of(context).pushNamed('/addprayer');
+              },
+              child: Icon(
+                Icons.add,
+                size: 26.0,
+              ),
+              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+            ),
+          ],
         ),
         body: Column(children: [
           Flexible(
@@ -51,14 +64,6 @@ class _EventsPageState extends State<PrayersPage> {
                       });
                 }),
           ),
-          Flexible(
-            child: RaisedButton(
-              onPressed: () async {
-                Navigator.of(context).pushNamed('/addevent');
-              },
-              child: const Text('Add Event', style: TextStyle(fontSize: 20)),
-            ),
-          )
         ]));
   }
 }
