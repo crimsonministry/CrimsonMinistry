@@ -32,9 +32,12 @@ class _AddEventPageState extends State<AddEventPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+        appBar: AppBar(
+          title: Text("Add Event"),
+          backgroundColor: Colors.red,
+        ),
         resizeToAvoidBottomPadding: false,
         body: Column(children: <Widget>[
-          SizedBox(height: 50.0),
           Container(
               padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
               child: Column(
@@ -51,7 +54,6 @@ class _AddEventPageState extends State<AddEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  SizedBox(height: 10.0),
                   TextField(
                     onChanged: (val) {
                       setState(() => location = val);
@@ -64,7 +66,6 @@ class _AddEventPageState extends State<AddEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  SizedBox(height: 10.0),
                   TextField(
                     onChanged: (val) {
                       setState(() => time = val);
@@ -77,7 +78,6 @@ class _AddEventPageState extends State<AddEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  SizedBox(height: 10.0),
                   TextField(
                     onChanged: (val) {
                       setState(() => typeOfEvent = val);
@@ -90,7 +90,6 @@ class _AddEventPageState extends State<AddEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  SizedBox(height: 10.0),
                   TextField(
                     onChanged: (val) {
                       setState(() => description = val);
@@ -113,29 +112,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     },
                     child:
                         const Text('Add Event', style: TextStyle(fontSize: 20)),
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 40.0,
-                    color: Colors.transparent,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.black,
-                              style: BorderStyle.solid,
-                              width: 1.0),
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Center(
-                          child: Text('GO BACK',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               )),
