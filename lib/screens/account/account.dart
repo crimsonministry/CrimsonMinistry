@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
+import './events.dart';
+import './prayers.dart';
+import './friends.dart';
 
 class Account extends StatefulWidget {
   @override
@@ -17,6 +20,40 @@ class _AccountPageState extends State<Account> {
         ),
         resizeToAvoidBottomPadding: false,
         body: Column(children: <Widget>[
+          RaisedButton(
+            onPressed: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyEvents(),
+                ),
+              );
+            },
+            child: const Text('My Events', style: TextStyle(fontSize: 20)),
+          ),
+          RaisedButton(
+            onPressed: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyPrayers(),
+                ),
+              );
+            },
+            child: const Text('My Prayer Requests',
+                style: TextStyle(fontSize: 20)),
+          ),
+          RaisedButton(
+            onPressed: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyFriends(),
+                ),
+              );
+            },
+            child: const Text('My Friends', style: TextStyle(fontSize: 20)),
+          ),
           RaisedButton(
             onPressed: () async {
               dynamic result = await _auth.signOut();
