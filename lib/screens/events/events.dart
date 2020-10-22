@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:CrimsonMinistry/services/database.dart';
+import 'package:CrimsonMinistry/models/event.dart';
+import './list.dart';
 import './addevent.dart';
 
 class Events extends StatelessWidget {
@@ -21,34 +25,11 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
-  Widget _buildList(BuildContext context, DocumentSnapshot document) {
-    return Card(
-        child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      ListTile(
-        leading: Icon(Icons.menu_book),
-        title: Text(document['title']),
-        subtitle: Text(document['description'] + ' - ' + document['time']),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          TextButton(
-            child: const Text('RSVP'),
-            onPressed: () {/* ... */},
-          ),
-          const SizedBox(width: 8),
-          TextButton(
-            child: const Text('View'),
-            onPressed: () {/* ... */},
-          ),
-        ],
-      )
-    ]));
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return StreamProvider<List<Event>>.value(
+      value: DatabaseService().events,
+      child: Scaffold(
         appBar: AppBar(
           title: Text("Events"),
           backgroundColor: Colors.red,
@@ -66,23 +47,8 @@ class _EventsPageState extends State<EventsPage> {
             ),
           ],
         ),
-        body: Column(children: [
-          Flexible(
-            child: StreamBuilder(
-                stream: Firestore.instance.collection('posts').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Text("No Events At This Time...");
-                  }
-                  return ListView.builder(
-                      itemExtent: 128.0,
-                      itemCount: snapshot.data.documents.length,
-                      itemBuilder: (context, index) {
-                        return _buildList(
-                            context, snapshot.data.documents[index]);
-                      });
-                }),
-          ),
-        ]));
+        body: Container(child: EventList()),
+      ),
+    );
   }
 }
