@@ -22,7 +22,7 @@ class DatabaseService {
 
   // Post data collection
   final CollectionReference postCollection =
-      Firestore.instance.collection('posts');
+      Firestore.instance.collection('events');
 
   Future updatePostData(String location, String time, String title,
       String eventType, String description) async {
@@ -36,7 +36,7 @@ class DatabaseService {
   }
 
   final CollectionReference eventCollection =
-      Firestore.instance.collection('posts');
+      Firestore.instance.collection('events');
 
   List<Event> _eventListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
@@ -63,11 +63,6 @@ class DatabaseService {
       'description': description,
       'count': 0,
     });
-  }
-
-  // Get the post collection of data
-  Stream<QuerySnapshot> get posts {
-    return postCollection.snapshots();
   }
 
   // Get the prayer collection of data
