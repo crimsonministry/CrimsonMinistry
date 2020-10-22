@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps/gps.dart';
+import 'package:CrimsonMinistry/models/event.dart';
 
 class DatabaseService {
   final String uid;
@@ -32,6 +33,24 @@ class DatabaseService {
       'eventType': eventType,
       'description': description
     });
+  }
+
+  final CollectionReference eventCollection =
+      Firestore.instance.collection('posts');
+
+  List<Event> _eventListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Event(
+          title: doc.data['title'] ?? '',
+          location: doc.data['location'] ?? '',
+          time: doc.data['time'] ?? '',
+          typeOfEvent: doc.data['typeOfEvent'] ?? '',
+          description: doc.data['description'] ?? '');
+    }).toList();
+  }
+
+  Stream<List<Event>> get events {
+    return eventCollection.snapshots().map(_eventListFromSnapshot);
   }
 
   // Prayer data collection
