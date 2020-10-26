@@ -1,3 +1,6 @@
+//import 'dart:html';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
 import './events.dart';
@@ -19,48 +22,89 @@ class _AccountPageState extends State<Account> {
           backgroundColor: Colors.red,
         ),
         resizeToAvoidBottomPadding: false,
-        body: Column(children: <Widget>[
-          RaisedButton(
-            onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyEvents(),
+        body: Column(
+          children: <Widget>[
+            Container(
+              //  decoration: BoxDecoration(
+              //gradient: LinearGradient(
+              //    begin: Alignment.topCenter,
+              //    end: Alignment.bottomCenter,
+              //    colors: [Colors.red, Colors.grey])),
+              //     color: Colors.white,
+              //  ),
+              child: Container(
+                width: double.infinity,
+                height: 350.0,
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        child: Text('Avatar'),
+                        radius: 50.0,
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        "First Last",
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyPrayers(),
+                            ),
+                          );
+                        },
+                        child: const Text('My Prayer Requests',
+                            style: TextStyle(fontSize: 20)),
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyEvents(),
+                            ),
+                          );
+                        },
+                        child: const Text('My Events',
+                            style: TextStyle(fontSize: 20)),
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyFriends(),
+                            ),
+                          );
+                        },
+                        child: const Text('My Friends',
+                            style: TextStyle(fontSize: 20)),
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          dynamic result = await _auth.signOut();
+                          print(result);
+                        },
+                        child: const Text('Sign Out',
+                            style: TextStyle(fontSize: 20)),
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            },
-            child: const Text('My Events', style: TextStyle(fontSize: 20)),
-          ),
-          RaisedButton(
-            onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyPrayers(),
-                ),
-              );
-            },
-            child: const Text('My Prayer Requests',
-                style: TextStyle(fontSize: 20)),
-          ),
-          RaisedButton(
-            onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyFriends(),
-                ),
-              );
-            },
-            child: const Text('My Friends', style: TextStyle(fontSize: 20)),
-          ),
-          RaisedButton(
-            onPressed: () async {
-              dynamic result = await _auth.signOut();
-              print(result);
-            },
-            child: const Text('Sign Out', style: TextStyle(fontSize: 20)),
-          ),
-        ]));
+              ),
+            )
+          ],
+        ));
   }
 }
