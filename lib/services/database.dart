@@ -24,15 +24,18 @@ class DatabaseService {
   final CollectionReference postCollection =
       Firestore.instance.collection('events');
 
-  Future updatePostData(String uid, String location, String time, String title,
-      String eventType, String description) async {
+  Future updatePostData(String userid, String location, String time,
+      String title, String eventType, String description) async {
+    var rsvp = List.filled(1, userid, growable: true);
+    print(rsvp);
     return await postCollection.document(uid).setData({
-      'userID': uid,
       'location': location,
       'time': time,
       'title': title,
       'eventType': eventType,
-      'description': description
+      'description': description,
+      'userID': userid,
+      'rsvp': rsvp
     });
   }
 
