@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 
 class AddEventPage extends StatefulWidget {
@@ -31,6 +33,7 @@ class _AddEventPageState extends State<AddEventPage> {
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
     return new Scaffold(
         appBar: AppBar(
           title: Text("Add Event"),
@@ -105,8 +108,8 @@ class _AddEventPageState extends State<AddEventPage> {
                   SizedBox(height: 50.0),
                   RaisedButton(
                     onPressed: () async {
-                      await _data.updatePostData(
-                          location, time, title, typeOfEvent, description);
+                      await _data.updatePostData(user.uid, location, time,
+                          title, typeOfEvent, description);
                       showAlertDialog(context);
                       Navigator.of(context).pop();
                     },
