@@ -8,6 +8,16 @@ class UserData {
   final String fname;
   final String lname;
   final String username;
+  final List friends;
+  final List requests;
+  final List requested;
 
-  UserData({this.uid, this.fname, this.lname, this.username});
+  UserData(
+      {this.uid,
+      this.fname,
+      this.lname,
+      this.username,
+      this.friends,
+      this.requests,
+      this.requested});
 }
