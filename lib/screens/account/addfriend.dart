@@ -29,41 +29,61 @@ class _AddFriendPageState extends State<AddFriendPage> {
 
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    return new Scaffold(
-        appBar: AppBar(
-          title: Text("Add Friends"),
-          backgroundColor: Colors.red,
-        ),
-        resizeToAvoidBottomPadding: false,
-        body: Column(children: <Widget>[
-          Container(
-              padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    onChanged: (val) {
-                      setState(() => username = val);
-                      print(username);
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Username',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red))),
-                  ),
-                  SizedBox(height: 50.0),
-                  RaisedButton(
-                    onPressed: () async {
-                      print('backend to be implemented');
-                      showAlertDialog(context);
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Send Request',
-                        style: TextStyle(fontSize: 20)),
-                  ),
-                ],
-              )),
-        ]));
+    return StreamBuilder<UserData>(
+        stream: DatabaseService(uid: user.uid).userData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            UserData userData = snapshot.data;
+            return new Scaffold(
+                appBar: AppBar(
+                  title: Text("Add Friends"),
+                  backgroundColor: Colors.red,
+                ),
+                resizeToAvoidBottomPadding: false,
+                body: Column(children: <Widget>[
+                  Container(
+                      padding:
+                          EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+                      child: Column(
+                        children: <Widget>[
+                          TextField(
+                            onChanged: (val) {
+                              setState(() => username = val);
+                              print(username);
+                            },
+                            decoration: InputDecoration(
+                                labelText: 'Username',
+                                labelStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.red))),
+                          ),
+                          SizedBox(height: 50.0),
+                          RaisedButton(
+                            onPressed: () async {
+                              print('trying to send friend request');
+                              if (userData.requests.contains(username)) {
+                                print(
+                                    'show error: you have sent a request to this person already');
+                              } else {
+                                userData.requests.add(username);
+                                await _data.sendFriendRequest(
+                                    user.uid, userData.requests);
+                              }
+                              print(userData.requested);
+                              showAlertDialog(context);
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Send Request',
+                                style: TextStyle(fontSize: 20)),
+                          ),
+                        ],
+                      )),
+                ]));
+          } else {
+            return Text('loading');
+          }
+        });
   }
 }
