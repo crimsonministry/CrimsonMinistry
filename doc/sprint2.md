@@ -2,33 +2,51 @@
 
 # Sprint 2 Backlog
 
-> implementations to be done before November 5th
+> implementation goals before November 10th
 
 ### Front-End
 
-- [ ] Events feed using Cards
-- [ ] Prayers feed using Cards
-- [ ] Page for showing detailed event information
-- [ ] Page for showing detailed prayer request information
-- [ ] Page for editing or deleting event
-- [ ] Page for editing or deleting prayer request
-- [ ] User profile page
-- [ ] User profile editing page
-- [ ] Friends list page
-- [ ] Add friend page
+- Events Feed
+  - [x] `Events` feed using Cards
+  - [x] Page for showing detailed information of `Event`
+- Account Page
+  - [ ] User profile page
+  - [ ] User profile editing page
+  - [ ] My `Events` page
+  - [ ] My `Prayer Requests` page
+  - [ ] Page for editing or deleting `Event`
+  - [ ] Page for editing or deleting `Prayer Request`
+- Prayer Requests Feed
+  - [ ] `Prayer Requests` feed using Cards
+  - [ ] Page for showing detailed information of `Prayer Request`
+- Friendship System
+  - [x] Add `Friend` page
+  - [ ] View `Friendships` page
+    - friends
+    - requests received
+    - equests sent
 
 ### Back-End
 
-- [ ] Add attributes: campus ministry and list of friends to User database
-- [ ] Update event information
-- [ ] Update prayer request information
-- [ ] Delete event information
-- [ ] Delete prayer request information
-- [ ] Update user profile
-- [ ] Delete user
-- [ ] RSVP for an event
-- [ ] Pray for a prayer request
-- [ ] Search for an event
-- [ ] Filter events in feed
-- [ ] Search for a prayer request
-- [ ] Filter prayer requests in feed
+- User
+  - [ ] Friendship System
+    - Add new attributes: `Friends`, `Requests`, and `Requested`
+  - [ ] More Details
+    - Add new attributes: `CampusMinistry` and `SocialMedia`
+  - [ ] Update `Account` information function
+  - [ ] Delete `Account` function
+- Events
+  - [x] RSVP to `Event` function
+  - [ ] Update `Event` information function
+  - [ ] Delete `Event` function
+- Prayer Requests
+  - [ ] Pray for `Prayer Request` function
+  - [ ] Update `Prayer Request` information function
+  - [ ] Delete `Prayer Request` function
+- Testing
+  - [ ] 10 different unit test cases
+    - Sign In with non-existing user
+    - Sign Up with existing user
+    - RSVP to event you are already RSVPed to
+    - Send friend request to already sent user
+    - more to be added...
