@@ -25,6 +25,13 @@
     - friends
     - requests received
     - equests sent
+- Landing Website
+  - [ ] Add Sprint 1 Deliverable
+  - [ ] Add Sprint 2 Deliverable
+  - [ ] Improve Styling
+- Presentation
+  - [ ] Slides
+  - [ ] Demo
 
 ### Back-End
 
