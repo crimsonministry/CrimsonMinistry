@@ -46,8 +46,8 @@ class DatabaseService {
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
       uid: uid,
-      fname: snapshot.data['fname'],
-      lname: snapshot.data['lname'],
+      fname: snapshot.data['firstName'],
+      lname: snapshot.data['lastName'],
       username: snapshot.data['username'],
       friends: List<String>.from(snapshot.data['friends']) ?? '',
       requests: List<String>.from(snapshot.data['requests']) ?? '',
