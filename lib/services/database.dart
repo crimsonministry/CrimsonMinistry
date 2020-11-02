@@ -28,6 +28,15 @@ class DatabaseService {
     });
   }
 
+  Future updateAccountPageData(
+      String userID, String fname, String lname, String username) async {
+    return await userCollection.document(userID).updateData({
+      'firstName': fname,
+      'lastName': lname,
+      'username': username,
+    });
+  }
+
   Future sendFriendRequest(String userID, List<String> requests) async {
     // add to your own 'requests' list
     return await userCollection
