@@ -13,11 +13,6 @@ class EditEventPage extends StatefulWidget {
 
 class _EditEventPageState extends State<EditEventPage> {
   final DatabaseService _data = DatabaseService();
-  String title = '';
-  String location = '';
-  String time = '';
-  String typeOfEvent = '';
-  String description = '';
 
   showAlertDialog(BuildContext context) {
     // set up the AlertDialog
@@ -37,11 +32,22 @@ class _EditEventPageState extends State<EditEventPage> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    title = widget.event.title;
-    location = widget.event.location;
-    time = widget.event.time;
-    typeOfEvent = widget.event.typeOfEvent;
-    description = widget.event.description;
+
+    TextEditingController title =
+        new TextEditingController(text: widget.event.title);
+    ;
+    TextEditingController location =
+        new TextEditingController(text: widget.event.location);
+    ;
+    TextEditingController time =
+        new TextEditingController(text: widget.event.time);
+    ;
+    TextEditingController typeOfEvent =
+        new TextEditingController(text: widget.event.typeOfEvent);
+    ;
+    TextEditingController description =
+        new TextEditingController(text: widget.event.description);
+    ;
 
     return new Scaffold(
         appBar: AppBar(
@@ -54,12 +60,8 @@ class _EditEventPageState extends State<EditEventPage> {
               padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
               child: Column(
                 children: <Widget>[
-                  TextFormField(
-                    initialValue: title,
-                    onChanged: (val) {
-                      setState(() => title = val);
-                      print(title);
-                    },
+                  TextField(
+                    controller: title,
                     decoration: InputDecoration(
                         labelText: 'Title',
                         labelStyle: TextStyle(
@@ -67,12 +69,8 @@ class _EditEventPageState extends State<EditEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  TextFormField(
-                    initialValue: location,
-                    onChanged: (val) {
-                      setState(() => location = val);
-                      print(location);
-                    },
+                  TextField(
+                    controller: location,
                     decoration: InputDecoration(
                         labelText: 'Location',
                         labelStyle: TextStyle(
@@ -80,12 +78,8 @@ class _EditEventPageState extends State<EditEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  TextFormField(
-                    initialValue: time,
-                    onChanged: (val) {
-                      setState(() => time = val);
-                      print(time);
-                    },
+                  TextField(
+                    controller: time,
                     decoration: InputDecoration(
                         labelText: 'Time',
                         labelStyle: TextStyle(
@@ -93,12 +87,8 @@ class _EditEventPageState extends State<EditEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  TextFormField(
-                    initialValue: typeOfEvent,
-                    onChanged: (val) {
-                      setState(() => typeOfEvent = val);
-                      print(typeOfEvent);
-                    },
+                  TextField(
+                    controller: typeOfEvent,
                     decoration: InputDecoration(
                         labelText: 'Type of Event',
                         labelStyle: TextStyle(
@@ -106,12 +96,8 @@ class _EditEventPageState extends State<EditEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  TextFormField(
-                    initialValue: description,
-                    onChanged: (val) {
-                      setState(() => description = val);
-                      print(description);
-                    },
+                  TextField(
+                    controller: description,
                     decoration: InputDecoration(
                         labelText: 'Description',
                         labelStyle: TextStyle(
@@ -122,6 +108,12 @@ class _EditEventPageState extends State<EditEventPage> {
                   SizedBox(height: 50.0),
                   RaisedButton(
                     onPressed: () async {
+                      _data.updateEvent(widget.event.id, title.text, time.text,
+                          location.text, typeOfEvent.text, description.text);
+                      print(title.text);
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      showAlertDialog(context);
                       // call function in database to update the changes
                     },
                     child: const Text('Submit', style: TextStyle(fontSize: 20)),

@@ -65,16 +65,28 @@ class DatabaseService {
   }
 
   Future updatePostData(String userid, String location, String time,
-      String title, String eventType, String description) async {
+      String title, String typeOfEvent, String description) async {
     List<String> rsvp = [userid];
     return await eventCollection.document(uid).setData({
+      'title': title,
       'location': location,
       'time': time,
-      'title': title,
-      'eventType': eventType,
+      'eventType': typeOfEvent,
       'description': description,
       'rsvp': rsvp,
       'userID': userid,
+    });
+  }
+
+  Future updateEvent(String id, String title, String time, String location,
+      String typeOfEvent, String description) async {
+    print('updated event!');
+    return await eventCollection.document(id).updateData({
+      'title': title,
+      'location': location,
+      'time': time,
+      'eventType': typeOfEvent,
+      'description': description,
     });
   }
 
