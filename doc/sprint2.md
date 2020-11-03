@@ -12,9 +12,9 @@
 - Account Page
   - [x] User profile page
   - [x] User profile editing page
-  - [ ] My `Events` page
+  - [x] My `Events` page
   - [ ] My `Prayer Requests` page
-  - [ ] Page for editing or deleting `Event`
+  - [x] Page for editing or deleting `Event`
   - [ ] Page for editing or deleting `Prayer Request`
 - Prayer Requests Feed
   - [ ] `Prayer Requests` feed using Cards
@@ -36,15 +36,15 @@
 ### Back-End
 
 - User
-  - [ ] Friendship System
+  - [x] Friendship System
     - Add new attributes: `Friends`, `Requests`, and `Requested`
   - [ ] More Details
-    - Add new attributes: `CampusMinistry` and `SocialMedia`
+    - Add new attributes: `Bio`, `Campus Ministry`, `Facebook`, `Instagram`, `Snapchat`, and `Twitter`
   - [x] Update `Account` information function
   - [ ] Delete `Account` function
 - Events
   - [x] RSVP to `Event` function
-  - [ ] Update `Event` information function
+  - [x] Update `Event` information function
   - [ ] Delete `Event` function
 - Prayer Requests
   - [ ] Pray for `Prayer Request` function
