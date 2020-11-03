@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './addfriend.dart';
+import 'addfriend.dart';
 
 class MyFriends extends StatefulWidget {
   @override
