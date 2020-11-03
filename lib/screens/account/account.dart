@@ -6,9 +6,9 @@ import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:provider/provider.dart';
-import './events.dart';
-import './prayers.dart';
-import './friends.dart';
+import 'events/events.dart';
+import 'friends/prayers.dart';
+import 'friends/friends.dart';
 
 class Account extends StatefulWidget {
   @override

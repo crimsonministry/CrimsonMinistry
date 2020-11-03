@@ -82,7 +82,7 @@ class DatabaseService {
         title: doc.data['title'] ?? '',
         location: doc.data['location'] ?? '',
         time: doc.data['time'] ?? '',
-        typeOfEvent: doc.data['typeOfEvent'] ?? '',
+        typeOfEvent: doc.data['eventType'] ?? '',
         description: doc.data['description'] ?? '',
         rsvp: List<String>.from(doc.data['rsvp']) ?? '',
         userID: doc.data['userID'] ?? '',

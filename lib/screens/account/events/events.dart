@@ -1,30 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import './list.dart';
-import './addevent.dart';
+import 'package:CrimsonMinistry/services/database.dart';
+import 'package:CrimsonMinistry/screens/events/addevent.dart';
+import 'list.dart';
 
-class Events extends StatelessWidget {
+class MyEvents extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: <String, WidgetBuilder>{
-        '/addevent': (BuildContext context) => new AddEventPage(),
-      },
-      home: new EventsPage(),
-    );
-  }
+  _MyEventsPageState createState() => _MyEventsPageState();
 }
 
-class EventsPage extends StatefulWidget {
-  @override
-  _EventsPageState createState() => _EventsPageState();
-}
-
-class _EventsPageState extends State<EventsPage> {
-  @override
+class _MyEventsPageState extends State<MyEvents> {
   Widget build(BuildContext context) {
     return StreamProvider<List<Event>>.value(
       value: DatabaseService().events,
@@ -36,7 +22,12 @@ class _EventsPageState extends State<EventsPage> {
             FlatButton(
               textColor: Colors.white,
               onPressed: () async {
-                Navigator.of(context).pushNamed('/addevent');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddEventPage(),
+                  ),
+                );
               },
               child: Icon(
                 Icons.add,
