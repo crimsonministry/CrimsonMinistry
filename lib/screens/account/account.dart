@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
+import 'package:CrimsonMinistry/screens/account/editaccount.dart';
 import 'package:provider/provider.dart';
 import 'events/events.dart';
 import 'friends/prayers.dart';
@@ -29,6 +30,22 @@ class _AccountPageState extends State<Account> {
                 appBar: AppBar(
                   title: Text("Account"),
                   backgroundColor: Colors.red,
+                  actions: [
+                    RaisedButton(
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditAccount(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Edit Account',
+                          style: TextStyle(
+                              fontSize: 10.0, fontStyle: FontStyle.italic),
+                        ))
+                  ],
                 ),
                 resizeToAvoidBottomPadding: false,
                 body: Column(
@@ -55,6 +72,13 @@ class _AccountPageState extends State<Account> {
                                 style: TextStyle(
                                   fontSize: 22.0,
                                   color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                '@${userData.username}',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.red,
                                 ),
                               ),
                               RaisedButton(
