@@ -10,8 +10,8 @@
   - [x] `Events` feed using Cards
   - [x] Page for showing detailed information of `Event`
 - Account Page
-  - [ ] User profile page
-  - [ ] User profile editing page
+  - [x] User profile page
+  - [x] User profile editing page
   - [ ] My `Events` page
   - [ ] My `Prayer Requests` page
   - [ ] Page for editing or deleting `Event`
@@ -40,7 +40,7 @@
     - Add new attributes: `Friends`, `Requests`, and `Requested`
   - [ ] More Details
     - Add new attributes: `CampusMinistry` and `SocialMedia`
-  - [ ] Update `Account` information function
+  - [x] Update `Account` information function
   - [ ] Delete `Account` function
 - Events
   - [x] RSVP to `Event` function
