@@ -90,6 +90,11 @@ class DatabaseService {
     });
   }
 
+  Future deleteEvent(String id) async {
+    print('deleted event!');
+    return await eventCollection.document(id).delete();
+  }
+
   Future addToRSVP(String documentID, List<String> rsvp) async {
     return await eventCollection.document(documentID).updateData({
       'rsvp': rsvp,
