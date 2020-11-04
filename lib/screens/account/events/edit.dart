@@ -29,6 +29,21 @@ class _EditEventPageState extends State<EditEventPage> {
     );
   }
 
+  showDeletedDialog(BuildContext context) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Event deleted!"),
+      content: Text("Thanks for the update :))"),
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -106,6 +121,17 @@ class _EditEventPageState extends State<EditEventPage> {
                             borderSide: BorderSide(color: Colors.red))),
                   ),
                   SizedBox(height: 50.0),
+                  RaisedButton(
+                    onPressed: () async {
+                      _data.deleteEvent(widget.event.id);
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      showDeletedDialog(context);
+                      // call function in database to update the changes
+                    },
+                    child: const Text('Delete', style: TextStyle(fontSize: 20)),
+                  ),
+                  SizedBox(height: 10.0),
                   RaisedButton(
                     onPressed: () async {
                       _data.updateEvent(widget.event.id, title.text, time.text,
