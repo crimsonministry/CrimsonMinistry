@@ -30,21 +30,26 @@ class _AccountPageState extends State<Account> {
                 appBar: AppBar(
                   title: Text("Account"),
                   backgroundColor: Colors.red,
-                  actions: [
-                    RaisedButton(
-                        onPressed: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditAccount(),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'Edit Account',
-                          style: TextStyle(
-                              fontSize: 10.0, fontStyle: FontStyle.italic),
-                        ))
+                  actions: <Widget>[
+                    FlatButton(
+                      textColor: Colors.white,
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditAccount(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Edit",
+                        textScaleFactor: 1.5,
+                        style: new TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 resizeToAvoidBottomPadding: false,
