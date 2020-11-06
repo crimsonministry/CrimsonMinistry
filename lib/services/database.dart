@@ -74,6 +74,7 @@ class DatabaseService {
       'eventType': typeOfEvent,
       'description': description,
       'rsvp': rsvp,
+      'createdAt': Timestamp.now(),
       'userID': userid,
     });
   }
