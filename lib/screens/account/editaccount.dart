@@ -61,7 +61,9 @@ class _EditAccountPageState extends State<EditAccount> {
           backgroundColor: Colors.red,
         ),
         resizeToAvoidBottomPadding: false,
-        body: Column(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+            child: Stack(
           children: <Widget>[
             SizedBox(height: 50.0),
             Container(
@@ -138,6 +140,6 @@ class _EditAccountPageState extends State<EditAccount> {
                   ],
                 ))
           ],
-        ));
+        )));
   }
 }

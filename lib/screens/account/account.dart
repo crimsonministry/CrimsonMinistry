@@ -1,5 +1,5 @@
 //import 'dart:html';
-//import 'dart:html';
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -8,6 +8,9 @@ import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/screens/account/editaccount.dart';
 import 'package:provider/provider.dart';
+import 'package:social_media_buttons/social_media_icons.dart';
+import 'package:social_media_buttons/social_media_buttons.dart';
+import 'package:social_media_buttons/social_media_button.dart';
 import 'events/events.dart';
 import 'friends/prayers.dart';
 import 'friends/friends.dart';
@@ -52,28 +55,42 @@ class _AccountPageState extends State<Account> {
                         ),
                       ),
                     ),
+                    FlatButton(
+                        onPressed: () async {
+                          dynamic result = await _auth.signOut();
+                          print(result);
+                        },
+                        child: Text(
+                          "Sign Out",
+                          textScaleFactor: 1.5,
+                          style: new TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.white,
+                          ),
+                        ))
                   ],
                 ),
                 resizeToAvoidBottomPadding: false,
                 body: Column(
                   children: <Widget>[
                     Container(
-                      child: Container(
-                        width: double.infinity,
-                        height: 350.0,
-                        child: Center(
-                          child: Column(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.grey,
+                              child: Text('Avatar'),
+                              radius: 50.0,
+                            ),
+                          ),
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              CircleAvatar(
-                                backgroundColor: Colors.grey,
-                                child: Text('Avatar'),
-                                radius: 35.0,
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
+                              SizedBox(height: 44.0),
                               Text(
                                 '${userData.fname} ${userData.lname}',
                                 style: TextStyle(
@@ -81,75 +98,135 @@ class _AccountPageState extends State<Account> {
                                   color: Colors.black,
                                 ),
                               ),
-                              Text(
-                                '@${userData.username}',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              Text(
-                                'Ministry: ${userData.ministry}',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                '${userData.bio}',
-                                style: TextStyle(
-                                    fontSize: 10.0, color: Colors.black),
-                                softWrap: true,
-                              ),
-                              RaisedButton(
-                                onPressed: () async {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MyPrayers(),
+                              Text('@${userData.username}',
+                                  style: TextStyle(
+                                      fontSize: 17.0, color: Colors.red)),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Container(
+                        width: double.infinity,
+                        height: 350.0,
+                        child: Center(
+                          child: Column(
+                            //crossAxisAlignment: CrossAxisAlignment.start,
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'Ministry: ',
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    '${userData.ministry}',
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.black,
                                     ),
-                                  );
-                                },
-                                child: const Text('My Prayer Requests',
-                                    style: TextStyle(fontSize: 13)),
+                                  ),
+                                ],
                               ),
-                              RaisedButton(
-                                onPressed: () async {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MyEvents(),
-                                    ),
-                                  );
-                                },
-                                child: const Text('My Events',
-                                    style: TextStyle(fontSize: 13)),
+                              SizedBox(
+                                height: 5.0,
                               ),
-                              RaisedButton(
-                                onPressed: () async {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MyFriends(),
-                                    ),
-                                  );
-                                },
-                                child: const Text('My Friends',
-                                    style: TextStyle(fontSize: 13)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    '${userData.bio}',
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.black),
+                                    softWrap: true,
+                                  ),
+                                ],
                               ),
-                              RaisedButton(
-                                onPressed: () async {
-                                  dynamic result = await _auth.signOut();
-                                  print(result);
-                                },
-                                child: const Text('Sign Out',
-                                    style: TextStyle(fontSize: 10)),
+                              SizedBox(height: 20.0),
+                              Column(
+                                children: <Widget>[
+                                  RaisedButton(
+                                    color: Colors.red,
+                                    colorBrightness: Brightness.dark,
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MyPrayers(),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('My Prayer Requests',
+                                        style: TextStyle(fontSize: 13)),
+                                  ),
+                                  RaisedButton(
+                                    color: Colors.red,
+                                    colorBrightness: Brightness.dark,
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MyEvents(),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('My Events',
+                                        style: TextStyle(fontSize: 13)),
+                                  ),
+                                  RaisedButton(
+                                    color: Colors.red,
+                                    colorBrightness: Brightness.dark,
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MyFriends(),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('My Friends',
+                                        style: TextStyle(fontSize: 13)),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 50),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  IconButton(
+                                      iconSize: 32.0,
+                                      icon: Icon(
+                                        SocialMediaIcons.facebook_squared,
+                                        color:
+                                            Color.fromRGBO(66, 103, 178, 1.0),
+                                      ),
+                                      onPressed: null),
+                                  IconButton(
+                                      iconSize: 32.0,
+                                      icon: Icon(SocialMediaIcons.instagram,
+                                          color: Color.fromRGBO(
+                                              225, 48, 108, 1.0)),
+                                      onPressed: null),
+                                  IconButton(
+                                      iconSize: 32.0,
+                                      icon: Icon(
+                                          SocialMediaIcons.twitter_squared,
+                                          color: Color.fromRGBO(
+                                              108, 173, 222, 1.0)),
+                                      onPressed: null)
+                                ],
                               ),
                             ],
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ));
           } else {
