@@ -9,6 +9,7 @@ class UserData {
   final String lname;
   final String username;
   final String bio;
+  final String ministry;
   final List friends;
   final List requests;
   final List requested;
@@ -19,6 +20,7 @@ class UserData {
       this.lname,
       this.username,
       this.bio,
+      this.ministry,
       this.friends,
       this.requests,
       this.requested});
