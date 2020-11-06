@@ -10,13 +10,11 @@ class AddEventPage extends StatefulWidget {
 
 class _AddEventPageState extends State<AddEventPage> {
   final DatabaseService _data = DatabaseService();
-  final _formKey = GlobalKey<FormState>();
   String title = '';
   String location = '';
   String time = '';
   String typeOfEvent = '';
   String description = '';
-  String error = '';
 
   showAlertDialog(BuildContext context) {
     // set up the AlertDialog
@@ -36,46 +34,18 @@ class _AddEventPageState extends State<AddEventPage> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    final node = FocusScope.of(context);
     return new Scaffold(
         appBar: AppBar(
-          title: Text("Create Event"),
+          title: Text("Add Event"),
           backgroundColor: Colors.red,
         ),
         resizeToAvoidBottomPadding: false,
         body: Column(children: <Widget>[
           Container(
-              padding: EdgeInsets.only(top: 15.0, left: 40.0, right: 40.0),
-              child: Form(
-                key: _formKey,
-                child: Column(children: <Widget>[
-                  DropdownButtonFormField<String>(
-                    items:
-                        <String>['Bible Study', 'Worship'].map((String value) {
-                      return new DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (val) {
-                      setState(() => typeOfEvent = val);
-                      print(typeOfEvent);
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Type',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red))),
-                    validator: (value) {
-                      if (value == null)
-                        return 'Event type cannot be null';
-                      else
-                        return null;
-                    },
-                  ),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
+              padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+              child: Column(
+                children: <Widget>[
+                  TextField(
                     onChanged: (val) {
                       setState(() => title = val);
                       print(title);
@@ -86,15 +56,8 @@ class _AddEventPageState extends State<AddEventPage> {
                             fontWeight: FontWeight.bold, color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return 'Title cannot be null';
-                      else
-                        return null;
-                    },
                   ),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
+                  TextField(
                     onChanged: (val) {
                       setState(() => location = val);
                       print(location);
@@ -105,15 +68,8 @@ class _AddEventPageState extends State<AddEventPage> {
                             fontWeight: FontWeight.bold, color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return 'Location cannot be null';
-                      else
-                        return null;
-                    },
                   ),
-                  TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
+                  TextField(
                     onChanged: (val) {
                       setState(() => time = val);
                       print(time);
@@ -124,17 +80,20 @@ class _AddEventPageState extends State<AddEventPage> {
                             fontWeight: FontWeight.bold, color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return 'Time cannot be null';
-                      else
-                        return null;
-                    },
                   ),
-                  TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    onEditingComplete: () => node.nextFocus(),
+                  TextField(
+                    onChanged: (val) {
+                      setState(() => typeOfEvent = val);
+                      print(typeOfEvent);
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Type of Event',
+                        labelStyle: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.grey),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red))),
+                  ),
+                  TextField(
                     onChanged: (val) {
                       setState(() => description = val);
                       print(description);
@@ -146,28 +105,18 @@ class _AddEventPageState extends State<AddEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
-                  Text(
-                    error,
-                    style: TextStyle(color: Colors.red, fontSize: 14.0),
-                  ),
+                  SizedBox(height: 50.0),
                   RaisedButton(
                     onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        dynamic result = await _data.updatePostData(user.uid,
-                            location, time, title, typeOfEvent, description);
-                        showAlertDialog(context);
-                        Navigator.of(context).pop();
-                        print(result);
-                        if (result == null) {
-                          setState(() {
-                            error = "couldn't add event";
-                          });
-                        }
-                      }
+                      await _data.updatePostData(user.uid, location, time,
+                          title, typeOfEvent, description);
+                      showAlertDialog(context);
+                      Navigator.of(context).pop();
                     },
-                    child: Text('Create Event'),
+                    child:
+                        const Text('Add Event', style: TextStyle(fontSize: 20)),
                   ),
-                ]),
+                ],
               )),
         ]));
   }

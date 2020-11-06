@@ -22,18 +22,22 @@ class DatabaseService {
       'lastName': lname,
       'username': username,
       'email': email,
+      'biography': '',
+      'ministry': '',
       'friends': empty,
       'requests': empty,
       'requested': empty,
     });
   }
 
-  Future updateAccountPageData(
-      String userID, String fname, String lname, String username) async {
+  Future updateAccountPageData(String userID, String fname, String lname,
+      String username, String ministry, String bio) async {
     return await userCollection.document(userID).updateData({
       'firstName': fname,
       'lastName': lname,
       'username': username,
+      'ministry': ministry,
+      'biography': bio
     });
   }
 
@@ -58,6 +62,8 @@ class DatabaseService {
       fname: snapshot.data['firstName'],
       lname: snapshot.data['lastName'],
       username: snapshot.data['username'],
+      bio: snapshot.data['biography'],
+      ministry: snapshot.data['ministry'],
       friends: List<String>.from(snapshot.data['friends']) ?? '',
       requests: List<String>.from(snapshot.data['requests']) ?? '',
       requested: List<String>.from(snapshot.data['requested']) ?? '',
@@ -74,6 +80,7 @@ class DatabaseService {
       'eventType': typeOfEvent,
       'description': description,
       'rsvp': rsvp,
+      'createdAt': Timestamp.now(),
       'userID': userid,
     });
   }
@@ -88,6 +95,11 @@ class DatabaseService {
       'eventType': typeOfEvent,
       'description': description,
     });
+  }
+
+  Future deleteEvent(String id) async {
+    print('deleted event!');
+    return await eventCollection.document(id).delete();
   }
 
   Future addToRSVP(String documentID, List<String> rsvp) async {
