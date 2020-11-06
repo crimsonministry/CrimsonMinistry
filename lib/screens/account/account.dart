@@ -1,4 +1,5 @@
 //import 'dart:html';
+//import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -37,7 +38,8 @@ class _AccountPageState extends State<Account> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EditAccount(),
+                            builder: (context) =>
+                                EditAccount(userData: userData),
                           ),
                         );
                       },
@@ -67,7 +69,7 @@ class _AccountPageState extends State<Account> {
                               CircleAvatar(
                                 backgroundColor: Colors.grey,
                                 child: Text('Avatar'),
-                                radius: 50.0,
+                                radius: 35.0,
                               ),
                               SizedBox(
                                 height: 10.0,
@@ -86,6 +88,19 @@ class _AccountPageState extends State<Account> {
                                   color: Colors.red,
                                 ),
                               ),
+                              Text(
+                                'Ministry: ${userData.ministry}',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                '${userData.bio}',
+                                style: TextStyle(
+                                    fontSize: 10.0, color: Colors.black),
+                                softWrap: true,
+                              ),
                               RaisedButton(
                                 onPressed: () async {
                                   Navigator.push(
@@ -96,7 +111,7 @@ class _AccountPageState extends State<Account> {
                                   );
                                 },
                                 child: const Text('My Prayer Requests',
-                                    style: TextStyle(fontSize: 20)),
+                                    style: TextStyle(fontSize: 13)),
                               ),
                               RaisedButton(
                                 onPressed: () async {
@@ -108,7 +123,7 @@ class _AccountPageState extends State<Account> {
                                   );
                                 },
                                 child: const Text('My Events',
-                                    style: TextStyle(fontSize: 20)),
+                                    style: TextStyle(fontSize: 13)),
                               ),
                               RaisedButton(
                                 onPressed: () async {
@@ -120,7 +135,7 @@ class _AccountPageState extends State<Account> {
                                   );
                                 },
                                 child: const Text('My Friends',
-                                    style: TextStyle(fontSize: 20)),
+                                    style: TextStyle(fontSize: 13)),
                               ),
                               RaisedButton(
                                 onPressed: () async {
@@ -128,7 +143,7 @@ class _AccountPageState extends State<Account> {
                                   print(result);
                                 },
                                 child: const Text('Sign Out',
-                                    style: TextStyle(fontSize: 20)),
+                                    style: TextStyle(fontSize: 10)),
                               ),
                             ],
                           ),
