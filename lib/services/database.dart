@@ -70,14 +70,14 @@ class DatabaseService {
     );
   }
 
-  Future updatePostData(String userid, String location, String time,
-      String title, String typeOfEvent, String description) async {
+  Future addEvent(String userid, DateTime date, String typeOfEvent,
+      String title, String location, String description) async {
     List<String> rsvp = [userid];
     return await eventCollection.document(uid).setData({
+      'eventType': typeOfEvent,
+      'datetime': Timestamp.fromDate(date),
       'title': title,
       'location': location,
-      'time': time,
-      'eventType': typeOfEvent,
       'description': description,
       'rsvp': rsvp,
       'createdAt': Timestamp.now(),
@@ -123,11 +123,15 @@ class DatabaseService {
     }).toList();
   }
 
-  Future updatePrayerData(String title, String description) async {
+  Future addPrayerRequest(
+      String userid, bool anonymous, String title, String description) async {
     return await prayerCollection.document(uid).setData({
+      'anonymous': anonymous,
       'title': title,
       'description': description,
       'count': 0,
+      'createdAt': Timestamp.now(),
+      'userID': userid,
     });
   }
 
