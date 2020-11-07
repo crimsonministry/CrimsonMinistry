@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 
 class AddPrayerPage extends StatefulWidget {
@@ -8,16 +10,17 @@ class AddPrayerPage extends StatefulWidget {
 
 class _AddPrayerPageState extends State<AddPrayerPage> {
   final DatabaseService _data = DatabaseService();
+  final _formKey = GlobalKey<FormState>();
+  bool beAnonymous = false;
   String title = '';
   String description = '';
+  String error = '';
 
   showAlertDialog(BuildContext context) {
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Prayer added!"),
       content: Text("Thanks for your submission :)"),
     );
-    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -28,6 +31,8 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
+    final node = FocusScope.of(context);
     return new Scaffold(
         appBar: AppBar(
           title: Text("Add Prayer"),
@@ -36,10 +41,31 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
         resizeToAvoidBottomPadding: false,
         body: Column(children: <Widget>[
           Container(
-              padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-              child: Column(
-                children: <Widget>[
-                  TextField(
+              padding: EdgeInsets.only(top: 30.0, left: 40.0, right: 40.0),
+              child: Form(
+                key: _formKey,
+                child: Column(children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                    child: Text('Anonymous Submission',
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey)),
+                  ),
+                  Switch(
+                    value: beAnonymous,
+                    onChanged: (value) {
+                      setState(() {
+                        beAnonymous = value;
+                        print(beAnonymous);
+                      });
+                    },
+                    activeTrackColor: Colors.lightBlueAccent,
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => title = val);
                       print(title);
@@ -50,8 +76,17 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
                             fontWeight: FontWeight.bold, color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
+                    validator: (value) {
+                      if (value.isEmpty)
+                        return 'Title cannot be null';
+                      else
+                        return null;
+                    },
                   ),
-                  TextField(
+                  TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => description = val);
                       print(description);
@@ -62,18 +97,35 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
                             fontWeight: FontWeight.bold, color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
+                    validator: (value) {
+                      if (value.isEmpty)
+                        return 'DescriptionTest cannot be null';
+                      else
+                        return null;
+                    },
                   ),
-                  SizedBox(height: 50.0),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red, fontSize: 14.0),
+                  ),
                   RaisedButton(
                     onPressed: () async {
-                      await _data.updatePrayerData(title, description);
-                      showAlertDialog(context);
-                      Navigator.of(context).pop();
+                      if (_formKey.currentState.validate()) {
+                        dynamic result = await _data.addPrayerRequest(
+                            user.uid, beAnonymous, title, description);
+                        showAlertDialog(context);
+                        Navigator.of(context).pop();
+                        print(result);
+                        if (result == null) {
+                          setState(() {
+                            error = "error adding prayer request";
+                          });
+                        }
+                      }
                     },
-                    child: const Text('Add Prayer',
-                        style: TextStyle(fontSize: 20)),
+                    child: Text('Add Prayer Request'),
                   ),
-                ],
+                ]),
               )),
         ]));
   }

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps/gps.dart';
 import 'package:CrimsonMinistry/models/event.dart';
@@ -124,11 +123,15 @@ class DatabaseService {
     }).toList();
   }
 
-  Future updatePrayerData(String title, String description) async {
+  Future addPrayerRequest(
+      String userid, bool anonymous, String title, String description) async {
     return await prayerCollection.document(uid).setData({
+      'anonymous': anonymous,
       'title': title,
       'description': description,
       'count': 0,
+      'createdAt': Timestamp.now(),
+      'userID': userid,
     });
   }
 
