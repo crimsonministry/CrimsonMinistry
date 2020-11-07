@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gps/gps.dart';
 import 'package:CrimsonMinistry/models/event.dart';
@@ -70,14 +71,14 @@ class DatabaseService {
     );
   }
 
-  Future updatePostData(String userid, String location, String time,
-      String title, String typeOfEvent, String description) async {
+  Future addEvent(String userid, DateTime date, String typeOfEvent,
+      String title, String location, String description) async {
     List<String> rsvp = [userid];
     return await eventCollection.document(uid).setData({
+      'eventType': typeOfEvent,
+      'datetime': Timestamp.fromDate(date),
       'title': title,
       'location': location,
-      'time': time,
-      'eventType': typeOfEvent,
       'description': description,
       'rsvp': rsvp,
       'createdAt': Timestamp.now(),
