@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:CrimsonMinistry/models/event.dart';
+import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/services/database.dart';
-import 'package:CrimsonMinistry/screens/events/addevent.dart';
+import 'package:CrimsonMinistry/screens/prayers/addprayer.dart';
 import 'list.dart';
 
-class MyEvents extends StatefulWidget {
+class MyPrayers extends StatefulWidget {
   @override
-  _MyEventsPageState createState() => _MyEventsPageState();
+  _MyPrayersPageState createState() => _MyPrayersPageState();
 }
 
-class _MyEventsPageState extends State<MyEvents> {
+class _MyPrayersPageState extends State<MyPrayers> {
   Widget build(BuildContext context) {
-    return StreamProvider<List<Event>>.value(
-      value: DatabaseService().events,
+    return StreamProvider<List<Prayer>>.value(
+      value: DatabaseService().prayers,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("My Events"),
+          title: Text("My Prayers"),
           backgroundColor: Colors.red,
           actions: <Widget>[
             FlatButton(
@@ -25,7 +25,7 @@ class _MyEventsPageState extends State<MyEvents> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddEventPage(),
+                    builder: (context) => AddPrayerPage(),
                   ),
                 );
               },
@@ -37,7 +37,7 @@ class _MyEventsPageState extends State<MyEvents> {
             ),
           ],
         ),
-        body: Container(child: EventList()),
+        body: Container(child: PrayerList()),
       ),
     );
   }
