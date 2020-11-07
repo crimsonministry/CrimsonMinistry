@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
 import 'package:gps/gps.dart';
 import 'package:CrimsonMinistry/models/event.dart';
+import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 
 class DatabaseService {
@@ -135,6 +137,32 @@ class DatabaseService {
     });
   }
 
+  Future updatePrayer(String id, String title, String description) async {
+    print('updated prayer!');
+    return await prayerCollection.document(id).updateData({
+      'title': title,
+      'description': description,
+    });
+  }
+
+  Future deletePrayer(String id) async {
+    print('deleted prayer!');
+    return await prayerCollection.document(id).delete();
+  }
+
+  List<Prayer> _prayerListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Prayer(
+        id: doc.documentID,
+        anonymous: doc.data['anonymous'] ?? true,
+        title: doc.data['title'] ?? '',
+        description: doc.data['description'] ?? '',
+        count: doc.data['count'] ?? 0,
+        userID: doc.data['userID'] ?? '',
+      );
+    }).toList();
+  }
+
   Stream<UserData> get userData {
     return userCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
@@ -143,7 +171,7 @@ class DatabaseService {
     return eventCollection.snapshots().map(_eventListFromSnapshot);
   }
 
-  Stream<QuerySnapshot> get prayers {
-    return prayerCollection.snapshots();
+  Stream<List<Prayer>> get prayers {
+    return prayerCollection.snapshots().map(_prayerListFromSnapshot);
   }
 }

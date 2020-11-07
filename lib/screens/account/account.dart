@@ -12,7 +12,7 @@ import 'package:social_media_buttons/social_media_icons.dart';
 import 'package:social_media_buttons/social_media_buttons.dart';
 import 'package:social_media_buttons/social_media_button.dart';
 import 'events/events.dart';
-import 'friends/prayers.dart';
+import 'prayers/prayers.dart';
 import 'friends/friends.dart';
 
 class Account extends StatefulWidget {
@@ -162,7 +162,7 @@ class _AccountPageState extends State<Account> {
                                         ),
                                       );
                                     },
-                                    child: const Text('My Prayer Requests',
+                                    child: const Text('My Prayers',
                                         style: TextStyle(fontSize: 13)),
                                   ),
                                   RaisedButton(
