@@ -20,6 +20,8 @@ class _EventListState extends State<EventList> {
     print(events);
 
     return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
       itemCount: events.length,
       itemBuilder: (context, index) {
         return EventTile(event: events[index]);
