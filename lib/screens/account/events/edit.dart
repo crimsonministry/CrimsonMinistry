@@ -67,7 +67,7 @@ class _EditEventPageState extends State<EditEventPage> {
         resizeToAvoidBottomPadding: false,
         body: Column(children: <Widget>[
           Container(
-              padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+              padding: EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
               child: Form(
                   key: _formKey,
                   child: Column(

@@ -13,6 +13,8 @@ class EditPrayerPage extends StatefulWidget {
 
 class _EditPrayerPageState extends State<EditPrayerPage> {
   final DatabaseService _data = DatabaseService();
+  final _formKey = GlobalKey<FormState>();
+  String error = '';
 
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
@@ -43,11 +45,13 @@ class _EditPrayerPageState extends State<EditPrayerPage> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
+    final node = FocusScope.of(context);
 
     TextEditingController title =
         new TextEditingController(text: widget.prayer.title);
     TextEditingController description =
         new TextEditingController(text: widget.prayer.description);
+    ;
 
     return new Scaffold(
         appBar: AppBar(
@@ -57,53 +61,68 @@ class _EditPrayerPageState extends State<EditPrayerPage> {
         resizeToAvoidBottomPadding: false,
         body: Column(children: <Widget>[
           Container(
-              padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    controller: title,
-                    decoration: InputDecoration(
-                        labelText: 'Title',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red))),
-                  ),
-                  TextField(
-                    controller: description,
-                    decoration: InputDecoration(
-                        labelText: 'Description',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red))),
-                  ),
-                  SizedBox(height: 50.0),
-                  RaisedButton(
-                    onPressed: () async {
-                      _data.deletePrayer(widget.prayer.id);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                      showDeletedDialog(context);
-                      // call function in database to update the changes
-                    },
-                    child: const Text('Delete', style: TextStyle(fontSize: 20)),
-                  ),
-                  SizedBox(height: 10.0),
-                  RaisedButton(
-                    onPressed: () async {
-                      _data.updatePrayer(
-                          widget.prayer.id, title.text, description.text);
-                      print(title.text);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).pop();
-                      showAlertDialog(context);
-                      // call function in database to update the changes
-                    },
-                    child: const Text('Submit', style: TextStyle(fontSize: 20)),
-                  ),
-                ],
-              )),
+              padding: EdgeInsets.only(top: 30.0, left: 40.0, right: 40.0),
+              child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        onEditingComplete: () => node.nextFocus(),
+                        controller: title,
+                        decoration: InputDecoration(
+                            labelText: 'Title',
+                            labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red))),
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return 'Title cannot be null';
+                          else
+                            return null;
+                        },
+                      ),
+                      TextFormField(
+                        onEditingComplete: () => node.nextFocus(),
+                        controller: description,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                            labelText: 'Description',
+                            labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red))),
+                      ),
+                      Text(
+                        error,
+                        style: TextStyle(color: Colors.red, fontSize: 14.0),
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          await _data.deletePrayer(widget.prayer.id);
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          showDeletedDialog(context);
+                        },
+                        child: Text('Delete Prayer'),
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            await _data.updatePrayer(
+                                widget.prayer.id, title.text, description.text);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            showAlertDialog(context);
+                          }
+                        },
+                        child: Text('Submit Changes'),
+                      ),
+                    ],
+                  ))),
         ]));
   }
 }

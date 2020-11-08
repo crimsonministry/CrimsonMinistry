@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/services/database.dart';
-import 'package:CrimsonMinistry/screens/events/addevent.dart';
+import 'package:CrimsonMinistry/screens/events/add.dart';
 import 'list.dart';
 
 class MyEvents extends StatefulWidget {
