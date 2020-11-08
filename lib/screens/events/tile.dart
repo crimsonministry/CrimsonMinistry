@@ -1,53 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import 'package:CrimsonMinistry/services/database.dart';
 import './detail.dart';
 
 class EventTile extends StatelessWidget {
-  final DatabaseService _data = DatabaseService();
   final Event event;
   EventTile({this.event});
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
     return Card(
-        child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      ListTile(
-        leading: Icon(Icons.menu_book),
-        title: Text(event.title),
-        subtitle: Text(event.description),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          TextButton(
-            child: const Text('RSVP'),
-            onPressed: () async {
-              if (event.rsvp.contains(user.uid)) {
-                print('show error: you are on the rsvp already');
-              } else {
-                event.rsvp.add(user.uid);
-                await _data.addToRSVP(event.id, event.rsvp);
-              }
-              print(event.rsvp);
-            },
-          ),
-          TextButton(
-            child: const Text('View'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailPage(event: event),
-                ),
-              );
-            },
-          ),
-        ],
-      )
-    ]));
+      child: ListTile(
+          leading: (event.typeOfEvent == 'Worship')
+              ? Icon(
+                  Icons.audiotrack,
+                  color: Colors.blueGrey[900],
+                  size: 35,
+                )
+              : Icon(Icons.import_contacts,
+                  color: Colors.blueGrey[900], size: 35),
+          title: Text(event.title),
+          subtitle: Text(
+              '${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} @ ${event.dateTime.hour}:${event.dateTime.minute}'),
+          trailing: Icon(Icons.more_vert),
+          isThreeLine: true,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPage(event: event),
+              ),
+            );
+          }),
+    );
   }
 }

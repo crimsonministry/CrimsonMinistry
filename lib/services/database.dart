@@ -87,14 +87,12 @@ class DatabaseService {
     });
   }
 
-  Future updateEvent(String id, String title, String time, String location,
-      String typeOfEvent, String description) async {
+  Future updateEvent(
+      String id, String title, String location, String description) async {
     print('updated event!');
     return await eventCollection.document(id).updateData({
       'title': title,
       'location': location,
-      'time': time,
-      'eventType': typeOfEvent,
       'description': description,
     });
   }
@@ -116,7 +114,7 @@ class DatabaseService {
         id: doc.documentID,
         title: doc.data['title'] ?? '',
         location: doc.data['location'] ?? '',
-        time: doc.data['time'] ?? '',
+        dateTime: doc.data['datetime']?.toDate() ?? Timestamp.now().toDate(),
         typeOfEvent: doc.data['eventType'] ?? '',
         description: doc.data['description'] ?? '',
         rsvp: List<String>.from(doc.data['rsvp']) ?? '',

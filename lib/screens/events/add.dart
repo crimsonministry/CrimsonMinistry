@@ -189,21 +189,10 @@ class _AddEventPageState extends State<AddEventPage> {
                   RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        dynamic result = await _data.addEvent(
-                            user.uid,
-                            pickedDate,
-                            typeOfEvent,
-                            title,
-                            location,
-                            description);
-                        showAlertDialog(context);
+                        await _data.addEvent(user.uid, pickedDate, typeOfEvent,
+                            title, location, description);
                         Navigator.of(context).pop();
-                        print(result);
-                        if (result == null) {
-                          setState(() {
-                            error = "couldn't add event";
-                          });
-                        }
+                        showAlertDialog(context);
                       }
                     },
                     child: Text('Create Event'),
