@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
 import 'package:gps/gps.dart';
 import 'package:CrimsonMinistry/models/event.dart';
+import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 
 class DatabaseService {
@@ -70,14 +72,14 @@ class DatabaseService {
     );
   }
 
-  Future updatePostData(String userid, String location, String time,
-      String title, String typeOfEvent, String description) async {
+  Future addEvent(String userid, DateTime date, String typeOfEvent,
+      String title, String location, String description) async {
     List<String> rsvp = [userid];
     return await eventCollection.document(uid).setData({
+      'eventType': typeOfEvent,
+      'datetime': Timestamp.fromDate(date),
       'title': title,
       'location': location,
-      'time': time,
-      'eventType': typeOfEvent,
       'description': description,
       'rsvp': rsvp,
       'createdAt': Timestamp.now(),
@@ -123,12 +125,42 @@ class DatabaseService {
     }).toList();
   }
 
-  Future updatePrayerData(String title, String description) async {
+  Future addPrayerRequest(
+      String userid, bool anonymous, String title, String description) async {
     return await prayerCollection.document(uid).setData({
+      'anonymous': anonymous,
       'title': title,
       'description': description,
       'count': 0,
+      'createdAt': Timestamp.now(),
+      'userID': userid,
     });
+  }
+
+  Future updatePrayer(String id, String title, String description) async {
+    print('updated prayer!');
+    return await prayerCollection.document(id).updateData({
+      'title': title,
+      'description': description,
+    });
+  }
+
+  Future deletePrayer(String id) async {
+    print('deleted prayer!');
+    return await prayerCollection.document(id).delete();
+  }
+
+  List<Prayer> _prayerListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Prayer(
+        id: doc.documentID,
+        anonymous: doc.data['anonymous'] ?? true,
+        title: doc.data['title'] ?? '',
+        description: doc.data['description'] ?? '',
+        count: doc.data['count'] ?? 0,
+        userID: doc.data['userID'] ?? '',
+      );
+    }).toList();
   }
 
   Stream<UserData> get userData {
@@ -139,7 +171,7 @@ class DatabaseService {
     return eventCollection.snapshots().map(_eventListFromSnapshot);
   }
 
-  Stream<QuerySnapshot> get prayers {
-    return prayerCollection.snapshots();
+  Stream<List<Prayer>> get prayers {
+    return prayerCollection.snapshots().map(_prayerListFromSnapshot);
   }
 }

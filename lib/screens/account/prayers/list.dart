@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/user.dart';
-import 'package:CrimsonMinistry/models/event.dart';
+import 'package:CrimsonMinistry/models/prayer.dart';
 import 'tile.dart';
 
-class EventList extends StatefulWidget {
+class PrayerList extends StatefulWidget {
   @override
-  _EventListState createState() => _EventListState();
+  _PrayerListState createState() => _PrayerListState();
 }
 
-class _EventListState extends State<EventList> {
+class _PrayerListState extends State<PrayerList> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    final events = Provider.of<List<Event>>(context)
+    final prayers = Provider.of<List<Prayer>>(context)
             .where((i) => i.userID == user.uid)
             .toList() ??
         [];
-    print(events);
+    print(prayers);
 
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: events.length,
+      itemCount: prayers.length,
       itemBuilder: (context, index) {
-        return EventTile(event: events[index]);
+        return PrayerTile(prayer: prayers[index]);
       },
     );
   }
