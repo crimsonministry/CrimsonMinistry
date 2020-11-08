@@ -13,18 +13,14 @@
   - [x] User profile page
   - [x] User profile editing page
   - [x] My `Events` page
-  - [ ] My `Prayer Requests` page
+  - [x] My `Prayer Requests` page
   - [x] Page for editing or deleting `Event`
-  - [ ] Page for editing or deleting `Prayer Request`
+  - [x] Page for editing or deleting `Prayer Request`
 - Prayer Requests Feed
   - [ ] `Prayer Requests` feed using Cards
   - [ ] Page for showing detailed information of `Prayer Request`
 - Friendship System
   - [x] Add `Friend` page
-  - [ ] View `Friendships` page
-    - friends
-    - requests received
-    - equests sent
 - Landing Website
   - [ ] Add Sprint 1 Deliverable
   - [ ] Add Sprint 2 Deliverable
@@ -38,7 +34,7 @@
 - User
   - [x] Friendship System
     - Add new attributes: `Friends`, `Requests`, and `Requested`
-  - [ ] More Details
+  - [x] More Details
     - Add new attributes: `Bio`, `Campus Ministry`, `Facebook`, `Instagram`, `Snapchat`, and `Twitter`
   - [x] Update `Account` information function
   - [ ] Delete `Account` function
@@ -55,5 +51,6 @@
     - Sign In with non-existing user
     - Sign Up with existing user
     - RSVP to event you are already RSVPed to
-    - Send friend request to already sent user
-    - more to be added...
+    - Add Event with an empty attribute
+    - Add Prayer Request with an empty attribute
+    - Change user profile with an empty attribute
