@@ -40,6 +40,7 @@
   - [ ] Delete `Account` function
 - Events
   - [x] RSVP to `Event` function
+  - [x] Un-RSVP from `Event` function
   - [x] Update `Event` information function
   - [ ] Delete `Event` function
 - Prayer Requests
@@ -47,10 +48,4 @@
   - [ ] Update `Prayer Request` information function
   - [ ] Delete `Prayer Request` function
 - Testing
-  - [ ] 10 different unit test cases
-    - Sign In with non-existing user
-    - Sign Up with existing user
-    - RSVP to event you are already RSVPed to
-    - Add Event with an empty attribute
-    - Add Prayer Request with an empty attribute
-    - Change user profile with an empty attribute
+  - [x] 10 different unit test cases
