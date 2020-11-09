@@ -1,18 +1,13 @@
+import 'package:CrimsonMinistry/screens/account/events/edit.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import 'package:CrimsonMinistry/services/database.dart';
-import 'detail.dart';
 
 class EventTile extends StatelessWidget {
-  final DatabaseService _data = DatabaseService();
   final Event event;
   EventTile({this.event});
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
     return Card(
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
       ListTile(
@@ -29,7 +24,7 @@ class EventTile extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailPage(event: event),
+                  builder: (context) => EditEventPage(event: event),
                 ),
               );
             },

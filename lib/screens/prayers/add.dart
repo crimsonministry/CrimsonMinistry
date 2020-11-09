@@ -35,7 +35,7 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
     final node = FocusScope.of(context);
     return new Scaffold(
         appBar: AppBar(
-          title: Text("Add Prayer"),
+          title: Text("Add Prayer Request"),
           backgroundColor: Colors.red,
         ),
         resizeToAvoidBottomPadding: false,
@@ -111,19 +111,13 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
                   RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        dynamic result = await _data.addPrayerRequest(
+                        await _data.addPrayerRequest(
                             user.uid, beAnonymous, title, description);
-                        showAlertDialog(context);
                         Navigator.of(context).pop();
-                        print(result);
-                        if (result == null) {
-                          setState(() {
-                            error = "error adding prayer request";
-                          });
-                        }
+                        showAlertDialog(context);
                       }
                     },
-                    child: Text('Add Prayer Request'),
+                    child: Text('Add Prayer Requests'),
                   ),
                 ]),
               )),
