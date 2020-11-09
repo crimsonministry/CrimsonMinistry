@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import './list.dart';
-import 'add.dart';
+import './add.dart';
 
 class Events extends StatelessWidget {
   @override

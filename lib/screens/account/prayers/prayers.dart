@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/services/database.dart';
-import 'package:CrimsonMinistry/screens/prayers/add.dart';
+import 'package:CrimsonMinistry/screens/prayers/addPrayer.dart';
 import 'list.dart';
 
 class MyPrayers extends StatefulWidget {

@@ -131,11 +131,12 @@ class DatabaseService {
   Future addPrayerRequest(
       String userid, bool anonymous, String title, String description) async {
     print('added prayer: $title');
+    List<String> prayerInteractions = [];
     return await prayerCollection.document(uid).setData({
       'anonymous': anonymous,
       'title': title,
       'description': description,
-      'count': 0,
+      'prayerInteractions': prayerInteractions,
       'createdAt': Timestamp.now(),
       'userID': userid,
     });
@@ -161,10 +162,17 @@ class DatabaseService {
         anonymous: doc.data['anonymous'] ?? true,
         title: doc.data['title'] ?? '',
         description: doc.data['description'] ?? '',
-        count: doc.data['count'] ?? 0,
+        prayerInteractions: List<String>.from(doc.data['prayerInteractions']) ?? '',
         userID: doc.data['userID'] ?? '',
       );
     }).toList();
+  }
+
+  Future addToPrayerInteractions(String documentID, List<String> prayerInteractions) async {
+    print('added to prayerInteractions');
+    return await prayerCollection.document(documentID).updateData({
+      'prayerInteractions': prayerInteractions,
+    });
   }
 
   Stream<UserData> get userData {

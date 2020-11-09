@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'add.dart';
+import 'package:provider/provider.dart';
+import 'package:CrimsonMinistry/services/database.dart';
+import 'package:CrimsonMinistry/models/prayer.dart';
+import './prayerList.dart';
+import './addPrayer.dart';
 
 class Prayers extends StatelessWidget {
   @override
@@ -8,7 +11,7 @@ class Prayers extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-        '/addprayer': (BuildContext context) => new AddPrayerPage(),
+        '/addPrayer': (BuildContext context) => new AddPrayerPage(),
       },
       home: new PrayersPage(),
     );
@@ -17,38 +20,15 @@ class Prayers extends StatelessWidget {
 
 class PrayersPage extends StatefulWidget {
   @override
-  _EventsPageState createState() => _EventsPageState();
+  _PrayersPageState createState() => _PrayersPageState();
 }
 
-class _EventsPageState extends State<PrayersPage> {
-  Widget _buildList(BuildContext context, DocumentSnapshot document) {
-    return Card(
-        child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.menu_book),
-            title: Text(document['title']),
-            subtitle: Text(document['description']),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              FlatButton(
-                textColor: Colors.grey,
-                onPressed: () async {},
-                child: Icon(
-                  Icons.arrow_upward,
-                  size: 26.0,
-                ),
-                shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-              ),
-            ],
-          )
-        ]));
-  }
-
+class _PrayersPageState extends State<PrayersPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return StreamProvider<List<Prayer>>.value(
+      value: DatabaseService().prayers,
+      child: Scaffold(
         appBar: AppBar(
           title: Text("Prayers"),
           backgroundColor: Colors.red,
@@ -56,7 +36,7 @@ class _EventsPageState extends State<PrayersPage> {
             FlatButton(
               textColor: Colors.white,
               onPressed: () async {
-                Navigator.of(context).pushNamed('/addprayer');
+                Navigator.of(context).pushNamed('/addPrayer');
               },
               child: Icon(
                 Icons.add,
@@ -66,23 +46,8 @@ class _EventsPageState extends State<PrayersPage> {
             ),
           ],
         ),
-        body: Column(children: [
-          Flexible(
-            child: StreamBuilder(
-                stream: Firestore.instance.collection('prayers').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Text("No Prayer Requests At This Time...");
-                  }
-                  return ListView.builder(
-                      itemExtent: 128.0,
-                      itemCount: snapshot.data.documents.length,
-                      itemBuilder: (context, index) {
-                        return _buildList(
-                            context, snapshot.data.documents[index]);
-                      });
-                }),
-          ),
-        ]));
+        body: Container(child: PrayerList()),
+      ),
+    );
   }
 }

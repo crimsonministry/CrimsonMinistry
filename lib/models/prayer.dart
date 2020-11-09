@@ -1,16 +1,18 @@
 class Prayer {
   final String id;
-  final bool anonymous;
   final String title;
   final String description;
-  final int count;
   final String userID;
+  final List prayerInteractions;
+  final String createdAt;
+  final bool anonymous;
 
   Prayer(
       {this.id,
-      this.anonymous,
-      this.title,
-      this.description,
-      this.count,
-      this.userID});
+        this.title,
+        this.description,
+        this.userID,
+        this.prayerInteractions,
+        this.createdAt,
+        this.anonymous});
 }
