@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/rendering.dart';
-import 'package:gps/gps.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/models/user.dart';
@@ -18,7 +16,13 @@ class DatabaseService {
 
   Future updateUserData(
       String fname, String lname, String username, String email) async {
-    print('updated user data');
+    print('creating user data');
+    print('firstName : $fname');
+    print('lastName : $lname');
+    print('username : $username');
+    print('email : $email');
+    print('success');
+
     List<String> empty = [];
     return await userCollection.document(uid).setData({
       'firstName': fname,
@@ -35,7 +39,15 @@ class DatabaseService {
 
   Future updateAccountPageData(String userID, String fname, String lname,
       String username, String ministry, String bio) async {
-    print('updated account page data');
+    print('updating account');
+    print('userID : $userID');
+    print('firstName : $fname');
+    print('lastName : $lname');
+    print('username : $username');
+    print('ministry : $ministry');
+    print('bio : $bio');
+    print('success');
+
     return await userCollection.document(userID).updateData({
       'firstName': fname,
       'lastName': lname,
@@ -46,7 +58,10 @@ class DatabaseService {
   }
 
   Future sendFriendRequest(String userID, List<String> requests) async {
-    print('sent friend request');
+    print('sending friend request');
+    print('userID : $userID');
+    print('success');
+
     // add to your own 'requests' list
     return await userCollection
         .document(userID)
@@ -77,7 +92,15 @@ class DatabaseService {
 
   Future addEvent(String userid, DateTime date, String typeOfEvent,
       String title, String location, String description) async {
-    print('added event: $title');
+    print('adding event');
+    print('userID : $userid');
+    print('date : ${date.toString()}');
+    print('typeOfEvent : $typeOfEvent');
+    print('title : $title');
+    print('location : $location');
+    print('description : $description');
+    print('success');
+
     List<String> rsvp = [userid];
     return await eventCollection.document(uid).setData({
       'eventType': typeOfEvent,
@@ -93,7 +116,13 @@ class DatabaseService {
 
   Future updateEvent(
       String id, String title, String location, String description) async {
-    print('updated event: $title');
+    print('updating event');
+    print('documentID : $id');
+    print('title : $title');
+    print('location : $location');
+    print('description : $description');
+    print('success');
+
     return await eventCollection.document(id).updateData({
       'title': title,
       'location': location,
@@ -102,12 +131,19 @@ class DatabaseService {
   }
 
   Future deleteEvent(String id) async {
-    print('deleted event');
+    print('deleting event');
+    print('documentID : $id');
+    print('success');
+
     return await eventCollection.document(id).delete();
   }
 
   Future addToRSVP(String documentID, List<String> rsvp) async {
-    print('added to rsvp');
+    print('adding to rsvp');
+    print('documentID : $documentID');
+    print('rsvpList : $rsvp');
+    print('success');
+
     return await eventCollection.document(documentID).updateData({
       'rsvp': rsvp,
     });
@@ -130,7 +166,13 @@ class DatabaseService {
 
   Future addPrayerRequest(
       String userid, bool anonymous, String title, String description) async {
-    print('added prayer: $title');
+    print('adding prayer');
+    print('userID : $userid');
+    print('anonymous : $anonymous');
+    print('title : $title');
+    print('description : $description');
+    print('success');
+
     return await prayerCollection.document(uid).setData({
       'anonymous': anonymous,
       'title': title,
@@ -142,7 +184,12 @@ class DatabaseService {
   }
 
   Future updatePrayer(String id, String title, String description) async {
-    print('updated prayer: $title');
+    print('updating prayer');
+    print('documentID : $id');
+    print('title : $title');
+    print('description : $description');
+    print('success');
+
     return await prayerCollection.document(id).updateData({
       'title': title,
       'description': description,
@@ -150,7 +197,10 @@ class DatabaseService {
   }
 
   Future deletePrayer(String id) async {
-    print('deleted prayer!');
+    print('deleting prayer');
+    print('documentID : $id');
+    print('success');
+
     return await prayerCollection.document(id).delete();
   }
 
@@ -172,10 +222,14 @@ class DatabaseService {
   }
 
   Stream<List<Event>> get events {
+    print('reading events');
+    print('success');
     return eventCollection.snapshots().map(_eventListFromSnapshot);
   }
 
   Stream<List<Prayer>> get prayers {
+    print('reading prayers');
+    print('success');
     return prayerCollection.snapshots().map(_prayerListFromSnapshot);
   }
 }
