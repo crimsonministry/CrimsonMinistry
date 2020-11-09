@@ -18,6 +18,7 @@ class DatabaseService {
 
   Future updateUserData(
       String fname, String lname, String username, String email) async {
+    print('updated user data');
     List<String> empty = [];
     return await userCollection.document(uid).setData({
       'firstName': fname,
@@ -34,6 +35,7 @@ class DatabaseService {
 
   Future updateAccountPageData(String userID, String fname, String lname,
       String username, String ministry, String bio) async {
+    print('updated account page data');
     return await userCollection.document(userID).updateData({
       'firstName': fname,
       'lastName': lname,
@@ -44,6 +46,7 @@ class DatabaseService {
   }
 
   Future sendFriendRequest(String userID, List<String> requests) async {
+    print('sent friend request');
     // add to your own 'requests' list
     return await userCollection
         .document(userID)
@@ -74,6 +77,7 @@ class DatabaseService {
 
   Future addEvent(String userid, DateTime date, String typeOfEvent,
       String title, String location, String description) async {
+    print('added event: $title');
     List<String> rsvp = [userid];
     return await eventCollection.document(uid).setData({
       'eventType': typeOfEvent,
@@ -89,7 +93,7 @@ class DatabaseService {
 
   Future updateEvent(
       String id, String title, String location, String description) async {
-    print('updated event!');
+    print('updated event: $title');
     return await eventCollection.document(id).updateData({
       'title': title,
       'location': location,
@@ -98,11 +102,12 @@ class DatabaseService {
   }
 
   Future deleteEvent(String id) async {
-    print('deleted event!');
+    print('deleted event');
     return await eventCollection.document(id).delete();
   }
 
   Future addToRSVP(String documentID, List<String> rsvp) async {
+    print('added to rsvp');
     return await eventCollection.document(documentID).updateData({
       'rsvp': rsvp,
     });
@@ -125,6 +130,7 @@ class DatabaseService {
 
   Future addPrayerRequest(
       String userid, bool anonymous, String title, String description) async {
+    print('added prayer: $title');
     return await prayerCollection.document(uid).setData({
       'anonymous': anonymous,
       'title': title,
@@ -136,7 +142,7 @@ class DatabaseService {
   }
 
   Future updatePrayer(String id, String title, String description) async {
-    print('updated prayer!');
+    print('updated prayer: $title');
     return await prayerCollection.document(id).updateData({
       'title': title,
       'description': description,
