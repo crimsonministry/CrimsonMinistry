@@ -13,10 +13,8 @@ class _PrayerListState extends State<PrayerList> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    final prayers = Provider.of<List<Prayer>>(context)
-            .where((i) => i.userID == user.uid)
-            .toList() ??
-        [];
+    dynamic prayers = Provider.of<List<Prayer>>(context) ?? [];
+    prayers = prayers.where((i) => i.userID == user.uid).toList();
     print(prayers);
 
     return ListView.builder(

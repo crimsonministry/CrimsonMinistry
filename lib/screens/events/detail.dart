@@ -9,6 +9,32 @@ class DetailPage extends StatelessWidget {
   final Event event;
   DetailPage({Key key, @required this.event}) : super(key: key);
 
+  addedToRSVP(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: Text("RSVPed!"),
+      content: Text("You've been added to the RSVP list :))"),
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  removedFromRSVP(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: Text("Un-RSVPed :("),
+      content: Text("You've been removed from the RSVP list :("),
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -55,13 +81,20 @@ class DetailPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.fromLTRB(8.0, 30.0, 0.0, 0.0),
                 child: RaisedButton(
-                  child: const Text('RSVP'),
+                  child: (event.rsvp.contains(user.uid))
+                      ? const Text('Remove from RSVP')
+                      : const Text('RSVP'),
                   onPressed: () async {
                     if (event.rsvp.contains(user.uid)) {
-                      print('show error: you are on the rsvp already');
+                      event.rsvp.remove(user.uid);
+                      await _data.addToRSVP(event.id, event.rsvp);
+                      Navigator.of(context).pop();
+                      removedFromRSVP(context);
                     } else {
                       event.rsvp.add(user.uid);
                       await _data.addToRSVP(event.id, event.rsvp);
+                      Navigator.of(context).pop();
+                      addedToRSVP(context);
                     }
                     print(event.rsvp);
                   },
