@@ -13,10 +13,8 @@ class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    final events = Provider.of<List<Event>>(context)
-            .where((i) => i.userID == user.uid)
-            .toList() ??
-        [];
+    dynamic events = Provider.of<List<Event>>(context) ?? [];
+    events = events.where((i) => i.userID == user.uid).toList();
     print(events);
 
     return ListView.builder(
