@@ -34,11 +34,22 @@ class DatabaseService {
       'friends': empty,
       'requests': empty,
       'requested': empty,
+      'twitterLink': '',
+      'facebookLink': '',
+      'instaLink': ''
     });
   }
 
-  Future updateAccountPageData(String userID, String fname, String lname,
-      String username, String ministry, String bio) async {
+  Future updateAccountPageData(
+      String userID,
+      String fname,
+      String lname,
+      String username,
+      String ministry,
+      String bio,
+      String twitter,
+      String facebook,
+      String insta) async {
     print('updating account');
     print('userID : $userID');
     print('firstName : $fname');
@@ -46,6 +57,9 @@ class DatabaseService {
     print('username : $username');
     print('ministry : $ministry');
     print('bio : $bio');
+    print('twitterLink : $twitter');
+    print('facebookLink : $facebook');
+    print('instaLink : $insta');
     print('success');
 
     return await userCollection.document(userID).updateData({
@@ -53,7 +67,10 @@ class DatabaseService {
       'lastName': lname,
       'username': username,
       'ministry': ministry,
-      'biography': bio
+      'biography': bio,
+      'twitterLink': twitter,
+      'facebookLink': facebook,
+      'instaLink': insta
     });
   }
 
@@ -78,16 +95,26 @@ class DatabaseService {
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
-      uid: uid,
-      fname: snapshot.data['firstName'],
-      lname: snapshot.data['lastName'],
-      username: snapshot.data['username'],
-      bio: snapshot.data['biography'],
-      ministry: snapshot.data['ministry'],
-      friends: List<String>.from(snapshot.data['friends']) ?? '',
-      requests: List<String>.from(snapshot.data['requests']) ?? '',
-      requested: List<String>.from(snapshot.data['requested']) ?? '',
-    );
+        uid: uid,
+        fname: snapshot.data['firstName'],
+        lname: snapshot.data['lastName'],
+        username: snapshot.data['username'],
+        bio: snapshot.data['biography'],
+        ministry: snapshot.data['ministry'],
+        friends: List<String>.from(snapshot.data['friends']) ?? '',
+        requests: List<String>.from(snapshot.data['requests']) ?? '',
+        requested: List<String>.from(snapshot.data['requested']) ?? '',
+        twitter: snapshot.data['twitterLink'],
+        facebook: snapshot.data['facebookLink'],
+        instagram: snapshot.data['instaLink']);
+  }
+
+  Future deleteUser() async {
+    print('deleting user');
+    print('userID : $uid');
+    print('success');
+
+    return await userCollection.document(uid).delete();
   }
 
   Future addEvent(String userid, DateTime date, String typeOfEvent,
