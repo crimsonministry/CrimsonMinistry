@@ -221,30 +221,37 @@ class _AccountPageState extends State<Account> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  IconButton(
-                                      iconSize: 32.0,
-                                      icon: Icon(
-                                        SocialMediaIcons.facebook_squared,
-                                        color:
-                                            Color.fromRGBO(66, 103, 178, 1.0),
-                                      ),
-                                      onPressed: () => showSocialMediaPage(
-                                          userData.facebook)),
-                                  IconButton(
-                                      iconSize: 32.0,
-                                      icon: Icon(SocialMediaIcons.instagram,
-                                          color: Color.fromRGBO(
-                                              225, 48, 108, 1.0)),
-                                      onPressed: () => showSocialMediaPage(
-                                          userData.instagram)),
-                                  IconButton(
-                                    iconSize: 32.0,
-                                    icon: Icon(SocialMediaIcons.twitter_squared,
-                                        color:
-                                            Color.fromRGBO(108, 173, 222, 1.0)),
-                                    onPressed: () =>
-                                        showSocialMediaPage(userData.twitter),
-                                  )
+                                  (userData.facebook.isNotEmpty)
+                                      ? IconButton(
+                                          iconSize: 32.0,
+                                          icon: Icon(
+                                            SocialMediaIcons.facebook_squared,
+                                            color: Color.fromRGBO(
+                                                66, 103, 178, 1.0),
+                                          ),
+                                          onPressed: () => showSocialMediaPage(
+                                              userData.facebook))
+                                      : Text(''),
+                                  (userData.instagram.isNotEmpty)
+                                      ? IconButton(
+                                          iconSize: 32.0,
+                                          icon: Icon(SocialMediaIcons.instagram,
+                                              color: Color.fromRGBO(
+                                                  225, 48, 108, 1.0)),
+                                          onPressed: () => showSocialMediaPage(
+                                              userData.instagram))
+                                      : Text(''),
+                                  (userData.twitter.isNotEmpty)
+                                      ? IconButton(
+                                          iconSize: 32.0,
+                                          icon: Icon(
+                                              SocialMediaIcons.twitter_squared,
+                                              color: Color.fromRGBO(
+                                                  108, 173, 222, 1.0)),
+                                          onPressed: () => showSocialMediaPage(
+                                              userData.twitter),
+                                        )
+                                      : Text(''),
                                 ],
                               ),
                             ],
