@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:social_media_buttons/social_media_icons.dart';
 import 'package:social_media_buttons/social_media_buttons.dart';
 import 'package:social_media_buttons/social_media_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'events/events.dart';
 import 'prayers/prayers.dart';
 import 'friends/friends.dart';
@@ -21,6 +22,27 @@ class Account extends StatefulWidget {
 }
 
 class _AccountPageState extends State<Account> {
+  showSocialMediaPage(String link) async {
+    if (await canLaunch(link)) {
+      await launch(link);
+    } else {
+      showAlertDialog(context);
+    }
+  }
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: Text("Sorry, this user does not have that social media :("),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -206,20 +228,23 @@ class _AccountPageState extends State<Account> {
                                         color:
                                             Color.fromRGBO(66, 103, 178, 1.0),
                                       ),
-                                      onPressed: null),
+                                      onPressed: () => showSocialMediaPage(
+                                          userData.facebook)),
                                   IconButton(
                                       iconSize: 32.0,
                                       icon: Icon(SocialMediaIcons.instagram,
                                           color: Color.fromRGBO(
                                               225, 48, 108, 1.0)),
-                                      onPressed: null),
+                                      onPressed: () => showSocialMediaPage(
+                                          userData.instagram)),
                                   IconButton(
-                                      iconSize: 32.0,
-                                      icon: Icon(
-                                          SocialMediaIcons.twitter_squared,
-                                          color: Color.fromRGBO(
-                                              108, 173, 222, 1.0)),
-                                      onPressed: null)
+                                    iconSize: 32.0,
+                                    icon: Icon(SocialMediaIcons.twitter_squared,
+                                        color:
+                                            Color.fromRGBO(108, 173, 222, 1.0)),
+                                    onPressed: () =>
+                                        showSocialMediaPage(userData.twitter),
+                                  )
                                 ],
                               ),
                             ],

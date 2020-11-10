@@ -13,6 +13,9 @@ class UserData {
   final List friends;
   final List requests;
   final List requested;
+  final String twitter;
+  final String facebook;
+  final String instagram;
 
   UserData(
       {this.uid,
@@ -23,5 +26,8 @@ class UserData {
       this.ministry,
       this.friends,
       this.requests,
-      this.requested});
+      this.requested,
+      this.twitter,
+      this.facebook,
+      this.instagram});
 }
