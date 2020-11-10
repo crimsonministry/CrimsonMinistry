@@ -90,7 +90,7 @@ class _SignInState extends State<SignInPage> {
                           print(password);
                         },
                         decoration: InputDecoration(
-                            labelText: 'Passowrd',
+                            labelText: 'Password',
                             labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
