@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:CrimsonMinistry/services/auth.dart';
+import 'package:CrimsonMinistry/screens/account/deleteaccount.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class EditAccount extends StatefulWidget {
   @override
@@ -14,10 +17,11 @@ class EditAccount extends StatefulWidget {
 
 class _EditAccountPageState extends State<EditAccount> {
   final DatabaseService _data = DatabaseService();
-  //String fname = '';
-  // String lname = '';
-  //String username = '';
-  // String bio = '';
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  String email;
+  String password;
+
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       title: Text("Account edited!"),
@@ -53,6 +57,18 @@ class _EditAccountPageState extends State<EditAccount> {
 
     TextEditingController ministry =
         new TextEditingController(text: widget.userData.ministry);
+    ;
+
+    TextEditingController twitterLink =
+        new TextEditingController(text: widget.userData.twitter);
+    ;
+
+    TextEditingController facebookLink =
+        new TextEditingController(text: widget.userData.facebook);
+    ;
+
+    TextEditingController instaLink =
+        new TextEditingController(text: widget.userData.instagram);
     ;
 
     return new Scaffold(
@@ -120,6 +136,36 @@ class _EditAccountPageState extends State<EditAccount> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.red))),
                     ),
+                    SizedBox(height: 10.0),
+                    TextField(
+                      controller: twitterLink,
+                      decoration: InputDecoration(
+                          labelText: 'Twitter Link',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red))),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextField(
+                      controller: facebookLink,
+                      decoration: InputDecoration(
+                          labelText: 'Facebook Link',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red))),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextField(
+                      controller: instaLink,
+                      decoration: InputDecoration(
+                          labelText: 'Instagram Link',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.red))),
+                    ),
                     SizedBox(height: 50.0),
                     RaisedButton(
                       onPressed: () async {
@@ -129,13 +175,29 @@ class _EditAccountPageState extends State<EditAccount> {
                             lastName.text,
                             userName.text,
                             ministry.text,
-                            bio.text);
+                            bio.text,
+                            twitterLink.text,
+                            facebookLink.text,
+                            instaLink.text);
                         print(result);
                         Navigator.of(context).pop();
                         showAlertDialog(context);
                       },
                       child: const Text('Save Account Changes',
                           style: TextStyle(fontSize: 20)),
+                    ),
+                    SizedBox(height: 20),
+                    RaisedButton(
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DeleteAccountPage(),
+                          ),
+                        );
+                      },
+                      child: const Text('Delete Account',
+                          style: TextStyle(fontSize: 10)),
                     ),
                   ],
                 ))

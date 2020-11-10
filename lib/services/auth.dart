@@ -56,4 +56,21 @@ class AuthService {
       return null;
     }
   }
+
+  // delete account
+  Future deleteUser(String email, String password) async {
+    try {
+      FirebaseUser user = await _auth.currentUser();
+      AuthCredential credentials =
+          EmailAuthProvider.getCredential(email: email, password: password);
+      print(user);
+      AuthResult result = await user.reauthenticateWithCredential(credentials);
+      await DatabaseService(uid: result.user.uid).deleteUser();
+      await result.user.delete();
+      return true;
+    } catch (error) {
+      print(error.toString());
+      return error;
+    }
+  }
 }
