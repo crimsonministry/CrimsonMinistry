@@ -5,7 +5,7 @@ import 'package:CrimsonMinistry/services/database.dart';
 String documentID = 'SKE66wWLXZogiazW53NH';
 String title = 'Bible Study at the Quad';
 String location = 'In front of Denny Chimes';
-String description = 'My friend and I are going through Chapter 1 of Matthew';
+String description = 'Updated description!';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
