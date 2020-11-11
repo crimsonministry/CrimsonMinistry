@@ -17,17 +17,16 @@
   - [x] Page for editing or deleting `Event`
   - [x] Page for editing or deleting `Prayer Request`
 - Prayer Requests Feed
-  - [ ] `Prayer Requests` feed using Cards
-  - [ ] Page for showing detailed information of `Prayer Request`
+  - [x] `Prayer Requests` feed using Cards
+  - [x] Page for showing detailed information of `Prayer Request`
 - Friendship System
   - [x] Add `Friend` page
 - Landing Website
-  - [ ] Add Sprint 1 Deliverable
-  - [ ] Add Sprint 2 Deliverable
-  - [ ] Improve Styling
+  - [x] Add Sprint 1 Deliverable
+  - [x] Improve Styling
 - Presentation
-  - [ ] Slides
-  - [ ] Demo
+  - [x] Slides
+  - [x] Demo
 
 ### Back-End
 
@@ -37,15 +36,15 @@
   - [x] More Details
     - Add new attributes: `Bio`, `Campus Ministry`, `Facebook`, `Instagram`, `Snapchat`, and `Twitter`
   - [x] Update `Account` information function
-  - [ ] Delete `Account` function
+  - [x] Delete `Account` function
 - Events
   - [x] RSVP to `Event` function
   - [x] Un-RSVP from `Event` function
   - [x] Update `Event` information function
-  - [ ] Delete `Event` function
+  - [x] Delete `Event` function
 - Prayer Requests
-  - [ ] Pray for `Prayer Request` function
-  - [ ] Update `Prayer Request` information function
-  - [ ] Delete `Prayer Request` function
+  - [x] Pray for `Prayer Request` function
+  - [x] Update `Prayer Request` information function
+  - [x] Delete `Prayer Request` function
 - Testing
   - [x] 10 different unit test cases
