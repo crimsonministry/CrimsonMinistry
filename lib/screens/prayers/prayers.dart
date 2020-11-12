@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
+import 'package:CrimsonMinistry/widgets/drawer.dart';
 import './prayerList.dart';
 import './addPrayer.dart';
 
@@ -46,6 +47,7 @@ class _PrayersPageState extends State<PrayersPage> {
             ),
           ],
         ),
+        drawer: DrawerWidget(),
         body: Container(child: PrayerList()),
       ),
     );

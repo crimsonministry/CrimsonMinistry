@@ -1,20 +1,12 @@
-//import 'dart:html';
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
-import 'package:CrimsonMinistry/screens/account/editaccount.dart';
+import 'package:CrimsonMinistry/screens/account/edit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_buttons/social_media_icons.dart';
 import 'package:social_media_buttons/social_media_buttons.dart';
-import 'package:social_media_buttons/social_media_button.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'events/events.dart';
-import 'prayers/prayers.dart';
-import 'friends/friends.dart';
 
 class Account extends StatefulWidget {
   @override
@@ -77,19 +69,6 @@ class _AccountPageState extends State<Account> {
                         ),
                       ),
                     ),
-                    FlatButton(
-                        onPressed: () async {
-                          dynamic result = await _auth.signOut();
-                          print(result);
-                        },
-                        child: Text(
-                          "Sign Out",
-                          textScaleFactor: 1.5,
-                          style: new TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.white,
-                          ),
-                        ))
                   ],
                 ),
                 resizeToAvoidBottomPadding: false,
@@ -167,53 +146,6 @@ class _AccountPageState extends State<Account> {
                                     style: TextStyle(
                                         fontSize: 12.0, color: Colors.black),
                                     softWrap: true,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20.0),
-                              Column(
-                                children: <Widget>[
-                                  RaisedButton(
-                                    color: Colors.red,
-                                    colorBrightness: Brightness.dark,
-                                    onPressed: () async {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MyPrayers(),
-                                        ),
-                                      );
-                                    },
-                                    child: const Text('My Prayers',
-                                        style: TextStyle(fontSize: 13)),
-                                  ),
-                                  RaisedButton(
-                                    color: Colors.red,
-                                    colorBrightness: Brightness.dark,
-                                    onPressed: () async {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MyEvents(),
-                                        ),
-                                      );
-                                    },
-                                    child: const Text('My Events',
-                                        style: TextStyle(fontSize: 13)),
-                                  ),
-                                  RaisedButton(
-                                    color: Colors.red,
-                                    colorBrightness: Brightness.dark,
-                                    onPressed: () async {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MyFriends(),
-                                        ),
-                                      );
-                                    },
-                                    child: const Text('My Friends',
-                                        style: TextStyle(fontSize: 13)),
                                   ),
                                 ],
                               ),

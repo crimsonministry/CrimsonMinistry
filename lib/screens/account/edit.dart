@@ -5,8 +5,7 @@ import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
-import 'package:CrimsonMinistry/screens/account/deleteaccount.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:CrimsonMinistry/screens/account/delete.dart';
 
 class EditAccount extends StatefulWidget {
   @override
@@ -17,8 +16,6 @@ class EditAccount extends StatefulWidget {
 
 class _EditAccountPageState extends State<EditAccount> {
   final DatabaseService _data = DatabaseService();
-  final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>();
   String email;
   String password;
 
@@ -41,35 +38,20 @@ class _EditAccountPageState extends State<EditAccount> {
 
     TextEditingController firstName =
         new TextEditingController(text: widget.userData.fname);
-    ;
-
     TextEditingController lastName =
         new TextEditingController(text: widget.userData.lname);
-    ;
-
     TextEditingController userName =
         new TextEditingController(text: widget.userData.username);
-    ;
-
     TextEditingController bio =
         new TextEditingController(text: widget.userData.bio);
-    ;
-
     TextEditingController ministry =
         new TextEditingController(text: widget.userData.ministry);
-    ;
-
     TextEditingController twitterLink =
         new TextEditingController(text: widget.userData.twitter);
-    ;
-
     TextEditingController facebookLink =
         new TextEditingController(text: widget.userData.facebook);
-    ;
-
     TextEditingController instaLink =
         new TextEditingController(text: widget.userData.instagram);
-    ;
 
     return new Scaffold(
         appBar: AppBar(
@@ -166,7 +148,7 @@ class _EditAccountPageState extends State<EditAccount> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.red))),
                     ),
-                    SizedBox(height: 50.0),
+                    SizedBox(height: 30.0),
                     RaisedButton(
                       onPressed: () async {
                         dynamic result = await _data.updateAccountPageData(
@@ -183,10 +165,10 @@ class _EditAccountPageState extends State<EditAccount> {
                         Navigator.of(context).pop();
                         showAlertDialog(context);
                       },
-                      child: const Text('Save Account Changes',
-                          style: TextStyle(fontSize: 20)),
+                      child: const Text('Save Changes',
+                          style: TextStyle(fontSize: 10)),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     RaisedButton(
                       onPressed: () async {
                         Navigator.push(

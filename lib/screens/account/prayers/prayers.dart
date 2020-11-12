@@ -16,7 +16,7 @@ class _MyPrayersPageState extends State<MyPrayers> {
       value: DatabaseService().prayers,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("My Prayers"),
+          title: Text("My Requests"),
           backgroundColor: Colors.red,
           actions: <Widget>[
             FlatButton(
