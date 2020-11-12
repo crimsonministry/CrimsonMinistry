@@ -13,32 +13,47 @@ class MyPrayers extends StatefulWidget {
 class _MyPrayersPageState extends State<MyPrayers> {
   Widget build(BuildContext context) {
     return StreamProvider<List<Prayer>>.value(
-      value: DatabaseService().prayers,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("My Requests"),
-          backgroundColor: Colors.red,
-          actions: <Widget>[
-            FlatButton(
-              textColor: Colors.white,
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddPrayerPage(),
-                  ),
-                );
-              },
-              child: Icon(
-                Icons.add,
-                size: 26.0,
+        value: DatabaseService().prayers,
+        child: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text("My Requests"),
+              backgroundColor: Colors.red,
+              bottom: TabBar(
+                indicatorColor: Colors.red[100],
+                tabs: [
+                  Tab(text: 'Requested'),
+                  Tab(text: 'Prayed'),
+                ],
               ),
-              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+              actions: <Widget>[
+                FlatButton(
+                  textColor: Colors.white,
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddPrayerPage(),
+                      ),
+                    );
+                  },
+                  child: Icon(
+                    Icons.add,
+                    size: 26.0,
+                  ),
+                  shape:
+                      CircleBorder(side: BorderSide(color: Colors.transparent)),
+                ),
+              ],
             ),
-          ],
-        ),
-        body: Container(child: PrayerList()),
-      ),
-    );
+            body: TabBarView(
+              children: [
+                Container(child: PrayerList()),
+                Container(child: PrayerList()),
+              ],
+            ),
+          ),
+        ));
   }
 }
