@@ -105,8 +105,12 @@ class _AddEventPageState extends State<AddEventPage> {
                       ]),
                   SizedBox(height: 10),
                   DropdownButtonFormField<String>(
-                    items:
-                        <String>['Bible Study', 'Worship'].map((String value) {
+                    items: <String>[
+                      'Mission',
+                      'Bible Study',
+                      'Worship',
+                      'Volunteer'
+                    ].map((String value) {
                       return new DropdownMenuItem<String>(
                         value: value,
                         child: new Text(value),
