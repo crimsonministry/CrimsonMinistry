@@ -7,9 +7,9 @@
 ### Front-End
 
 - Add new navigation tab
-  - [ ] Move account page to the side tab
-  - [ ] Split change user info and social media into 2 different pages
-  - [ ] Add Google Maps view to the bottom navigation
+  - [x] Move account page to the side tab
+  - [x] Split change user info and social media into 2 different pages
+  - [x] Add Google Maps view to the bottom navigation
 - Add Event with Location
   - [ ] Implement current location reader
   - [ ] Add location picker
@@ -17,6 +17,7 @@
   - [ ] Show Google Maps view of the campus
   - [ ] Display pins of the events coming up
 - Events Feed Page
+  - [x] Add new event types: `Mission` and `Volunteer`
   - [ ] Add a filter for type of event
 - Event RSVP Page
   - [ ] Add a button in Event detail page `View RSVP list`
@@ -32,7 +33,8 @@
 - Other user profile page
   - [ ] Display the account page with another user's info and a button to favorite them
 - Website
-  - [ ] Add Sprint 2 Deliverable
+  - [ ] Add Sprint 2 Deliverables
+  - [ ] Add Sprint 3 Deliverables
   - [ ] Demo Video
 - Presentation
   - [ ] Slides
