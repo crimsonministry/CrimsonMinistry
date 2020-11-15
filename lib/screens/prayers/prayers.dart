@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/widgets/drawer.dart';
-import './prayerList.dart';
-import './addPrayer.dart';
+import 'list.dart';
+import 'add.dart';
 
 class Prayers extends StatelessWidget {
   @override
