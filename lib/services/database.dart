@@ -31,9 +31,9 @@ class DatabaseService {
       'email': email,
       'biography': '',
       'ministry': '',
-      'friends': empty,
-      'requests': empty,
-      'requested': empty,
+      'favorites': empty,
+      'rsvped': empty,
+      'prayed': empty,
       'twitterLink': '',
       'facebookLink': '',
       'instaLink': ''
@@ -101,9 +101,9 @@ class DatabaseService {
         username: snapshot.data['username'],
         bio: snapshot.data['biography'],
         ministry: snapshot.data['ministry'],
-        friends: List<String>.from(snapshot.data['friends']) ?? '',
-        requests: List<String>.from(snapshot.data['requests']) ?? '',
-        requested: List<String>.from(snapshot.data['requested']) ?? '',
+        favoritesList: List<String>.from(snapshot.data['favorites']) ?? '',
+        rsvpedList: List<String>.from(snapshot.data['rsvped']) ?? '',
+        prayedList: List<String>.from(snapshot.data['prayed']) ?? '',
         twitter: snapshot.data['twitterLink'],
         facebook: snapshot.data['facebookLink'],
         instagram: snapshot.data['instaLink']);
@@ -165,11 +165,16 @@ class DatabaseService {
     return await eventCollection.document(id).delete();
   }
 
-  Future addToRSVP(String documentID, List<String> rsvp) async {
+  Future addToRSVP(String userID, List<String> myrsvp, String documentID,
+      List<String> rsvp) async {
     print('adding to rsvp');
     print('documentID : $documentID');
     print('rsvpList : $rsvp');
     print('success');
+
+    await userCollection.document(userID).updateData({
+      'rsvped': myrsvp,
+    });
 
     return await eventCollection.document(documentID).updateData({
       'rsvp': rsvp,
@@ -239,13 +244,15 @@ class DatabaseService {
         anonymous: doc.data['anonymous'] ?? true,
         title: doc.data['title'] ?? '',
         description: doc.data['description'] ?? '',
-        prayerInteractions: List<String>.from(doc.data['prayerInteractions']) ?? '',
+        prayerInteractions:
+            List<String>.from(doc.data['prayerInteractions']) ?? '',
         userID: doc.data['userID'] ?? '',
       );
     }).toList();
   }
 
-  Future addToPrayerInteractions(String documentID, List<String> prayerInteractions) async {
+  Future addToPrayerInteractions(
+      String documentID, List<String> prayerInteractions) async {
     print('added to prayerInteractions');
     return await prayerCollection.document(documentID).updateData({
       'prayerInteractions': prayerInteractions,

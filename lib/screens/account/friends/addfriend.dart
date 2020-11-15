@@ -63,15 +63,15 @@ class _AddFriendPageState extends State<AddFriendPage> {
                           RaisedButton(
                             onPressed: () async {
                               print('trying to send friend request');
-                              if (userData.requests.contains(username)) {
+                              if (userData.favoritesList.contains(username)) {
                                 print(
                                     'show error: you have sent a request to this person already');
                               } else {
-                                userData.requests.add(username);
+                                userData.favoritesList.add(username);
                                 await _data.sendFriendRequest(
-                                    user.uid, userData.requests);
+                                    user.uid, userData.favoritesList);
                               }
-                              print(userData.requested);
+                              print(userData.favoritesList);
                               showAlertDialog(context);
                               Navigator.of(context).pop();
                             },
