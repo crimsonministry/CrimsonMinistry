@@ -26,8 +26,8 @@
   - [ ] Add a button in Prayer Requests page `View Prayed list`
   - [ ] Show list of interacted in the prayer list
 - Account Page
-  - [ ] Display list of events you RSVPed to
-  - [ ] Display list of prayer requests you prayed for
+  - [x] Display list of events you RSVPed to
+  - [x] Display list of prayer requests you prayed for
 - Friending System
   - [ ] Favorite other users from their username
 - Other user profile page
