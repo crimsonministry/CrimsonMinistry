@@ -251,9 +251,14 @@ class DatabaseService {
     }).toList();
   }
 
-  Future addToPrayerInteractions(
+  Future addToPrayerInteractions(String userID, List<String> myprayed,
       String documentID, List<String> prayerInteractions) async {
     print('added to prayerInteractions');
+
+    await userCollection.document(userID).updateData({
+      'prayed': myprayed,
+    });
+
     return await prayerCollection.document(documentID).updateData({
       'prayerInteractions': prayerInteractions,
     });

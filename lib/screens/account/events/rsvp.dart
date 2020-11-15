@@ -39,7 +39,3 @@ class _RSVPListState extends State<RSVPList> {
         });
   }
 }
-
-// this widget needs to be modified
-// it currently print the user's list of created events
-// it should print all rsvped events
