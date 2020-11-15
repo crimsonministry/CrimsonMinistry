@@ -10,9 +10,9 @@ class UserData {
   final String username;
   final String bio;
   final String ministry;
-  final List friends;
-  final List requests;
-  final List requested;
+  final List favoritesList;
+  final List rsvpedList;
+  final List prayedList;
   final String twitter;
   final String facebook;
   final String instagram;
@@ -24,9 +24,9 @@ class UserData {
       this.username,
       this.bio,
       this.ministry,
-      this.friends,
-      this.requests,
-      this.requested,
+      this.favoritesList,
+      this.rsvpedList,
+      this.prayedList,
       this.twitter,
       this.facebook,
       this.instagram});

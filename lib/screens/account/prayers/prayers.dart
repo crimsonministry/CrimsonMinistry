@@ -4,6 +4,7 @@ import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/screens/prayers/add.dart';
 import 'list.dart';
+import 'prayed.dart';
 
 class MyPrayers extends StatefulWidget {
   @override
@@ -50,7 +51,7 @@ class _MyPrayersPageState extends State<MyPrayers> {
             body: TabBarView(
               children: [
                 Container(child: PrayerList()),
-                Container(child: PrayerList()),
+                Container(child: PrayedList()),
               ],
             ),
           ),
