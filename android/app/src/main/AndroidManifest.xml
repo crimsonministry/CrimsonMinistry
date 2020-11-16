@@ -3,6 +3,10 @@
    <application
         android:label="CrimsonMinistry"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDiSU1_3qaSimO956qccVtHbnXCMqF7pis"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
