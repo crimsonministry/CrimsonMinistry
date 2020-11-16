@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 
 class AddEventPage extends StatefulWidget {
   @override
+  final LatLng point;
+  AddEventPage({Key key, @required this.point}) : super(key: key);
   _AddEventPageState createState() => _AddEventPageState();
 }
 
@@ -186,6 +189,15 @@ class _AddEventPageState extends State<AddEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                    child: Text(
+                        'Coordinates: ${widget.point.latitude.truncateToDouble()}, ${widget.point.longitude.truncateToDouble()}',
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey)),
+                  ),
                   Text(
                     error,
                     style: TextStyle(color: Colors.red, fontSize: 14.0),
@@ -193,6 +205,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
+                        print(widget.point);
                         await _data.addEvent(user.uid, pickedDate, typeOfEvent,
                             title, location, description);
                         Navigator.of(context).pop();

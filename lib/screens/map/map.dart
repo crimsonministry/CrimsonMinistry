@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:CrimsonMinistry/widgets/drawer.dart';
+import 'package:CrimsonMinistry/screens/events/add.dart';
 
 class Map extends StatefulWidget {
   @override
@@ -9,11 +12,22 @@ class Map extends StatefulWidget {
 
 class _MapPageState extends State<Map> {
   GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(33.209438, -87.541493);
+  Location location = new Location();
+  Geoflutterfire geo = Geoflutterfire();
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+  }
+
+  void _handleTap(LatLng point) {
+    print(point.latitude);
+    print(point.longitude);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddEventPage(point: point),
+      ),
+    );
   }
 
   @override
@@ -26,7 +40,17 @@ class _MapPageState extends State<Map> {
           FlatButton(
             textColor: Colors.white,
             onPressed: () async {
-              // add event
+              double screenWidth = MediaQuery.of(context).size.width *
+                  MediaQuery.of(context).devicePixelRatio;
+              double screenHeight = MediaQuery.of(context).size.height *
+                  MediaQuery.of(context).devicePixelRatio;
+
+              double middleX = screenWidth / 2;
+              double middleY = screenHeight / 2;
+
+              ScreenCoordinate screenCoordinate =
+                  ScreenCoordinate(x: middleX.round(), y: middleY.round());
+              _handleTap(await mapController.getLatLng(screenCoordinate));
             },
             child: Icon(
               Icons.add,
@@ -37,13 +61,17 @@ class _MapPageState extends State<Map> {
         ],
       ),
       drawer: DrawerWidget(),
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
+      body: Stack(children: [
+        GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: LatLng(33.209438, -87.541493),
+            zoom: 13.0,
+          ),
+          myLocationEnabled: true,
+          onTap: _handleTap,
         ),
-      ),
+      ]),
     );
   }
 }
