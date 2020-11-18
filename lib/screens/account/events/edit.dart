@@ -51,7 +51,7 @@ class _EditEventPageState extends State<EditEventPage> {
         new TextEditingController(text: widget.event.title);
     ;
     TextEditingController location =
-        new TextEditingController(text: widget.event.location);
+        new TextEditingController(text: widget.event.location.toString());
     ;
     TextEditingController description =
         new TextEditingController(text: widget.event.description);

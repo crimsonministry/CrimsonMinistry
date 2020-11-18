@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Event {
   final String id;
   final String title;
-  final String location;
+  final GeoPoint location;
   final DateTime dateTime;
   final String typeOfEvent;
   final String description;

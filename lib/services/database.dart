@@ -118,7 +118,7 @@ class DatabaseService {
   }
 
   Future addEvent(String userid, DateTime date, String typeOfEvent,
-      String title, String location, String description) async {
+      String title, GeoPoint location, String description) async {
     print('adding event');
     print('userID : $userid');
     print('date : ${date.toString()}');
@@ -186,7 +186,7 @@ class DatabaseService {
       return Event(
         id: doc.documentID,
         title: doc.data['title'] ?? '',
-        location: doc.data['location'] ?? '',
+        location: doc.data['location'] ?? new GeoPoint(33.2140, -87.5391),
         dateTime: doc.data['datetime']?.toDate() ?? Timestamp.now().toDate(),
         typeOfEvent: doc.data['eventType'] ?? '',
         description: doc.data['description'] ?? '',
