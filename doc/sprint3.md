@@ -11,11 +11,12 @@
   - [x] Split change user info and social media into 2 different pages
   - [x] Add Google Maps view to the bottom navigation
 - Add Event with Location
-  - [ ] Implement current location reader
-  - [ ] Add location picker
+  - [x] Implement current location reader
+  - [x] Add location picker
 - Add Google Maps
-  - [ ] Show Google Maps view of the campus
-  - [ ] Display pins of the events coming up
+  - [x] Show Google Maps view of the campus
+  - [x] Display pins of the events coming up
+  - [ ] View event from Map view
 - Events Feed Page
   - [x] Add new event types: `Mission` and `Volunteer`
   - [ ] Add a filter for type of event
@@ -43,12 +44,12 @@
 ### Back-End
 
 - Event Location
-  - [ ] Edit `location` attribute from String type to coordinates
+  - [x] Edit `location` attribute from String type to coordinates
 - Read list of Users
   - [ ] Store list of `UserData` locally associated with their UserID
 - Account Interactions
-  - [ ] Store RSVPed list
-  - [ ] Store Prayed list
+  - [x] Store RSVPed list
+  - [x] Store Prayed list
 - Account Profile
   - [ ] Upload profile image
   - [ ] Read profile image
