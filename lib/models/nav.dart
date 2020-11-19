@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:CrimsonMinistry/screens/account/account.dart';
 import 'package:CrimsonMinistry/screens/events/events.dart';
 import 'package:CrimsonMinistry/screens/map/map.dart';
 import 'package:CrimsonMinistry/screens/prayers/prayers.dart';
@@ -13,7 +12,7 @@ class NavObject {
 
 List<NavObject> navItems = [
   NavObject(
-    screen: Map(),
+    screen: MapPage(),
     navIcon: Icon(Icons.explore),
     label: 'Map',
   ),

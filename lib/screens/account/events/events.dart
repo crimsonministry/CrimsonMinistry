@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/screens/events/add.dart';
+import 'package:CrimsonMinistry/screens/map/map.dart';
 import 'list.dart';
 import 'rsvp.dart';
 
@@ -35,7 +36,7 @@ class _MyEventsPageState extends State<MyEvents> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddEventPage(),
+                        builder: (context) => MapPage(),
                       ),
                     );
                   },

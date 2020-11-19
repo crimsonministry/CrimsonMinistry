@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 
 class AddEventPage extends StatefulWidget {
   @override
+  final LatLng point;
+  AddEventPage({Key key, @required this.point}) : super(key: key);
   _AddEventPageState createState() => _AddEventPageState();
 }
 
@@ -15,7 +19,6 @@ class _AddEventPageState extends State<AddEventPage> {
   TimeOfDay time;
   String typeOfEvent = '';
   String title = '';
-  String location = '';
   String description = '';
   String error = '';
 
@@ -153,25 +156,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     },
                   ),
                   TextFormField(
-                    onEditingComplete: () => node.nextFocus(),
-                    onChanged: (val) {
-                      setState(() => location = val);
-                      print(location);
-                    },
-                    decoration: InputDecoration(
-                        labelText: 'Location',
-                        labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.grey),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red))),
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return 'Location cannot be null';
-                      else
-                        return null;
-                    },
-                  ),
-                  TextFormField(
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     onEditingComplete: () => node.nextFocus(),
@@ -186,6 +170,13 @@ class _AddEventPageState extends State<AddEventPage> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.red))),
                   ),
+                  SizedBox(height: 10),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 0.0),
+                    child: Text(
+                        'Coordinates: ${widget.point.latitude.truncateToDouble()}, ${widget.point.longitude.truncateToDouble()}',
+                        style: TextStyle(fontSize: 13.0, color: Colors.black)),
+                  ),
                   Text(
                     error,
                     style: TextStyle(color: Colors.red, fontSize: 14.0),
@@ -193,8 +184,15 @@ class _AddEventPageState extends State<AddEventPage> {
                   RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        await _data.addEvent(user.uid, pickedDate, typeOfEvent,
-                            title, location, description);
+                        print(widget.point);
+                        await _data.addEvent(
+                            user.uid,
+                            pickedDate,
+                            typeOfEvent,
+                            title,
+                            new GeoPoint(
+                                widget.point.latitude, widget.point.longitude),
+                            description);
                         Navigator.of(context).pop();
                         showAlertDialog(context);
                       }

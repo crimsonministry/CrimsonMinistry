@@ -64,7 +64,8 @@ class DetailPage extends StatelessWidget {
                       ListTile(
                         title: Text('Location',
                             style: TextStyle(fontWeight: FontWeight.w500)),
-                        subtitle: Text('${event.location}'),
+                        subtitle: Text(
+                            '${event.location.latitude.truncateToDouble()}, ${event.location.longitude.truncateToDouble()}'),
                         leading: Icon(Icons.location_on,
                             color: Colors.blueGrey[900], size: 35),
                       ),

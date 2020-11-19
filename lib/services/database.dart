@@ -1,7 +1,10 @@
+import 'dart:wasm';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/models/user.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DatabaseService {
   final String uid;
@@ -118,7 +121,7 @@ class DatabaseService {
   }
 
   Future addEvent(String userid, DateTime date, String typeOfEvent,
-      String title, String location, String description) async {
+      String title, GeoPoint location, String description) async {
     print('adding event');
     print('userID : $userid');
     print('date : ${date.toString()}');
@@ -186,7 +189,7 @@ class DatabaseService {
       return Event(
         id: doc.documentID,
         title: doc.data['title'] ?? '',
-        location: doc.data['location'] ?? '',
+        location: doc.data['location'] ?? new GeoPoint(33.2140, -87.5391),
         dateTime: doc.data['datetime']?.toDate() ?? Timestamp.now().toDate(),
         typeOfEvent: doc.data['eventType'] ?? '',
         description: doc.data['description'] ?? '',
