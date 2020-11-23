@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:CrimsonMinistry/widgets/drawer.dart';
 import 'package:CrimsonMinistry/screens/events/add.dart';
 import 'package:CrimsonMinistry/models/event.dart';
+import '../events/detail.dart';
+import './style.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -13,23 +15,89 @@ class MapView extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapView> {
+  int tapCount = 0;
   GoogleMapController mapController;
   Location location = new Location();
   Geoflutterfire geo = Geoflutterfire();
   Set<Marker> markers = Set<Marker>();
   List<Event> events = List<Event>();
+  BitmapDescriptor missionIcon, readingIcon, volunteerIcon, worshipIcon;
+  LocationData currentLocation;
+
+  @override
+  void initState() {
+    super.initState();
+    _setMarkerIcon();
+    _getLocation();
+  }
+
+  void _setMarkerIcon() async {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(size: Size(36, 36)), 'assets/mission.png')
+        .then((onValue) {
+      missionIcon = onValue;
+    });
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(size: Size(36, 36)), 'assets/reading.png')
+        .then((onValue) {
+      readingIcon = onValue;
+    });
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(size: Size(36, 36)), 'assets/volunteer.png')
+        .then((onValue) {
+      volunteerIcon = onValue;
+    });
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(size: Size(36, 36)), 'assets/worship.png')
+        .then((onValue) {
+      worshipIcon = onValue;
+    });
+  }
 
   void _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
+    controller.setMapStyle(Utils.mapStyles);
     _makeMarkers(events);
   }
 
   void _makeMarkers(List<Event> events) {
     events.forEach((event) {
       markers.add(Marker(
-          markerId: MarkerId(event.id),
-          position: LatLng(event.location.latitude, event.location.longitude)));
+        markerId: MarkerId(event.id),
+        position: LatLng(event.location.latitude, event.location.longitude),
+        infoWindow: InfoWindow(
+            title: event.title, snippet: event.dateTime.toUtc().toString()),
+        icon: (event.typeOfEvent == "Mission")
+            ? missionIcon
+            : (event.typeOfEvent == "Reading")
+                ? readingIcon
+                : (event.typeOfEvent == "Volunteer")
+                    ? volunteerIcon
+                    : worshipIcon,
+        onTap: () {
+          print('tapCount: $tapCount');
+          if (tapCount == 0)
+            tapCount += 1;
+          else {
+            tapCount = 0;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPage(event: event),
+              ),
+            );
+          }
+        },
+      ));
     });
+  }
+
+  _getLocation() async {
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+      currentLocation = null;
+    }
   }
 
   void _handleTap(LatLng point) {
@@ -59,10 +127,8 @@ class _MapPageState extends State<MapView> {
                     MediaQuery.of(context).devicePixelRatio;
                 double screenHeight = MediaQuery.of(context).size.height *
                     MediaQuery.of(context).devicePixelRatio;
-
                 double middleX = screenWidth / 2;
                 double middleY = screenHeight / 2;
-
                 ScreenCoordinate screenCoordinate =
                     ScreenCoordinate(x: middleX.round(), y: middleY.round());
                 _handleTap(await mapController.getLatLng(screenCoordinate));
@@ -84,6 +150,7 @@ class _MapPageState extends State<MapView> {
               zoom: 13.0,
             ),
             myLocationEnabled: true,
+            myLocationButtonEnabled: true,
             onTap: _handleTap,
             markers: markers,
           ),

@@ -34,7 +34,7 @@ dependencies:
   universal_html: ^1.2.3
   url_launcher: ^5.7.10
   google_maps_flutter: ^1.0.3
-  location: 1.4.1
+  location: 3.1.0
   geoflutterfire: ^2.0.2
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,6 +54,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/mission.png
+    - assets/reading.png
+    - assets/volunteer.png
+    - assets/worship.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
