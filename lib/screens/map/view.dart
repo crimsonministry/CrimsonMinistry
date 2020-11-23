@@ -22,11 +22,13 @@ class _MapPageState extends State<MapView> {
   Set<Marker> markers = Set<Marker>();
   List<Event> events = List<Event>();
   BitmapDescriptor missionIcon, readingIcon, volunteerIcon, worshipIcon;
+  LocationData currentLocation;
 
   @override
   void initState() {
     super.initState();
     _setMarkerIcon();
+    _getLocation();
   }
 
   void _setMarkerIcon() async {
@@ -90,6 +92,14 @@ class _MapPageState extends State<MapView> {
     });
   }
 
+  _getLocation() async {
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+      currentLocation = null;
+    }
+  }
+
   void _handleTap(LatLng point) {
     print(point.latitude);
     print(point.longitude);
@@ -140,6 +150,7 @@ class _MapPageState extends State<MapView> {
               zoom: 13.0,
             ),
             myLocationEnabled: true,
+            myLocationButtonEnabled: true,
             onTap: _handleTap,
             markers: markers,
           ),
