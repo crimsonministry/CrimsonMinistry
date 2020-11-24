@@ -16,16 +16,18 @@
 - Add Google Maps
   - [x] Show Google Maps view of the campus
   - [x] Display pins of the events coming up
-  - [ ] View event from Map view
+  - [x] View event from Map view
 - Events Feed Page
   - [x] Add new event types: `Mission` and `Volunteer`
   - [ ] Add a filter for type of event
+  - [ ] Only show future events
 - Event RSVP Page
   - [ ] Add a button in Event detail page `View RSVP list`
   - [ ] Show list of users in the RSVP list
 - Prayers Page
-  - [ ] Add a button in Prayer Requests page `View Prayed list`
+  - [x] Add a button in Prayer Requests page `View Prayed list`
   - [ ] Show list of interacted in the prayer list
+  - [ ] Only show recent prayers (10 days since created)
 - Account Page
   - [x] Display list of events you RSVPed to
   - [x] Display list of prayer requests you prayed for
@@ -40,6 +42,11 @@
 - Presentation
   - [ ] Slides
   - [ ] Demo
+- GitHub
+  - [ ] Create App Icon
+  - [ ] Create social preview
+  - [ ] Documentation of the Code
+  - [ ] Open-Source Licensing (MIT)
 
 ### Back-End
 
