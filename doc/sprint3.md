@@ -35,6 +35,12 @@
   - [ ] Favorite other users from their username
 - Other user profile page
   - [ ] Display the account page with another user's info and a button to favorite them
+- Unit Tests
+  - [ ] RSVP to Event
+  - [ ] Pray for a Prayer Request
+  - [ ] Favorite user
+  - [ ] Update profile
+  - [ ] Add social media
 - Website
   - [ ] Add Sprint 2 Deliverables
   - [ ] Add Sprint 3 Deliverables
