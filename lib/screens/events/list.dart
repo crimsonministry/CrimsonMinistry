@@ -4,6 +4,9 @@ import 'package:CrimsonMinistry/models/event.dart';
 import './tile.dart';
 
 class EventList extends StatefulWidget {
+  final String type;
+  EventList(this.type);
+
   @override
   _EventListState createState() => _EventListState();
 }
@@ -11,7 +14,13 @@ class EventList extends StatefulWidget {
 class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
-    final events = Provider.of<List<Event>>(context) ?? [];
+    dynamic events = Provider.of<List<Event>>(context) ?? [];
+    if(widget.type != 'All') {
+      events = events
+          .where((i) => i.typeOfEvent == widget.type)
+          .toList();
+    }
+    print(widget.type);
     print(events);
 
     return ListView.builder(
