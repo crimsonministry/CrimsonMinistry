@@ -112,7 +112,8 @@ class _MapPageState extends State<MapView> {
 
   Widget build(BuildContext context) {
     events = Provider.of<List<Event>>(context) ?? [];
-    print(events);
+    final now = new DateTime.now();
+    events = events.where((i) => i.dateTime.toUtc().isAfter(now)).toList();
 
     return Scaffold(
         appBar: AppBar(
