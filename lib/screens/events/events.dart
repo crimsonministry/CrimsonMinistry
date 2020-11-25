@@ -36,35 +36,34 @@ class _EventsPageState extends State<EventsPage> {
       value: DatabaseService().events,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Events"),
+          title: DropdownButton<String>(
+            dropdownColor: Colors.red,
+            iconEnabledColor: Colors.white,
+            style: TextStyle(color: Colors.white, fontSize: 20),
+            value: typeOfEvent,
+            items: <String>[
+              'All',
+              'Mission',
+              'Bible Study',
+              'Worship',
+              'Volunteer'
+            ].map((String value) {
+              return new DropdownMenuItem<String>(
+                  value: value,
+                  child: Container(
+                    width: 200,
+                    alignment: Alignment.center,
+                    child: new Text(value, textAlign: TextAlign.left), //Text
+                  ));
+            }).toList(),
+            onChanged: (val) {
+              print(typeOfEvent);
+              setState(() => typeOfEvent = val);
+              print(val);
+            },
+          ),
           backgroundColor: Colors.red,
           actions: <Widget>[
-            DropdownButton<String>(
-              dropdownColor: Colors.red,
-              iconEnabledColor: Colors.white,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-              value: typeOfEvent,
-              items: <String>[
-                'All',
-                'Mission',
-                'Bible Study',
-                'Worship',
-                'Volunteer'
-              ].map((String value) {
-                return new DropdownMenuItem<String>(
-                    value: value,
-                    child: Container(
-                      width: 100,
-                      alignment: Alignment.centerLeft,
-                      child: new Text(value, textAlign: TextAlign.left), //Text
-                    ));
-              }).toList(),
-              onChanged: (val) {
-                print(typeOfEvent);
-                setState(() => typeOfEvent = val);
-                print(val);
-              },
-            ),
             FlatButton(
               textColor: Colors.white,
               onPressed: () async {
