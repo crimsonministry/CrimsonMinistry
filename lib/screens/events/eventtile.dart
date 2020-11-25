@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import './detail.dart';
+import 'detail.dart';
 
 class EventTile extends StatelessWidget {
   final Event event;
@@ -14,10 +14,10 @@ class EventTile extends StatelessWidget {
               ? Icon(
                   Icons.audiotrack,
                   color: Colors.blueGrey[900],
-                  size: 35,
+                  size: 40,
                 )
               : Icon(Icons.import_contacts,
-                  color: Colors.blueGrey[900], size: 35),
+                  color: Colors.blueGrey[900], size: 40),
           title: Text(event.title),
           subtitle: Text(
               '${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} @ ${event.dateTime.hour}:${event.dateTime.minute}'),

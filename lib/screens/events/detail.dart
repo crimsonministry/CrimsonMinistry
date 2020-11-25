@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/services/database.dart';
+import './rsvplist.dart';
 
 class DetailPage extends StatelessWidget {
   final DatabaseService _data = DatabaseService();
@@ -108,6 +109,17 @@ class DetailPage extends StatelessWidget {
                             }
                           },
                         ),
+                      ),
+                      RaisedButton(
+                        child: Text('View RSVP List'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RSVPList(event.rsvp),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

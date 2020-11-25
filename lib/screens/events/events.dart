@@ -5,7 +5,7 @@ import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/widgets/drawer.dart';
 import 'package:CrimsonMinistry/screens/map/map.dart';
-import './list.dart';
+import './eventlist.dart';
 import './add.dart';
 
 class Events extends StatelessWidget {
