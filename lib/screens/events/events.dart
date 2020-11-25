@@ -68,7 +68,12 @@ class _EventsPageState extends State<EventsPage> {
             FlatButton(
               textColor: Colors.white,
               onPressed: () async {
-                Navigator.of(context).pushNamed('/addevent');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MapPage(),
+                  ),
+                );
               },
               child: Icon(
                 Icons.add,
