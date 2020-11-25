@@ -13,7 +13,7 @@ class SearchFriendPage extends StatefulWidget {
   _SearchFriendPageState createState() => _SearchFriendPageState();
 }
 
-class _SearchFriendPageState extends State<SearchFriendPage> {
+class _SearchFriendPageState extends State<SearchFriendPage> with AutomaticKeepAliveClientMixin<SearchFriendPage> {
   TextEditingController searchTextEditingController = TextEditingController();
   Future<QuerySnapshot> futureSearchResults;
   final DatabaseService _data = DatabaseService();
@@ -58,7 +58,7 @@ class _SearchFriendPageState extends State<SearchFriendPage> {
 }
 
 Container noResultDisplay() {
-  final Orientation orientation = MediaQuery.of(context).orientation;
+  //final Orientation orientation = MediaQuery.of(context).orientation;
   return Container(
     child: Center(child: ListView(shrinkWrap: true, children: <Widget>[
       Icon(Icons.group, color: Colors.grey, size: 200.0,),
@@ -77,9 +77,6 @@ resultFoundDisplay() {
   return FutureBuilder(
     future: futureSearchResults,
     builder: (context, dataSnapshot) {
-      if(!dataSnapshot.hasData) {
-        return circularProgress();
-      }
 
       List<UserResults> searchUsersResult = [];
       dataSnapshot.data.documents.forEach((document){
@@ -93,6 +90,8 @@ resultFoundDisplay() {
     },
     );
 }
+
+  bool get keepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +127,7 @@ class UserResults extends StatelessWidget {
               style: TextStyle(color: Colors.black, fontSize: 13.0,),
             ),
           )
+          ),
         ],)
     ),
     );
