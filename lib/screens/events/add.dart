@@ -179,6 +179,7 @@ class _AddEventPageState extends State<AddEventPage> {
                     style: TextStyle(color: Colors.red, fontSize: 14.0),
                   ),
                   RaisedButton(
+                    color: Colors.blue[300],
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         await _data.addEvent(

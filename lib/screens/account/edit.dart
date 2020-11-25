@@ -150,6 +150,7 @@ class _EditAccountPageState extends State<EditAccount> {
                     ),
                     SizedBox(height: 30.0),
                     RaisedButton(
+                      color: Colors.blue[300],
                       onPressed: () async {
                         dynamic result = await _data.updateAccountPageData(
                             user.uid,
@@ -164,11 +165,11 @@ class _EditAccountPageState extends State<EditAccount> {
                         Navigator.of(context).pop();
                         showAlertDialog(context);
                       },
-                      child: const Text('Save Changes',
-                          style: TextStyle(fontSize: 10)),
+                      child: const Text('Save Changes'),
                     ),
                     SizedBox(height: 10),
                     RaisedButton(
+                      color: Colors.red[300],
                       onPressed: () async {
                         Navigator.push(
                           context,
@@ -177,8 +178,7 @@ class _EditAccountPageState extends State<EditAccount> {
                           ),
                         );
                       },
-                      child: const Text('Delete Account',
-                          style: TextStyle(fontSize: 10)),
+                      child: const Text('Delete Account'),
                     ),
                   ],
                 ))

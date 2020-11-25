@@ -101,6 +101,7 @@ class _EditPrayerPageState extends State<EditPrayerPage> {
                         style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
                       RaisedButton(
+                        color: Colors.red[300],
                         onPressed: () async {
                           await _data.deletePrayer(widget.prayer.id);
                           Navigator.of(context).pop();
@@ -110,6 +111,7 @@ class _EditPrayerPageState extends State<EditPrayerPage> {
                         child: Text('Delete Prayer'),
                       ),
                       RaisedButton(
+                        color: Colors.blue[300],
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             await _data.updatePrayer(

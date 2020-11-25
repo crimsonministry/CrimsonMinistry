@@ -152,6 +152,7 @@ class _EditEventPageState extends State<EditEventPage> {
                         style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
                       RaisedButton(
+                        color: Colors.red[300],
                         onPressed: () async {
                           await _data.deleteEvent(widget.event.id);
                           Navigator.of(context).pop();
@@ -161,6 +162,7 @@ class _EditEventPageState extends State<EditEventPage> {
                         child: Text('Delete Event'),
                       ),
                       RaisedButton(
+                        color: Colors.blue[300],
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             await _data.updateEvent(widget.event.id, title.text,
