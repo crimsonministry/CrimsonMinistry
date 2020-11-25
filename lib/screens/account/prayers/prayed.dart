@@ -23,7 +23,6 @@ class _PrayerListState extends State<PrayedList> {
             prayers = prayers
                 .where((i) => userData.prayedList.contains(i.id))
                 .toList();
-            print(prayers);
 
             return ListView.builder(
               scrollDirection: Axis.vertical,

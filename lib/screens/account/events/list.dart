@@ -15,7 +15,6 @@ class _EventListState extends State<EventList> {
     User user = Provider.of<User>(context);
     dynamic events = Provider.of<List<Event>>(context) ?? [];
     events = events.where((i) => i.userID == user.uid).toList();
-    print(events);
 
     return ListView.builder(
       scrollDirection: Axis.vertical,

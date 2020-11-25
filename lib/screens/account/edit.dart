@@ -161,7 +161,6 @@ class _EditAccountPageState extends State<EditAccount> {
                             twitterLink.text,
                             facebookLink.text,
                             instaLink.text);
-                        print(result);
                         Navigator.of(context).pop();
                         showAlertDialog(context);
                       },

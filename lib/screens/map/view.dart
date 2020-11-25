@@ -74,7 +74,6 @@ class _MapPageState extends State<MapView> {
                     ? volunteerIcon
                     : worshipIcon,
         onTap: () {
-          print('tapCount: $tapCount');
           if (tapCount == 0)
             tapCount += 1;
           else {
@@ -100,8 +99,6 @@ class _MapPageState extends State<MapView> {
   }
 
   void _handleTap(LatLng point) {
-    print(point.latitude);
-    print(point.longitude);
     Navigator.push(
       context,
       MaterialPageRoute(

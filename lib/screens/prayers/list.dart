@@ -12,7 +12,6 @@ class _PrayerListState extends State<PrayerList> {
   @override
   Widget build(BuildContext context) {
     final prayers = Provider.of<List<Prayer>>(context) ?? [];
-    print(prayers);
 
     return ListView.builder(
       itemCount: prayers.length,

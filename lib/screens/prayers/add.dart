@@ -58,7 +58,6 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
                     onChanged: (value) {
                       setState(() {
                         beAnonymous = value;
-                        print(beAnonymous);
                       });
                     },
                     activeTrackColor: Colors.lightBlueAccent,
@@ -68,7 +67,6 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => title = val);
-                      print(title);
                     },
                     decoration: InputDecoration(
                         labelText: 'Title',
@@ -89,7 +87,6 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => description = val);
-                      print(description);
                     },
                     decoration: InputDecoration(
                         labelText: 'Description',

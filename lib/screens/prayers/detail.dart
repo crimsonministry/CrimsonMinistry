@@ -95,7 +95,6 @@ class DetailPage extends StatelessWidget {
                               Navigator.of(context).pop();
                               prayed(context);
                             }
-                            print(prayer.prayerInteractions);
                           },
                         ),
                       ),

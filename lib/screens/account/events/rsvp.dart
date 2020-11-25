@@ -23,7 +23,6 @@ class _RSVPListState extends State<RSVPList> {
             events = events
                 .where((i) => userData.rsvpedList.contains(i.id))
                 .toList();
-            print(events);
 
             return ListView.builder(
               scrollDirection: Axis.vertical,

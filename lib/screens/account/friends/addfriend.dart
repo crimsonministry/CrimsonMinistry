@@ -49,7 +49,6 @@ class _AddFriendPageState extends State<AddFriendPage> {
                           TextField(
                             onChanged: (val) {
                               setState(() => username = val);
-                              print(username);
                             },
                             decoration: InputDecoration(
                                 labelText: 'Username',
@@ -62,7 +61,6 @@ class _AddFriendPageState extends State<AddFriendPage> {
                           SizedBox(height: 50.0),
                           RaisedButton(
                             onPressed: () async {
-                              print('trying to send friend request');
                               if (userData.favoritesList.contains(username)) {
                                 print(
                                     'show error: you have sent a request to this person already');
@@ -71,7 +69,6 @@ class _AddFriendPageState extends State<AddFriendPage> {
                                 await _data.sendFriendRequest(
                                     user.uid, userData.favoritesList);
                               }
-                              print(userData.favoritesList);
                               showAlertDialog(context);
                               Navigator.of(context).pop();
                             },

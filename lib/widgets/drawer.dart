@@ -108,7 +108,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     title: Text('Sign Out'),
                     onTap: () async {
                       dynamic result = await _auth.signOut();
-                      print(result);
                     },
                   ),
                 ],

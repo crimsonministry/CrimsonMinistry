@@ -57,9 +57,7 @@ class _EventsPageState extends State<EventsPage> {
                   ));
             }).toList(),
             onChanged: (val) {
-              print(typeOfEvent);
               setState(() => typeOfEvent = val);
-              print(val);
             },
           ),
           backgroundColor: Colors.red,
