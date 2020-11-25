@@ -22,12 +22,11 @@
   - [x] Add a filter for type of event
   - [x] Only show future events
   - [x] Sort events by date time
-- Event RSVP Page
-  - [ ] Add a button in Event detail page `View RSVP list`
-  - [ ] Show list of users in the RSVP list
+  - [x] Add a button in Event detail page `View RSVP list`
+  - [x] Show list of users in the RSVP list
 - Prayers Page
   - [x] Add a button in Prayer Requests page `View Prayed list`
-  - [ ] Show list of interacted in the prayer list
+  - [x] Show list of interacted in the prayer list
   - [ ] Only show recent prayers (10 days since created)
 - Account Page
   - [x] Display list of events you RSVPed to
