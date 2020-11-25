@@ -19,7 +19,7 @@
   - [x] View event from Map view
 - Events Feed Page
   - [x] Add new event types: `Mission` and `Volunteer`
-  - [ ] Add a filter for type of event
+  - [x] Add a filter for type of event
   - [ ] Only show future events
 - Event RSVP Page
   - [ ] Add a button in Event detail page `View RSVP list`
@@ -32,9 +32,8 @@
   - [x] Display list of events you RSVPed to
   - [x] Display list of prayer requests you prayed for
 - Friending System
-  - [ ] Favorite other users from their username
-- Other user profile page
-  - [ ] Display the account page with another user's info and a button to favorite them
+  - [ ] View other user profiles
+  - [ ] Favorite other users
 - Unit Tests
   - [ ] RSVP to Event
   - [ ] Pray for a Prayer Request
@@ -58,14 +57,10 @@
 
 - Event Location
   - [x] Edit `location` attribute from String type to coordinates
-- Read list of Users
-  - [ ] Store list of `UserData` locally associated with their UserID
 - Account Interactions
   - [x] Store RSVPed list
   - [x] Store Prayed list
 - Account Profile
   - [ ] Upload profile image
   - [ ] Read profile image
-  - [ ] Detect any duplicate usernames associated with other accounts
-- Account Friends
-  - [ ] Favorite other users
+  - [ ] Detect duplicate usernames
