@@ -14,14 +14,13 @@ class EventList extends StatefulWidget {
 class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
     dynamic events = Provider.of<List<Event>>(context) ?? [];
-    if(widget.type != 'All') {
-      events = events
-          .where((i) => i.typeOfEvent == widget.type)
-          .toList();
+    events =
+        events.where((i) => i.dateTime.toUtc().isAfter(now) == true).toList();
+    if (widget.type != 'All') {
+      events = events.where((i) => i.typeOfEvent == widget.type).toList();
     }
-    print(widget.type);
-    print(events);
 
     return ListView.builder(
       scrollDirection: Axis.vertical,

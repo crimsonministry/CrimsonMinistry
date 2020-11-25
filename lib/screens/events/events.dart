@@ -52,13 +52,12 @@ class _EventsPageState extends State<EventsPage> {
                 'Volunteer'
               ].map((String value) {
                 return new DropdownMenuItem<String>(
-                  value: value,
-                  child: Container(
-                    width: 100,
-                    alignment: Alignment.centerLeft,
-                    child: new Text(value, textAlign: TextAlign.left),//Text
-                  )
-                );
+                    value: value,
+                    child: Container(
+                      width: 100,
+                      alignment: Alignment.centerLeft,
+                      child: new Text(value, textAlign: TextAlign.left), //Text
+                    ));
               }).toList(),
               onChanged: (val) {
                 print(typeOfEvent);
