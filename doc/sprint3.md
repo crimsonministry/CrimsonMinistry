@@ -20,7 +20,8 @@
 - Events Feed Page
   - [x] Add new event types: `Mission` and `Volunteer`
   - [x] Add a filter for type of event
-  - [ ] Only show future events
+  - [x] Only show future events
+  - [x] Sort events by date time
 - Event RSVP Page
   - [ ] Add a button in Event detail page `View RSVP list`
   - [ ] Show list of users in the RSVP list
