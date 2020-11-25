@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import 'package:CrimsonMinistry/screens/events/tile.dart';
+import 'package:CrimsonMinistry/screens/events/eventtile.dart';
 
 class RSVPList extends StatefulWidget {
   @override

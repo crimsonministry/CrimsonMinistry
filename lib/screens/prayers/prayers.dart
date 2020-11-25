@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/widgets/drawer.dart';
-import 'list.dart';
+import 'prayerlist.dart';
 import 'add.dart';
 
 class Prayers extends StatelessWidget {

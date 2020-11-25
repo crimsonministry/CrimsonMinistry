@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
-import 'tile.dart';
+import 'prayertile.dart';
 
 class PrayerList extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import './tile.dart';
+import 'eventtile.dart';
 
 class EventList extends StatefulWidget {
   final String type;

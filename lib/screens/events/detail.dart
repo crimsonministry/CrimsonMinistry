@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/services/database.dart';
+import './rsvplist.dart';
 
 class DetailPage extends StatelessWidget {
   final DatabaseService _data = DatabaseService();
@@ -85,11 +86,12 @@ class DetailPage extends StatelessWidget {
                             color: Colors.blueGrey[900], size: 35),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(8.0, 30.0, 0.0, 0.0),
+                        margin: EdgeInsets.only(top: 30),
                         child: RaisedButton(
                           child: (event.rsvp.contains(user.uid))
                               ? const Text('Remove from RSVP')
                               : const Text('RSVP'),
+                          color: Colors.red[300],
                           onPressed: () async {
                             if (event.rsvp.contains(user.uid)) {
                               event.rsvp.remove(user.uid);
@@ -108,6 +110,18 @@ class DetailPage extends StatelessWidget {
                             }
                           },
                         ),
+                      ),
+                      RaisedButton(
+                        child: Text('View RSVP List'),
+                        color: Colors.orange[300],
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RSVPList(event.rsvp),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

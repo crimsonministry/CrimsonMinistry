@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
-import 'package:CrimsonMinistry/screens/prayers/tile.dart';
+import 'package:CrimsonMinistry/screens/prayers/prayertile.dart';
 
 class PrayedList extends StatefulWidget {
   @override
