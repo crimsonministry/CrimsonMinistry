@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
-import './detail.dart';
+import 'detail.dart';
 
 class PrayerTile extends StatelessWidget {
   final Prayer prayer;

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/services/database.dart';
+import './prayedlist.dart';
 
 class DetailPage extends StatelessWidget {
   final DatabaseService _data = DatabaseService();
@@ -97,6 +98,18 @@ class DetailPage extends StatelessWidget {
                             }
                           },
                         ),
+                      ),
+                      RaisedButton(
+                        child: Text('View Prayed List'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PrayedList(prayer.prayerInteractions),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
