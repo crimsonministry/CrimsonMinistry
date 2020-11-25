@@ -36,40 +36,41 @@ class _EventsPageState extends State<EventsPage> {
       value: DatabaseService().events,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Events"),
-          backgroundColor: Colors.red,
-          actions: <Widget>[
-            DropdownButton<String>(
-              dropdownColor: Colors.red,
-              iconEnabledColor: Colors.white,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-              value: typeOfEvent,
-              items: <String>[
-                'All',
-                'Mission',
-                'Bible Study',
-                'Worship',
-                'Volunteer'
-              ].map((String value) {
-                return new DropdownMenuItem<String>(
+          title: DropdownButton<String>(
+            dropdownColor: Colors.red,
+            iconEnabledColor: Colors.white,
+            style: TextStyle(color: Colors.white, fontSize: 20),
+            value: typeOfEvent,
+            items: <String>[
+              'All',
+              'Mission',
+              'Bible Study',
+              'Worship',
+              'Volunteer'
+            ].map((String value) {
+              return new DropdownMenuItem<String>(
                   value: value,
                   child: Container(
-                    width: 100,
-                    alignment: Alignment.centerLeft,
-                    child: new Text(value, textAlign: TextAlign.left),//Text
-                  )
-                );
-              }).toList(),
-              onChanged: (val) {
-                print(typeOfEvent);
-                setState(() => typeOfEvent = val);
-                print(val);
-              },
-            ),
+                    width: 200,
+                    alignment: Alignment.center,
+                    child: new Text(value, textAlign: TextAlign.left), //Text
+                  ));
+            }).toList(),
+            onChanged: (val) {
+              setState(() => typeOfEvent = val);
+            },
+          ),
+          backgroundColor: Colors.red,
+          actions: <Widget>[
             FlatButton(
               textColor: Colors.white,
               onPressed: () async {
-                Navigator.of(context).pushNamed('/addevent');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MapPage(),
+                  ),
+                );
               },
               child: Icon(
                 Icons.add,

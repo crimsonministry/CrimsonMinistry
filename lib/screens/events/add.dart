@@ -121,7 +121,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     }).toList(),
                     onChanged: (val) {
                       setState(() => typeOfEvent = val);
-                      print(typeOfEvent);
                     },
                     decoration: InputDecoration(
                         labelText: 'Type',
@@ -140,7 +139,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => title = val);
-                      print(title);
                     },
                     decoration: InputDecoration(
                         labelText: 'Title',
@@ -161,7 +159,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => description = val);
-                      print(description);
                     },
                     decoration: InputDecoration(
                         labelText: 'Description',
@@ -184,7 +181,6 @@ class _AddEventPageState extends State<AddEventPage> {
                   RaisedButton(
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        print(widget.point);
                         await _data.addEvent(
                             user.uid,
                             pickedDate,

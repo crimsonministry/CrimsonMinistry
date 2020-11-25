@@ -65,7 +65,6 @@ class _SignInState extends State<SignInPage> {
                         onEditingComplete: () => node.nextFocus(),
                         onChanged: (val) {
                           setState(() => email = val);
-                          print(email);
                         },
                         decoration: InputDecoration(
                             labelText: 'Email',
@@ -87,7 +86,6 @@ class _SignInState extends State<SignInPage> {
                         onEditingComplete: () => node.nextFocus(),
                         onChanged: (val) {
                           setState(() => password = val);
-                          print(password);
                         },
                         decoration: InputDecoration(
                             labelText: 'Password',
@@ -118,7 +116,6 @@ class _SignInState extends State<SignInPage> {
                                   dynamic result =
                                       await _auth.signInWithEmailAndPassword(
                                           email, password);
-                                  print(result);
                                   if (result.runtimeType != FirebaseUser) {
                                     setState(() {
                                       error = result.message.toString();

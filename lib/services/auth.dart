@@ -23,7 +23,6 @@ class AuthService {
       FirebaseUser user = result.user;
       return user;
     } catch (error) {
-      //print(error.toString());
       return error;
     }
   }
@@ -42,7 +41,6 @@ class AuthService {
 
       return user;
     } catch (error) {
-      //print(error.toString());
       return error;
     }
   }
@@ -52,7 +50,6 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (error) {
-      print(error.toString());
       return null;
     }
   }
@@ -63,13 +60,11 @@ class AuthService {
       FirebaseUser user = await _auth.currentUser();
       AuthCredential credentials =
           EmailAuthProvider.getCredential(email: email, password: password);
-      print(user);
       AuthResult result = await user.reauthenticateWithCredential(credentials);
       await DatabaseService(uid: result.user.uid).deleteUser();
       await result.user.delete();
       return true;
     } catch (error) {
-      print(error.toString());
       return error;
     }
   }

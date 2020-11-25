@@ -46,7 +46,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       onEditingComplete: () => node.nextFocus(),
                       onChanged: (val) {
                         setState(() => fname = val);
-                        print(fname);
                       },
                       decoration: InputDecoration(
                           labelText: 'First Name',
@@ -65,7 +64,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       onEditingComplete: () => node.nextFocus(),
                       onChanged: (val) {
                         setState(() => lname = val);
-                        print(lname);
                       },
                       decoration: InputDecoration(
                           labelText: 'Last Name',
@@ -84,7 +82,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       onEditingComplete: () => node.nextFocus(),
                       onChanged: (val) {
                         setState(() => username = val);
-                        print(username);
                       },
                       decoration: InputDecoration(
                           labelText: 'Username',
@@ -103,7 +100,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       onEditingComplete: () => node.nextFocus(),
                       onChanged: (val) {
                         setState(() => email = val);
-                        print(email);
                       },
                       decoration: InputDecoration(
                           labelText: 'Email',
@@ -124,7 +120,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       onEditingComplete: () => node.nextFocus(),
                       onChanged: (val) {
                         setState(() => password = val);
-                        print(password);
                       },
                       decoration: InputDecoration(
                           labelText: 'Password',
@@ -151,7 +146,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           dynamic result =
                               await _auth.registerWithEmailAndPassword(
                                   email, password, fname, lname, username);
-                          print(result);
                           if (result.runtimeType != FirebaseUser) {
                             setState(() {
                               error = result.message.toString();

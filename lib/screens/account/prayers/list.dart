@@ -15,7 +15,6 @@ class _PrayerListState extends State<PrayerList> {
     User user = Provider.of<User>(context);
     dynamic prayers = Provider.of<List<Prayer>>(context) ?? [];
     prayers = prayers.where((i) => i.userID == user.uid).toList();
-    print(prayers);
 
     return ListView.builder(
       scrollDirection: Axis.vertical,

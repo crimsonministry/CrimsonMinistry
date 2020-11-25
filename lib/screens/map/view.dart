@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:location/location.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:CrimsonMinistry/widgets/drawer.dart';
 import 'package:CrimsonMinistry/screens/events/add.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import '../events/detail.dart';
@@ -75,7 +74,6 @@ class _MapPageState extends State<MapView> {
                     ? volunteerIcon
                     : worshipIcon,
         onTap: () {
-          print('tapCount: $tapCount');
           if (tapCount == 0)
             tapCount += 1;
           else {
@@ -101,8 +99,6 @@ class _MapPageState extends State<MapView> {
   }
 
   void _handleTap(LatLng point) {
-    print(point.latitude);
-    print(point.longitude);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -113,7 +109,8 @@ class _MapPageState extends State<MapView> {
 
   Widget build(BuildContext context) {
     events = Provider.of<List<Event>>(context) ?? [];
-    print(events);
+    final now = new DateTime.now();
+    events = events.where((i) => i.dateTime.toUtc().isAfter(now)).toList();
 
     return Scaffold(
         appBar: AppBar(
@@ -141,7 +138,6 @@ class _MapPageState extends State<MapView> {
             ),
           ],
         ),
-        drawer: DrawerWidget(),
         body: Stack(children: [
           GoogleMap(
             onMapCreated: _onMapCreated,

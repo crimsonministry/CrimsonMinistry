@@ -24,7 +24,6 @@ class _HomePageState extends State<Home> {
         currentIndex: _screenNumber,
         onTap: (i) => setState(() {
           _screenNumber = i;
-          print(_screenNumber);
         }),
       ),
     );

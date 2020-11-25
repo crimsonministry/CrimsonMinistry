@@ -106,7 +106,6 @@ class DetailPage extends StatelessWidget {
                               Navigator.of(context).pop();
                               addedToRSVP(context);
                             }
-                            print(event.rsvp);
                           },
                         ),
                       ),
