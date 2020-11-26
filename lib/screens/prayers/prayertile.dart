@@ -11,9 +11,9 @@ class PrayerTile extends StatelessWidget {
     return Card(
       child: ListTile(
           leading: Icon(
-            Icons.favorite_border,
-            color: Colors.blueGrey[900],
-            size: 35,
+            Icons.favorite,
+            color: Colors.deepOrange[700],
+            size: 50,
           ),
           title: Text(prayer.title),
           subtitle: Text('${prayer.description}'),
