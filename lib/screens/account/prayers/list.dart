@@ -13,8 +13,9 @@ class _PrayerListState extends State<PrayerList> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    dynamic prayers = Provider.of<List<Prayer>>(context) ?? [];
+    var prayers = Provider.of<List<Prayer>>(context) ?? [];
     prayers = prayers.where((i) => i.userID == user.uid).toList();
+    prayers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     return ListView.builder(
       scrollDirection: Axis.vertical,
