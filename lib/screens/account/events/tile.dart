@@ -46,7 +46,7 @@ class EventTile extends StatelessWidget {
           leading: switchIcons(event.typeOfEvent),
           title: Text(event.title),
           subtitle: Text(
-              '${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} @ ${event.dateTime.hour}:${event.dateTime.minute}'),
+              '${event.description}\nOn ${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} at ${event.dateTime.hour}:${event.dateTime.minute}'),
           trailing: Icon(Icons.more_vert),
           isThreeLine: true,
           onTap: () {
