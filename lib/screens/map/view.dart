@@ -30,24 +30,40 @@ class _MapPageState extends State<MapView> {
     _getLocation();
   }
 
+  switchIcons(String eventType) {
+    switch (eventType) {
+      case 'Bible Study':
+        return readingIcon;
+        break;
+      case 'Mission':
+        return missionIcon;
+      case 'Volunteer':
+        return volunteerIcon;
+        break;
+      case 'Worship':
+        return worshipIcon;
+        break;
+    }
+  }
+
   void _setMarkerIcon() async {
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/mission.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-red.png')
         .then((onValue) {
       missionIcon = onValue;
     });
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/reading.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-green.png')
         .then((onValue) {
       readingIcon = onValue;
     });
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/volunteer.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-orange.png')
         .then((onValue) {
       volunteerIcon = onValue;
     });
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/worship.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-blue.png')
         .then((onValue) {
       worshipIcon = onValue;
     });
@@ -66,13 +82,7 @@ class _MapPageState extends State<MapView> {
         position: LatLng(event.location.latitude, event.location.longitude),
         infoWindow: InfoWindow(
             title: event.title, snippet: event.dateTime.toUtc().toString()),
-        icon: (event.typeOfEvent == "Mission")
-            ? missionIcon
-            : (event.typeOfEvent == "Reading")
-                ? readingIcon
-                : (event.typeOfEvent == "Volunteer")
-                    ? volunteerIcon
-                    : worshipIcon,
+        icon: switchIcons(event.typeOfEvent),
         onTap: () {
           if (tapCount == 0)
             tapCount += 1;

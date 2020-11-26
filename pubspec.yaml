@@ -60,6 +60,10 @@ flutter:
     - assets/reading.png
     - assets/volunteer.png
     - assets/worship.png
+    - assets/pin-blue.png
+    - assets/pin-green.png
+    - assets/pin-orange.png
+    - assets/pin-red.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
