@@ -16,7 +16,8 @@ class PrayerTile extends StatelessWidget {
             size: 50,
           ),
           title: Text(prayer.title),
-          subtitle: Text('${prayer.description}'),
+          subtitle: Text(
+              '${prayer.description}\nCreated on ${prayer.createdAt.month}/${prayer.createdAt.day}/${prayer.createdAt.year}'),
           trailing: Icon(Icons.more_vert),
           isThreeLine: true,
           onTap: () {
