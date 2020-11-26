@@ -43,10 +43,10 @@ class _EventsPageState extends State<EventsPage> {
             value: typeOfEvent,
             items: <String>[
               'All',
-              'Mission',
               'Bible Study',
+              'Mission',
+              'Volunteer',
               'Worship',
-              'Volunteer'
             ].map((String value) {
               return new DropdownMenuItem<String>(
                   value: value,

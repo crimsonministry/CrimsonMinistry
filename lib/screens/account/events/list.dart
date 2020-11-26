@@ -13,8 +13,9 @@ class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    dynamic events = Provider.of<List<Event>>(context) ?? [];
+    var events = Provider.of<List<Event>>(context) ?? [];
     events = events.where((i) => i.userID == user.uid).toList();
+    events.sort((a, b) => b.dateTime.compareTo(a.dateTime));
 
     return ListView.builder(
       scrollDirection: Axis.vertical,

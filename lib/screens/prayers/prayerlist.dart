@@ -11,7 +11,10 @@ class PrayerList extends StatefulWidget {
 class _PrayerListState extends State<PrayerList> {
   @override
   Widget build(BuildContext context) {
-    final prayers = Provider.of<List<Prayer>>(context) ?? [];
+    var now = DateTime.now().subtract(new Duration(days: 10));
+    var prayers = Provider.of<List<Prayer>>(context) ?? [];
+    prayers = prayers.where((i) => i.createdAt.isAfter(now) == true).toList();
+    prayers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     return ListView.builder(
       itemCount: prayers.length,
