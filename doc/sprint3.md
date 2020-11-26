@@ -24,10 +24,12 @@
   - [x] Sort events by date time
   - [x] Add a button in Event detail page `View RSVP list`
   - [x] Show list of users in the RSVP list
+  - [x] Sort my events by the most recently happened
 - Prayers Page
   - [x] Add a button in Prayer Requests page `View Prayed list`
   - [x] Show list of interacted in the prayer list
-  - [ ] Only show recent prayers (10 days since created)
+  - [x] Only show recent prayers (10 days since created)
+  - [x] Sort my prayer requests by the most recently created
 - Account Page
   - [x] Display list of events you RSVPed to
   - [x] Display list of prayer requests you prayed for
