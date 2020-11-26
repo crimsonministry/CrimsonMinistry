@@ -13,7 +13,8 @@ class SearchFriendPage extends StatefulWidget {
   _SearchFriendPageState createState() => _SearchFriendPageState();
 }
 
-class _SearchFriendPageState extends State<SearchFriendPage> with AutomaticKeepAliveClientMixin<SearchFriendPage> {
+class _SearchFriendPageState extends State<SearchFriendPage>
+    with AutomaticKeepAliveClientMixin<SearchFriendPage> {
   TextEditingController searchTextEditingController = TextEditingController();
   Future<QuerySnapshot> futureSearchResults;
   final DatabaseService _data = DatabaseService();
@@ -55,41 +56,49 @@ class _SearchFriendPageState extends State<SearchFriendPage> with AutomaticKeepA
       ),
     );
   }
-}
 
-Container noResultDisplay() {
-  //final Orientation orientation = MediaQuery.of(context).orientation;
-  return Container(
-    child: Center(child: ListView(shrinkWrap: true, children: <Widget>[
-      Icon(Icons.group, color: Colors.grey, size: 200.0,),
-      Text("No Users Found :(",
-      textAlign: TextAlign.center,
-      style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 60.0,
+  Container noResultDisplay() {
+    //final Orientation orientation = MediaQuery.of(context).orientation;
+    return Container(
+      child: Center(
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            Icon(
+              Icons.group,
+              color: Colors.grey,
+              size: 200.0,
+            ),
+            Text(
+              "No Users Found :(",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.w400,
+                fontSize: 60.0,
+              ),
+            ),
+          ],
+        ),
       ),
-      ),
-    ],
-    ),
-    ),
     );
-}
+  }
 
-resultFoundDisplay() {
-  return FutureBuilder(
-    future: futureSearchResults,
-    builder: (context, dataSnapshot) {
+  resultFoundDisplay() {
+    return FutureBuilder(
+      future: futureSearchResults,
+      builder: (context, dataSnapshot) {
+        List<UserResults> searchUsersResult = [];
+        dataSnapshot.data.documents.forEach((document) {
+          UserData eachUser = document.data();
+          UserResults userResults = UserResults(eachUser);
+          searchUsersResult.add(userResults);
+        });
 
-      List<UserResults> searchUsersResult = [];
-      dataSnapshot.data.documents.forEach((document){
-        User eachUser = User.fromDocument(document);
-        UserResults userResults = UserResults(eachUser);
-        searchUsersResult.add(userResults);
-      });
-
-      return ListView(children: searchUsersResult);
-
-    },
+        return ListView(children: searchUsersResult);
+      },
     );
-}
+  }
 
   bool get keepAlive => true;
 
@@ -97,39 +106,46 @@ resultFoundDisplay() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: searchFriendPageHeader(),
-      body: futureSearchResults == null ? noResultDisplay() : resultFoundDisplay(),
-
+      body: futureSearchResults == null
+          ? noResultDisplay()
+          : resultFoundDisplay(),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => throw UnimplementedError();
 }
 
 class UserResults extends StatelessWidget {
-  final User eachUser;
+  final UserData eachUser;
   UserResults(this.eachUser);
-
-
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(4.0),
-    child: Container(
-      color: Colors.white,
-      child: Column(
-        children: <Widget>[
-          GestureDetector(
-            onTap: () => print("tapped"),
-            child: ListTile(
-              title: Text(
-                eachUser.uid,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              subtitle: Text("@username",
-              style: TextStyle(color: Colors.black, fontSize: 13.0,),
-            ),
-          )
-          ),
-        ],)
-    ),
+    return Padding(
+      padding: EdgeInsets.all(4.0),
+      child: Container(
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              GestureDetector(
+                  onTap: () => print("tapped"),
+                  child: ListTile(
+                    title: Text(
+                      eachUser.uid, 
+                      style: TextStyle(color: Colors.black, fontSize: 16.0),
+                    ),
+                    subtitle: Text(
+                      "@username",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  )),
+            ],
+          )),
     );
   }
 }
