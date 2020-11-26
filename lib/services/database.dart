@@ -1,10 +1,7 @@
-import 'dart:wasm';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/models/user.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DatabaseService {
   final String uid;
@@ -193,6 +190,7 @@ class DatabaseService {
         dateTime: doc.data['datetime']?.toDate() ?? Timestamp.now().toDate(),
         typeOfEvent: doc.data['eventType'] ?? '',
         description: doc.data['description'] ?? '',
+        createdAt: doc.data['createdAt'].toDate() ?? Timestamp.now().toDate(),
         rsvp: List<String>.from(doc.data['rsvp']) ?? '',
         userID: doc.data['userID'] ?? '',
       );
@@ -247,6 +245,7 @@ class DatabaseService {
         anonymous: doc.data['anonymous'] ?? true,
         title: doc.data['title'] ?? '',
         description: doc.data['description'] ?? '',
+        createdAt: doc.data['createdAt'].toDate() ?? Timestamp.now().toDate(),
         prayerInteractions:
             List<String>.from(doc.data['prayerInteractions']) ?? '',
         userID: doc.data['userID'] ?? '',
