@@ -56,10 +56,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/mission.png
-    - assets/reading.png
-    - assets/volunteer.png
-    - assets/worship.png
     - assets/pin-blue.png
     - assets/pin-green.png
     - assets/pin-orange.png
