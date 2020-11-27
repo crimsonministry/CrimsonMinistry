@@ -81,7 +81,9 @@ class _MapPageState extends State<MapView> {
         markerId: MarkerId(event.id),
         position: LatLng(event.location.latitude, event.location.longitude),
         infoWindow: InfoWindow(
-            title: event.title, snippet: event.dateTime.toUtc().toString()),
+            title: event.title,
+            snippet:
+                '${event.description}\nOn ${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} at ${event.dateTime.hour}:${event.dateTime.minute}'),
         icon: switchIcons(event.typeOfEvent),
         onTap: () {
           if (tapCount == 0)
@@ -118,14 +120,21 @@ class _MapPageState extends State<MapView> {
   }
 
   Widget build(BuildContext context) {
-    events = Provider.of<List<Event>>(context) ?? [];
+    var events = Provider.of<List<Event>>(context) ?? [];
     final now = new DateTime.now();
     events = events.where((i) => i.dateTime.toUtc().isAfter(now)).toList();
+    _makeMarkers(events);
 
     return Scaffold(
         appBar: AppBar(
           title: Text("Events"),
           backgroundColor: Colors.red,
+          leading: IconButton(
+            icon: Icon(Icons.refresh, size: 26.0),
+            onPressed: () {
+              // reload google maps
+            },
+          ),
           actions: <Widget>[
             FlatButton(
               textColor: Colors.white,

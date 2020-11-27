@@ -24,12 +24,19 @@ class _RSVPListState extends State<RSVPList> {
                 .where((i) => userData.rsvpedList.contains(i.id))
                 .toList();
 
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: events.length,
-              itemBuilder: (context, index) {
-                return EventTile(event: events[index]);
+            return RefreshIndicator(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  return EventTile(event: events[index]);
+                },
+              ),
+              onRefresh: () async {
+                events = Provider.of<List<Event>>(context) ?? [];
+                events = events
+                    .where((i) => userData.rsvpedList.contains(i.id))
+                    .toList();
               },
             );
           } else {

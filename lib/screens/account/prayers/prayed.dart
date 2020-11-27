@@ -24,12 +24,19 @@ class _PrayerListState extends State<PrayedList> {
                 .where((i) => userData.prayedList.contains(i.id))
                 .toList();
 
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: prayers.length,
-              itemBuilder: (context, index) {
-                return PrayerTile(prayer: prayers[index]);
+            return RefreshIndicator(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: prayers.length,
+                itemBuilder: (context, index) {
+                  return PrayerTile(prayer: prayers[index]);
+                },
+              ),
+              onRefresh: () async {
+                prayers = Provider.of<List<Prayer>>(context) ?? [];
+                prayers = prayers
+                    .where((i) => userData.prayedList.contains(i.id))
+                    .toList();
               },
             );
           } else {

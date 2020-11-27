@@ -36,6 +36,14 @@ class DetailPage extends StatelessWidget {
     );
   }
 
+  showUser(bool anonymous) {
+    if (anonymous) {
+      return 'Anonymous User';
+    } else {
+      return prayer.userID;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -64,7 +72,7 @@ class DetailPage extends StatelessWidget {
                       ListTile(
                         title: Text('Created by',
                             style: TextStyle(fontWeight: FontWeight.w500)),
-                        subtitle: Text('${prayer.userID}'),
+                        subtitle: Text(showUser(prayer.anonymous)),
                         leading: Icon(Icons.account_circle,
                             color: Colors.blueGrey[900], size: 35),
                       ),
