@@ -16,10 +16,19 @@ class _PrayerListState extends State<PrayerList> {
     prayers = prayers.where((i) => i.createdAt.isAfter(now) == true).toList();
     prayers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    return ListView.builder(
-      itemCount: prayers.length,
-      itemBuilder: (context, index) {
-        return PrayerTile(prayer: prayers[index]);
+    return RefreshIndicator(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: prayers.length,
+        itemBuilder: (context, index) {
+          return PrayerTile(prayer: prayers[index]);
+        },
+      ),
+      onRefresh: () async {
+        prayers = Provider.of<List<Prayer>>(context) ?? [];
+        prayers =
+            prayers.where((i) => i.createdAt.isAfter(now) == true).toList();
+        prayers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       },
     );
   }

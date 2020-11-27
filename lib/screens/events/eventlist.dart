@@ -12,10 +12,12 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
+  List<Event> events = List<Event>();
+
   @override
   Widget build(BuildContext context) {
+    events = Provider.of<List<Event>>(context) ?? [];
     final now = DateTime.now();
-    var events = Provider.of<List<Event>>(context) ?? [];
     events =
         events.where((i) => i.dateTime.toUtc().isAfter(now) == true).toList();
     if (widget.type != 'All') {
@@ -23,12 +25,24 @@ class _EventListState extends State<EventList> {
     }
     events.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: events.length,
-      itemBuilder: (context, index) {
-        return EventTile(event: events[index]);
+    return RefreshIndicator(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: events.length,
+        itemBuilder: (context, index) {
+          return EventTile(event: events[index]);
+        },
+      ),
+      onRefresh: () async {
+        events = Provider.of<List<Event>>(context) ?? [];
+        final now = DateTime.now();
+        events = events
+            .where((i) => i.dateTime.toUtc().isAfter(now) == true)
+            .toList();
+        if (widget.type != 'All') {
+          events = events.where((i) => i.typeOfEvent == widget.type).toList();
+        }
+        return events.sort((a, b) => a.dateTime.compareTo(b.dateTime));
       },
     );
   }
