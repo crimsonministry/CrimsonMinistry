@@ -1,3 +1,4 @@
+import 'package:CrimsonMinistry/screens/account/friends/searchfriend.dart';
 import 'package:flutter/material.dart';
 import 'addfriend.dart';
 
@@ -19,7 +20,8 @@ class _MyFriendsPageState extends State<MyFriends> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddFriendPage(),
+                    //builder: (context) => AddFriendPage(),
+                    builder: (context) => SearchFriendPage(),
                   ),
                 );
               },

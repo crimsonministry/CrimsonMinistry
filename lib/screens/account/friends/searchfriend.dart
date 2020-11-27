@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/user.dart';
-import 'package:universal_html/html.dart';
-import 'package:universal_html/prefer_universal/js.dart';
+import 'package:provider/provider.dart';
+//import 'package:universal_html/html.dart';
+//import 'package:universal_html/html.dart';
+//import 'package:universal_html/prefer_universal/js.dart';
 
 class SearchFriendPage extends StatefulWidget {
   @override
@@ -15,7 +17,8 @@ class SearchFriendPage extends StatefulWidget {
 
 class _SearchFriendPageState extends State<SearchFriendPage>
     with AutomaticKeepAliveClientMixin<SearchFriendPage> {
-  TextEditingController searchTextEditingController = TextEditingController();
+  TextEditingController searchTextEditingController =
+      new TextEditingController();
   Future<QuerySnapshot> futureSearchResults;
   final DatabaseService _data = DatabaseService();
 
@@ -23,9 +26,9 @@ class _SearchFriendPageState extends State<SearchFriendPage>
     searchTextEditingController.clear();
   }
 
-  searchForUser(String searchUserName) {
+  searchForUser(String searchUsername) {
     Future<QuerySnapshot> allUsers = _data.userCollection
-        .where("username", isGreaterThanOrEqualTo: searchUserName)
+        .where("username", isGreaterThanOrEqualTo: searchUsername)
         .getDocuments();
     setState(() {
       futureSearchResults = allUsers;
@@ -88,9 +91,16 @@ class _SearchFriendPageState extends State<SearchFriendPage>
     return FutureBuilder(
       future: futureSearchResults,
       builder: (context, dataSnapshot) {
-        List<UserResults> searchUsersResult = [];
+        List<UserResults> searchUsersResult = new List<UserResults>();
         dataSnapshot.data.documents.forEach((document) {
-          UserData eachUser = document.data();
+          UserData eachUser = new UserData(
+              uid: document.documentID,
+              fname: document['firstName'],
+              lname: document['lastName'],
+              ministry: document['ministry'],
+              facebook: document['facebookLink'],
+              twitter: document['twitterLink'],
+              instagram: document['instaLink']);
           UserResults userResults = UserResults(eachUser);
           searchUsersResult.add(userResults);
         });
@@ -100,7 +110,7 @@ class _SearchFriendPageState extends State<SearchFriendPage>
     );
   }
 
-  bool get keepAlive => true;
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +122,7 @@ class _SearchFriendPageState extends State<SearchFriendPage>
     );
   }
 
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => throw UnimplementedError();
+  //bool get wantKeepAlive => true;
 }
 
 class UserResults extends StatelessWidget {
@@ -133,7 +141,7 @@ class UserResults extends StatelessWidget {
                   onTap: () => print("tapped"),
                   child: ListTile(
                     title: Text(
-                      eachUser.uid, 
+                      eachUser.uid,
                       style: TextStyle(color: Colors.black, fontSize: 16.0),
                     ),
                     subtitle: Text(
