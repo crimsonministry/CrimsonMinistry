@@ -9,6 +9,10 @@ import 'package:social_media_buttons/social_media_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Account extends StatefulWidget {
+  final String userAccountId;
+
+  Account({this.userAccountId});
+
   @override
   _AccountPageState createState() => _AccountPageState();
 }
@@ -40,7 +44,7 @@ class _AccountPageState extends State<Account> {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user.uid).userData,
+        stream: DatabaseService(uid: widget.userAccountId).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
@@ -113,8 +117,6 @@ class _AccountPageState extends State<Account> {
                         height: 350.0,
                         child: Center(
                           child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            //mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

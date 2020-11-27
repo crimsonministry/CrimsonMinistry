@@ -1,11 +1,11 @@
 import 'dart:ui';
 
+import 'package:CrimsonMinistry/screens/account/account.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/user.dart';
-import 'package:provider/provider.dart';
 //import 'package:universal_html/html.dart';
 //import 'package:universal_html/html.dart';
 //import 'package:universal_html/prefer_universal/js.dart';
@@ -61,7 +61,6 @@ class _SearchFriendPageState extends State<SearchFriendPage>
   }
 
   Container noResultDisplay() {
-    //final Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
       child: Center(
         child: ListView(
@@ -70,7 +69,7 @@ class _SearchFriendPageState extends State<SearchFriendPage>
             Icon(
               Icons.group,
               color: Colors.grey,
-              size: 200.0,
+              size: 100.0,
             ),
             Text(
               "No Users Found :(",
@@ -78,7 +77,7 @@ class _SearchFriendPageState extends State<SearchFriendPage>
               style: TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.w400,
-                fontSize: 60.0,
+                fontSize: 40.0,
               ),
             ),
           ],
@@ -91,12 +90,18 @@ class _SearchFriendPageState extends State<SearchFriendPage>
     return FutureBuilder(
       future: futureSearchResults,
       builder: (context, dataSnapshot) {
+        if (!dataSnapshot.hasData) {
+          return Center(
+              child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.red)));
+        }
         List<UserResults> searchUsersResult = new List<UserResults>();
         dataSnapshot.data.documents.forEach((document) {
           UserData eachUser = new UserData(
               uid: document.documentID,
               fname: document['firstName'],
               lname: document['lastName'],
+              username: document['username'],
               ministry: document['ministry'],
               facebook: document['facebookLink'],
               twitter: document['twitterLink'],
@@ -138,16 +143,17 @@ class UserResults extends StatelessWidget {
           child: Column(
             children: <Widget>[
               GestureDetector(
-                  onTap: () => print("tapped"),
+                  onTap: () =>
+                      displayUserAccount(context, userAccountId: eachUser.uid),
                   child: ListTile(
                     title: Text(
-                      eachUser.uid,
+                      "${eachUser.fname} ${eachUser.lname}",
                       style: TextStyle(color: Colors.black, fontSize: 16.0),
                     ),
                     subtitle: Text(
-                      "@username",
+                      "@${eachUser.username}",
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.red,
                         fontSize: 13.0,
                       ),
                     ),
@@ -155,5 +161,12 @@ class UserResults extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  displayUserAccount(BuildContext context, {String userAccountId}) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Account(userAccountId: userAccountId)));
   }
 }
