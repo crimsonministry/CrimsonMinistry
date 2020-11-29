@@ -39,11 +39,11 @@
   - [ ] View other user profiles
   - [ ] Favorite other users
 - Unit Tests
-  - [ ] RSVP to Event
-  - [ ] Pray for a Prayer Request
+  - [x] RSVP to Event
+  - [x] Pray for a Prayer Request
+  - [x] Update profile
+  - [x] Add social media
   - [ ] Favorite user
-  - [ ] Update profile
-  - [ ] Add social media
 - Website
   - [ ] Add Sprint 2 Deliverables
   - [ ] Add Sprint 3 Deliverables
@@ -52,10 +52,9 @@
   - [ ] Slides
   - [ ] Demo
 - GitHub
-  - [ ] Create App Icon
-  - [ ] Create social preview
-  - [ ] Documentation of the Code
-  - [ ] Open-Source Licensing (MIT)
+  - [x] Create App Icon
+  - [x] Create social preview
+  - [x] Documentation of the Code
 
 ### Back-End
 
