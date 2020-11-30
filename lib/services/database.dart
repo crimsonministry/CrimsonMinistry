@@ -1,10 +1,7 @@
-import 'dart:wasm';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/models/user.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DatabaseService {
   final String uid;
@@ -77,23 +74,14 @@ class DatabaseService {
     });
   }
 
-  Future sendFriendRequest(String userID, List<String> requests) async {
-    print('sending friend request');
+  Future favoriteUser(String userID, List<String> favorites) async {
+    print('favorite user');
     print('userID : $userID');
     print('success');
 
-    // add to your own 'requests' list
     return await userCollection
         .document(userID)
-        .updateData({'requests': requests});
-
-    // add to their 'requested' list
-    // add friendID or username as parameter at the top
-    // if username
-    // get the friendID
-    // then get user from friendID and add your id to their requested list
-    // if friendID
-    // add your ID to their requested list
+        .updateData({'favorites': favorites});
   }
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {

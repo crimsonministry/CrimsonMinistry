@@ -14,26 +14,13 @@ class AddFriendPage extends StatefulWidget {
 class _AddFriendPageState extends State<AddFriendPage> {
   final DatabaseService _data = DatabaseService();
 
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context, bool added) {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Friend request sent!"),
-      content: Text("Now just wait for them to accept :))"),
+      title: (added) ? Text("Favorited User") : Text("Unfavorited User"),
+      content: Text("${widget.username}"),
     );
     // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  showErrorDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("You have already sent a friend request to this user"),
-    );
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -50,42 +37,41 @@ class _AddFriendPageState extends State<AddFriendPage> {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
             return new Scaffold(
-                appBar: AppBar(
-                  title: Text("Confirm Friend"),
-                  backgroundColor: Colors.red,
-                ),
-                resizeToAvoidBottomPadding: false,
-                body: Column(children: <Widget>[
-                  Container(
-                      padding:
-                          EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 50.0),
-                          RaisedButton(
-                            onPressed: () async {
-                              print('trying to send friend request');
-                              if (userData.favoritesList
-                                  .contains(widget.username)) {
-                                print(
-                                    'show error: you have sent a request to this person already');
-                                showErrorDialog(context);
-                              } else {
-                                userData.favoritesList.add(widget.username);
-                                await _data.sendFriendRequest(
-                                    user.uid, userData.favoritesList);
-                              }
-                              print(userData.favoritesList);
-                              showAlertDialog(context);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Send Request to @${widget.username}',
-                                style: TextStyle(fontSize: 20)),
-                          ),
-                        ],
-                      )),
-                ]));
+              appBar: AppBar(
+                title: Text("Confirm Friend"),
+                backgroundColor: Colors.red,
+              ),
+              resizeToAvoidBottomPadding: false,
+              body: Container(
+                  padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+                  child: (userData.favoritesList.contains(widget.username))
+                      ? RaisedButton(
+                          onPressed: () async {
+                            userData.favoritesList.remove(widget.username);
+                            await _data.favoriteUser(
+                                user.uid, userData.favoritesList);
+                            print(userData.favoritesList);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            showAlertDialog(context, false);
+                          },
+                          child: Text('Unfavorite @${widget.username}',
+                              style: TextStyle(fontSize: 20)),
+                        )
+                      : RaisedButton(
+                          onPressed: () async {
+                            userData.favoritesList.add(widget.username);
+                            await _data.favoriteUser(
+                                user.uid, userData.favoritesList);
+                            print(userData.favoritesList);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            showAlertDialog(context, true);
+                          },
+                          child: Text('Favorite @${widget.username}',
+                              style: TextStyle(fontSize: 20)),
+                        )),
+            );
           } else {
             return Text('loading');
           }

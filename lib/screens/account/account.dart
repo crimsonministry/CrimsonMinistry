@@ -7,7 +7,6 @@ import 'package:CrimsonMinistry/screens/account/edit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_buttons/social_media_icons.dart';
 import 'package:social_media_buttons/social_media_buttons.dart';
-//import 'package:universal_html/html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Account extends StatefulWidget {
@@ -33,19 +32,6 @@ class _AccountPageState extends State<Account> {
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       title: Text("Sorry, this user does not have that social media :("),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  showErrorDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("You have sent a friend request to this user already"),
     );
 
     showDialog(
@@ -86,7 +72,7 @@ class _AccountPageState extends State<Account> {
                         AddFriendPage(username: userData.username)));
           },
           child: Text(
-            "Add Friend",
+            "Favorite",
             textScaleFactor: 1.5,
             style: new TextStyle(fontSize: 12.0, color: Colors.white),
           ));
