@@ -9,28 +9,25 @@ class PrayerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      ListTile(
-        leading: Icon(Icons.menu_book),
-        title: Text(prayer.title),
-        subtitle: Text(prayer.description),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          TextButton(
-            child: const Text('View'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditPrayerPage(prayer: prayer),
-                ),
-              );
-            },
+      child: ListTile(
+          leading: Icon(
+            Icons.favorite,
+            color: Colors.deepOrange[700],
+            size: 50,
           ),
-        ],
-      )
-    ]));
+          title: Text(prayer.title),
+          subtitle: Text(
+              '${prayer.description}\nCreated on ${prayer.createdAt.month}/${prayer.createdAt.day}/${prayer.createdAt.year}'),
+          trailing: Icon(Icons.more_vert),
+          isThreeLine: true,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditPrayerPage(prayer: prayer),
+              ),
+            );
+          }),
+    );
   }
 }

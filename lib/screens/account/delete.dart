@@ -71,7 +71,6 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => email = val);
-                      print(email);
                     },
                     decoration: InputDecoration(
                         labelText: 'email',
@@ -90,7 +89,6 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => password = val);
-                      print(password);
                     },
                     decoration: InputDecoration(
                         labelText: 'Password',
@@ -114,9 +112,6 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       if (_formKey.currentState.validate()) {
                         dynamic result =
                             await _auth.deleteUser(email, password);
-
-                        print(result);
-
                         if (result != true) {
                           setState(() {
                             error = result.message.toString();

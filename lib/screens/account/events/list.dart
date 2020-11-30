@@ -13,16 +13,22 @@ class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    dynamic events = Provider.of<List<Event>>(context) ?? [];
+    var events = Provider.of<List<Event>>(context) ?? [];
     events = events.where((i) => i.userID == user.uid).toList();
-    print(events);
+    events.sort((a, b) => b.dateTime.compareTo(a.dateTime));
 
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: events.length,
-      itemBuilder: (context, index) {
-        return EventTile(event: events[index]);
+    return RefreshIndicator(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: events.length,
+        itemBuilder: (context, index) {
+          return EventTile(event: events[index]);
+        },
+      ),
+      onRefresh: () async {
+        events = Provider.of<List<Event>>(context) ?? [];
+        events = events.where((i) => i.userID == user.uid).toList();
+        events.sort((a, b) => b.dateTime.compareTo(a.dateTime));
       },
     );
   }

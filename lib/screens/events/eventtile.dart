@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import './edit.dart';
+import 'detail.dart';
 
 class EventTile extends StatelessWidget {
   final Event event;
@@ -53,7 +53,7 @@ class EventTile extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => EditEventPage(event: event),
+                builder: (context) => DetailPage(event: event),
               ),
             );
           }),

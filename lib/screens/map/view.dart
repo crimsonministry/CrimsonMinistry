@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:location/location.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:CrimsonMinistry/widgets/drawer.dart';
 import 'package:CrimsonMinistry/screens/events/add.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import '../events/detail.dart';
@@ -31,24 +30,40 @@ class _MapPageState extends State<MapView> {
     _getLocation();
   }
 
+  switchIcons(String eventType) {
+    switch (eventType) {
+      case 'Bible Study':
+        return readingIcon;
+        break;
+      case 'Mission':
+        return missionIcon;
+      case 'Volunteer':
+        return volunteerIcon;
+        break;
+      case 'Worship':
+        return worshipIcon;
+        break;
+    }
+  }
+
   void _setMarkerIcon() async {
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/mission.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-red.png')
         .then((onValue) {
       missionIcon = onValue;
     });
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/reading.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-green.png')
         .then((onValue) {
       readingIcon = onValue;
     });
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/volunteer.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-orange.png')
         .then((onValue) {
       volunteerIcon = onValue;
     });
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: Size(36, 36)), 'assets/worship.png')
+            ImageConfiguration(size: Size(36, 36)), 'assets/pin-blue.png')
         .then((onValue) {
       worshipIcon = onValue;
     });
@@ -66,16 +81,11 @@ class _MapPageState extends State<MapView> {
         markerId: MarkerId(event.id),
         position: LatLng(event.location.latitude, event.location.longitude),
         infoWindow: InfoWindow(
-            title: event.title, snippet: event.dateTime.toUtc().toString()),
-        icon: (event.typeOfEvent == "Mission")
-            ? missionIcon
-            : (event.typeOfEvent == "Reading")
-                ? readingIcon
-                : (event.typeOfEvent == "Volunteer")
-                    ? volunteerIcon
-                    : worshipIcon,
+            title: event.title,
+            snippet:
+                '${event.description}\nOn ${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} at ${event.dateTime.hour}:${event.dateTime.minute}'),
+        icon: switchIcons(event.typeOfEvent),
         onTap: () {
-          print('tapCount: $tapCount');
           if (tapCount == 0)
             tapCount += 1;
           else {
@@ -101,8 +111,6 @@ class _MapPageState extends State<MapView> {
   }
 
   void _handleTap(LatLng point) {
-    print(point.latitude);
-    print(point.longitude);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -112,13 +120,21 @@ class _MapPageState extends State<MapView> {
   }
 
   Widget build(BuildContext context) {
-    events = Provider.of<List<Event>>(context) ?? [];
-    print(events);
+    var events = Provider.of<List<Event>>(context) ?? [];
+    final now = new DateTime.now();
+    events = events.where((i) => i.dateTime.toUtc().isAfter(now)).toList();
+    _makeMarkers(events);
 
     return Scaffold(
         appBar: AppBar(
           title: Text("Events"),
           backgroundColor: Colors.red,
+          leading: IconButton(
+            icon: Icon(Icons.refresh, size: 26.0),
+            onPressed: () {
+              // reload google maps
+            },
+          ),
           actions: <Widget>[
             FlatButton(
               textColor: Colors.white,
@@ -141,7 +157,6 @@ class _MapPageState extends State<MapView> {
             ),
           ],
         ),
-        drawer: DrawerWidget(),
         body: Stack(children: [
           GoogleMap(
             onMapCreated: _onMapCreated,

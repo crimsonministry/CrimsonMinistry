@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
-import 'package:CrimsonMinistry/screens/prayers/tile.dart';
+import 'package:CrimsonMinistry/screens/prayers/prayertile.dart';
 
 class PrayedList extends StatefulWidget {
   @override
@@ -23,14 +23,20 @@ class _PrayerListState extends State<PrayedList> {
             prayers = prayers
                 .where((i) => userData.prayedList.contains(i.id))
                 .toList();
-            print(prayers);
 
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: prayers.length,
-              itemBuilder: (context, index) {
-                return PrayerTile(prayer: prayers[index]);
+            return RefreshIndicator(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: prayers.length,
+                itemBuilder: (context, index) {
+                  return PrayerTile(prayer: prayers[index]);
+                },
+              ),
+              onRefresh: () async {
+                prayers = Provider.of<List<Prayer>>(context) ?? [];
+                prayers = prayers
+                    .where((i) => userData.prayedList.contains(i.id))
+                    .toList();
               },
             );
           } else {

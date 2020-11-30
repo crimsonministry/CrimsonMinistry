@@ -109,10 +109,10 @@ class _AddEventPageState extends State<AddEventPage> {
                   SizedBox(height: 10),
                   DropdownButtonFormField<String>(
                     items: <String>[
-                      'Mission',
                       'Bible Study',
+                      'Mission',
+                      'Volunteer',
                       'Worship',
-                      'Volunteer'
                     ].map((String value) {
                       return new DropdownMenuItem<String>(
                         value: value,
@@ -121,7 +121,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     }).toList(),
                     onChanged: (val) {
                       setState(() => typeOfEvent = val);
-                      print(typeOfEvent);
                     },
                     decoration: InputDecoration(
                         labelText: 'Type',
@@ -140,7 +139,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => title = val);
-                      print(title);
                     },
                     decoration: InputDecoration(
                         labelText: 'Title',
@@ -161,7 +159,6 @@ class _AddEventPageState extends State<AddEventPage> {
                     onEditingComplete: () => node.nextFocus(),
                     onChanged: (val) {
                       setState(() => description = val);
-                      print(description);
                     },
                     decoration: InputDecoration(
                         labelText: 'Description',
@@ -182,9 +179,9 @@ class _AddEventPageState extends State<AddEventPage> {
                     style: TextStyle(color: Colors.red, fontSize: 14.0),
                   ),
                   RaisedButton(
+                    color: Colors.blue[300],
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        print(widget.point);
                         await _data.addEvent(
                             user.uid,
                             pickedDate,

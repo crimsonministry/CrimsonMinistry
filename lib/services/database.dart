@@ -100,6 +100,24 @@ class DatabaseService {
         instagram: snapshot.data['instaLink']);
   }
 
+  List<UserData> _userDataListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return UserData(
+          uid: doc.documentID,
+          fname: doc.data['firstName'],
+          lname: doc.data['lastName'],
+          username: doc.data['username'],
+          bio: doc.data['biography'],
+          ministry: doc.data['ministry'],
+          favoritesList: List<String>.from(doc.data['favorites']) ?? '',
+          rsvpedList: List<String>.from(doc.data['rsvped']) ?? '',
+          prayedList: List<String>.from(doc.data['prayed']) ?? '',
+          twitter: doc.data['twitterLink'],
+          facebook: doc.data['facebookLink'],
+          instagram: doc.data['instaLink']);
+    }).toList();
+  }
+
   Future deleteUser() async {
     print('deleting user');
     print('userID : $uid');
@@ -181,6 +199,7 @@ class DatabaseService {
         dateTime: doc.data['datetime']?.toDate() ?? Timestamp.now().toDate(),
         typeOfEvent: doc.data['eventType'] ?? '',
         description: doc.data['description'] ?? '',
+        createdAt: doc.data['createdAt'].toDate() ?? Timestamp.now().toDate(),
         rsvp: List<String>.from(doc.data['rsvp']) ?? '',
         userID: doc.data['userID'] ?? '',
       );
@@ -254,6 +273,7 @@ class DatabaseService {
         anonymous: doc.data['anonymous'] ?? true,
         title: doc.data['title'] ?? '',
         description: doc.data['description'] ?? '',
+        createdAt: doc.data['createdAt'].toDate() ?? Timestamp.now().toDate(),
         prayerInteractions:
             List<String>.from(doc.data['prayerInteractions']) ?? '',
         userID: doc.data['userID'] ?? '',
@@ -281,7 +301,7 @@ class DatabaseService {
   Stream<List<UserData>> get users {
     print('reading users');
     print('success');
-    return userCollection.snapshots().map(_userListFromSnapshot);
+    return userCollection.snapshots().map(_userDataListFromSnapshot);
   }
 
   Stream<List<Event>> get events {

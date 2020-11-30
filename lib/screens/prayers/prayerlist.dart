@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
-import 'tile.dart';
+import 'prayertile.dart';
 
 class PrayerList extends StatefulWidget {
   @override
@@ -12,9 +11,9 @@ class PrayerList extends StatefulWidget {
 class _PrayerListState extends State<PrayerList> {
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
+    var now = DateTime.now().subtract(new Duration(days: 10));
     var prayers = Provider.of<List<Prayer>>(context) ?? [];
-    prayers = prayers.where((i) => i.userID == user.uid).toList();
+    prayers = prayers.where((i) => i.createdAt.isAfter(now) == true).toList();
     prayers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     return RefreshIndicator(
@@ -27,7 +26,8 @@ class _PrayerListState extends State<PrayerList> {
       ),
       onRefresh: () async {
         prayers = Provider.of<List<Prayer>>(context) ?? [];
-        prayers = prayers.where((i) => i.userID == user.uid).toList();
+        prayers =
+            prayers.where((i) => i.createdAt.isAfter(now) == true).toList();
         prayers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       },
     );

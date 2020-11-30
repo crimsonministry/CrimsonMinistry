@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/services/database.dart';
+import './prayedlist.dart';
 
 class DetailPage extends StatelessWidget {
   final DatabaseService _data = DatabaseService();
@@ -35,6 +36,14 @@ class DetailPage extends StatelessWidget {
     );
   }
 
+  showUser(bool anonymous) {
+    if (anonymous) {
+      return 'Anonymous User';
+    } else {
+      return prayer.userID;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -63,16 +72,17 @@ class DetailPage extends StatelessWidget {
                       ListTile(
                         title: Text('Created by',
                             style: TextStyle(fontWeight: FontWeight.w500)),
-                        subtitle: Text('${prayer.userID}'),
+                        subtitle: Text(showUser(prayer.anonymous)),
                         leading: Icon(Icons.account_circle,
                             color: Colors.blueGrey[900], size: 35),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(8.0, 30.0, 0.0, 0.0),
+                        margin: EdgeInsets.only(top: 30),
                         child: RaisedButton(
                           child: (prayer.prayerInteractions.contains(user.uid))
                               ? const Text('Remove from List')
                               : const Text('Pray'),
+                          color: Colors.red[300],
                           onPressed: () async {
                             if (prayer.prayerInteractions.contains(user.uid)) {
                               prayer.prayerInteractions.remove(user.uid);
@@ -95,9 +105,21 @@ class DetailPage extends StatelessWidget {
                               Navigator.of(context).pop();
                               prayed(context);
                             }
-                            print(prayer.prayerInteractions);
                           },
                         ),
+                      ),
+                      RaisedButton(
+                        child: Text('View Prayed List'),
+                        color: Colors.orange[300],
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PrayedList(prayer.prayerInteractions),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

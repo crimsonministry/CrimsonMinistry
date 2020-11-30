@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/models/event.dart';
-import 'package:CrimsonMinistry/screens/events/tile.dart';
+import 'package:CrimsonMinistry/screens/events/eventtile.dart';
 
 class RSVPList extends StatefulWidget {
   @override
@@ -23,14 +23,20 @@ class _RSVPListState extends State<RSVPList> {
             events = events
                 .where((i) => userData.rsvpedList.contains(i.id))
                 .toList();
-            print(events);
 
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: events.length,
-              itemBuilder: (context, index) {
-                return EventTile(event: events[index]);
+            return RefreshIndicator(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  return EventTile(event: events[index]);
+                },
+              ),
+              onRefresh: () async {
+                events = Provider.of<List<Event>>(context) ?? [];
+                events = events
+                    .where((i) => userData.rsvpedList.contains(i.id))
+                    .toList();
               },
             );
           } else {
