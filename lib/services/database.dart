@@ -109,6 +109,24 @@ class DatabaseService {
         instagram: snapshot.data['instaLink']);
   }
 
+  List<UserData> _userDataListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return UserData(
+          uid: doc.documentID,
+          fname: doc.data['firstName'],
+          lname: doc.data['lastName'],
+          username: doc.data['username'],
+          bio: doc.data['biography'],
+          ministry: doc.data['ministry'],
+          favoritesList: List<String>.from(doc.data['favorites']) ?? '',
+          rsvpedList: List<String>.from(doc.data['rsvped']) ?? '',
+          prayedList: List<String>.from(doc.data['prayed']) ?? '',
+          twitter: doc.data['twitterLink'],
+          facebook: doc.data['facebookLink'],
+          instagram: doc.data['instaLink']);
+    }).toList();
+  }
+
   Future deleteUser() async {
     print('deleting user');
     print('userID : $uid');
@@ -268,6 +286,12 @@ class DatabaseService {
 
   Stream<UserData> get userData {
     return userCollection.document(uid).snapshots().map(_userDataFromSnapshot);
+  }
+
+  Stream<List<UserData>> get users {
+    print('reading users');
+    print('success');
+    return userCollection.snapshots().map(_userDataListFromSnapshot);
   }
 
   Stream<List<Event>> get events {
