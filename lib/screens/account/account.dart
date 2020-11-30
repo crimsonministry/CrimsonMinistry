@@ -1,3 +1,4 @@
+import 'package:CrimsonMinistry/screens/account/friends/addfriend.dart';
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/models/user.dart';
@@ -9,11 +10,17 @@ import 'package:social_media_buttons/social_media_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Account extends StatefulWidget {
+  final String userAccountId;
+
+  Account({this.userAccountId});
+
   @override
   _AccountPageState createState() => _AccountPageState();
 }
 
 class _AccountPageState extends State<Account> {
+  final DatabaseService _data = DatabaseService();
+
   showSocialMediaPage(String link) async {
     if (await canLaunch(link)) {
       await launch(link);
@@ -35,12 +42,49 @@ class _AccountPageState extends State<Account> {
     );
   }
 
+  FlatButton showFavoriteButton(
+      BuildContext context, User currentUser, UserData userData) {
+    if (widget.userAccountId == currentUser.uid) {
+      return FlatButton(
+          textColor: Colors.white,
+          onPressed: () async {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditAccount(
+                    userData: userData,
+                  ),
+                ));
+          },
+          child: Text(
+            "Edit",
+            textScaleFactor: 1.5,
+            style: new TextStyle(fontSize: 12.0, color: Colors.white),
+          ));
+    } else {
+      return FlatButton(
+          textColor: Colors.white,
+          onPressed: () async {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        AddFriendPage(username: userData.username)));
+          },
+          child: Text(
+            "Favorite",
+            textScaleFactor: 1.5,
+            style: new TextStyle(fontSize: 12.0, color: Colors.white),
+          ));
+    }
+  }
+
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user.uid).userData,
+        stream: DatabaseService(uid: widget.userAccountId).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
@@ -49,26 +93,7 @@ class _AccountPageState extends State<Account> {
                   title: Text("Account"),
                   backgroundColor: Colors.red,
                   actions: <Widget>[
-                    FlatButton(
-                      textColor: Colors.white,
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                EditAccount(userData: userData),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Edit",
-                        textScaleFactor: 1.5,
-                        style: new TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    showFavoriteButton(context, user, userData)
                   ],
                 ),
                 resizeToAvoidBottomPadding: false,
@@ -113,8 +138,6 @@ class _AccountPageState extends State<Account> {
                         height: 350.0,
                         child: Center(
                           child: Column(
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            //mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

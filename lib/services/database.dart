@@ -74,23 +74,14 @@ class DatabaseService {
     });
   }
 
-  Future sendFriendRequest(String userID, List<String> requests) async {
-    print('sending friend request');
+  Future favoriteUser(String userID, List<String> favorites) async {
+    print('favorite user');
     print('userID : $userID');
     print('success');
 
-    // add to your own 'requests' list
     return await userCollection
         .document(userID)
-        .updateData({'requests': requests});
-
-    // add to their 'requested' list
-    // add friendID or username as parameter at the top
-    // if username
-    // get the friendID
-    // then get user from friendID and add your id to their requested list
-    // if friendID
-    // add your ID to their requested list
+        .updateData({'favorites': favorites});
   }
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
@@ -211,6 +202,25 @@ class DatabaseService {
         createdAt: doc.data['createdAt'].toDate() ?? Timestamp.now().toDate(),
         rsvp: List<String>.from(doc.data['rsvp']) ?? '',
         userID: doc.data['userID'] ?? '',
+      );
+    }).toList();
+  }
+
+  List<UserData> _userListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return UserData(
+        uid: doc.documentID,
+        fname: doc.data['firstName'] ?? '',
+        lname: doc.data['lastName'] ?? '',
+        username: doc.data['username'] ?? '',
+        bio: doc.data['biography'] ?? '',
+        ministry: doc.data['ministry'] ?? '',
+        favoritesList: List<String>.from(doc.data['favorites']) ?? '',
+        rsvpedList: List<String>.from(doc.data['rsvped']) ?? '',
+        prayedList: List<String>.from(doc.data['prayed']) ?? '',
+        twitter: doc.data['twitterLink'] ?? '',
+        facebook: doc.data['facebookLink'] ?? '',
+        instagram: doc.data['instaLink'] ?? '',
       );
     }).toList();
   }
