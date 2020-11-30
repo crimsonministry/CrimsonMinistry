@@ -4,13 +4,15 @@ import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 
 class AddFriendPage extends StatefulWidget {
+  final String username;
+
+  AddFriendPage({this.username});
   @override
   _AddFriendPageState createState() => _AddFriendPageState();
 }
 
 class _AddFriendPageState extends State<AddFriendPage> {
   final DatabaseService _data = DatabaseService();
-  String username = '';
 
   showAlertDialog(BuildContext context) {
     // set up the AlertDialog
@@ -19,6 +21,19 @@ class _AddFriendPageState extends State<AddFriendPage> {
       content: Text("Now just wait for them to accept :))"),
     );
     // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showErrorDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: Text("You have already sent a friend request to this user"),
+    );
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -36,7 +51,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
             UserData userData = snapshot.data;
             return new Scaffold(
                 appBar: AppBar(
-                  title: Text("Add Friends"),
+                  title: Text("Confirm Friend"),
                   backgroundColor: Colors.red,
                 ),
                 resizeToAvoidBottomPadding: false,
@@ -46,36 +61,26 @@ class _AddFriendPageState extends State<AddFriendPage> {
                           EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
                       child: Column(
                         children: <Widget>[
-                          TextField(
-                            onChanged: (val) {
-                              setState(() => username = val);
-                              print(username);
-                            },
-                            decoration: InputDecoration(
-                                labelText: 'Username',
-                                labelStyle: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red))),
-                          ),
                           SizedBox(height: 50.0),
                           RaisedButton(
                             onPressed: () async {
                               print('trying to send friend request');
-                              if (userData.favoritesList.contains(username)) {
+                              if (userData.favoritesList
+                                  .contains(widget.username)) {
                                 print(
                                     'show error: you have sent a request to this person already');
+                                showErrorDialog(context);
                               } else {
-                                userData.favoritesList.add(username);
+                                userData.favoritesList.add(widget.username);
                                 await _data.sendFriendRequest(
                                     user.uid, userData.favoritesList);
                               }
                               print(userData.favoritesList);
                               showAlertDialog(context);
                               Navigator.of(context).pop();
+                              Navigator.of(context).pop();
                             },
-                            child: const Text('Send Request',
+                            child: Text('Send Request to @${widget.username}',
                                 style: TextStyle(fontSize: 20)),
                           ),
                         ],

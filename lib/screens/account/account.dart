@@ -1,3 +1,4 @@
+import 'package:CrimsonMinistry/screens/account/friends/addfriend.dart';
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/models/user.dart';
@@ -6,6 +7,7 @@ import 'package:CrimsonMinistry/screens/account/edit.dart';
 import 'package:provider/provider.dart';
 import 'package:social_media_buttons/social_media_icons.dart';
 import 'package:social_media_buttons/social_media_buttons.dart';
+//import 'package:universal_html/html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Account extends StatefulWidget {
@@ -18,6 +20,8 @@ class Account extends StatefulWidget {
 }
 
 class _AccountPageState extends State<Account> {
+  final DatabaseService _data = DatabaseService();
+
   showSocialMediaPage(String link) async {
     if (await canLaunch(link)) {
       await launch(link);
@@ -39,6 +43,56 @@ class _AccountPageState extends State<Account> {
     );
   }
 
+  showErrorDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: Text("You have sent a friend request to this user already"),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  FlatButton showFavoriteButton(
+      BuildContext context, User currentUser, UserData userData) {
+    if (widget.userAccountId == currentUser.uid) {
+      return FlatButton(
+          textColor: Colors.white,
+          onPressed: () async {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditAccount(
+                    userData: userData,
+                  ),
+                ));
+          },
+          child: Text(
+            "Edit",
+            textScaleFactor: 1.5,
+            style: new TextStyle(fontSize: 12.0, color: Colors.white),
+          ));
+    } else {
+      return FlatButton(
+          textColor: Colors.white,
+          onPressed: () async {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        AddFriendPage(username: userData.username)));
+          },
+          child: Text(
+            "Add Friend",
+            textScaleFactor: 1.5,
+            style: new TextStyle(fontSize: 12.0, color: Colors.white),
+          ));
+    }
+  }
+
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -53,26 +107,7 @@ class _AccountPageState extends State<Account> {
                   title: Text("Account"),
                   backgroundColor: Colors.red,
                   actions: <Widget>[
-                    FlatButton(
-                      textColor: Colors.white,
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                EditAccount(userData: userData),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Edit",
-                        textScaleFactor: 1.5,
-                        style: new TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    showFavoriteButton(context, user, userData)
                   ],
                 ),
                 resizeToAvoidBottomPadding: false,
