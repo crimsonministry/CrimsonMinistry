@@ -36,7 +36,7 @@
   - [x] Display list of events you RSVPed to
   - [x] Display list of prayer requests you prayed for
 - Friending System
-  - [ ] View other user profiles
+  - [x] View other user profiles
   - [ ] Favorite other users
 - Unit Tests
   - [x] RSVP to Event
