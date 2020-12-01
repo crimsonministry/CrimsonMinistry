@@ -37,13 +37,13 @@
   - [x] Display list of prayer requests you prayed for
 - Friending System
   - [x] View other user profiles
-  - [ ] Favorite other users
+  - [x] Favorite other users
 - Unit Tests
   - [x] RSVP to Event
   - [x] Pray for a Prayer Request
   - [x] Update profile
   - [x] Add social media
-  - [ ] Favorite user
+  - [x] Favorite user
 - Website
   - [ ] Add Sprint 2 Deliverables
   - [ ] Add Sprint 3 Deliverables
@@ -66,4 +66,3 @@
 - Account Profile
   - [ ] Upload profile image
   - [ ] Read profile image
-  - [ ] Detect duplicate usernames
