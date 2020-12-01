@@ -10,32 +10,6 @@ class DetailPage extends StatelessWidget {
   final Prayer prayer;
   DetailPage({Key key, @required this.prayer}) : super(key: key);
 
-  prayed(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Prayed!"),
-      content: Text("You've been added to the prayed list :))"),
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  unprayed(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Removed :("),
-      content: Text("You've been removed from the prayed list :("),
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   showUser(bool anonymous) {
     if (anonymous) {
       return 'Anonymous User';
@@ -77,37 +51,20 @@ class DetailPage extends StatelessWidget {
                             color: Colors.blueGrey[900], size: 35),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 30),
-                        child: RaisedButton(
+                          margin: EdgeInsets.only(top: 30),
                           child: (prayer.prayerInteractions.contains(user.uid))
-                              ? const Text('Remove from List')
-                              : const Text('Pray'),
-                          color: Colors.red[300],
-                          onPressed: () async {
-                            if (prayer.prayerInteractions.contains(user.uid)) {
-                              prayer.prayerInteractions.remove(user.uid);
-                              userData.prayedList.remove(prayer.id);
-                              await _data.addToPrayerInteractions(
-                                  user.uid,
-                                  userData.prayedList,
-                                  prayer.id,
-                                  prayer.prayerInteractions);
-                              Navigator.of(context).pop();
-                              unprayed(context);
-                            } else {
-                              prayer.prayerInteractions.add(user.uid);
-                              userData.prayedList.add(prayer.id);
-                              await _data.addToPrayerInteractions(
-                                  user.uid,
-                                  userData.prayedList,
-                                  prayer.id,
-                                  prayer.prayerInteractions);
-                              Navigator.of(context).pop();
-                              prayed(context);
-                            }
-                          },
-                        ),
-                      ),
+                              ? Text("Thanks for your prayer!")
+                              : RaisedButton(
+                                  child: Text('Pray'),
+                                  onPressed: () async {
+                                    prayer.prayerInteractions.add(user.uid);
+                                    userData.prayedList.add(prayer.id);
+                                    await _data.addToPrayerInteractions(
+                                        user.uid,
+                                        userData.prayedList,
+                                        prayer.id,
+                                        prayer.prayerInteractions);
+                                  })),
                       RaisedButton(
                         child: Text('View Prayed List'),
                         color: Colors.orange[300],

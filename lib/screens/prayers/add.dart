@@ -16,19 +16,6 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
   String description = '';
   String error = '';
 
-  showAlertDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Prayer added!"),
-      content: Text("Thanks for your submission :)"),
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -111,7 +98,6 @@ class _AddPrayerPageState extends State<AddPrayerPage> {
                         await _data.addPrayerRequest(
                             user.uid, beAnonymous, title, description);
                         Navigator.of(context).pop();
-                        showAlertDialog(context);
                       }
                     },
                     child: Text('Add Prayer Requests'),

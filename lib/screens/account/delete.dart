@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class DeleteAccountPage extends StatefulWidget {
   @override
@@ -14,37 +13,14 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   String email = '';
   String password = '';
 
-  showDeleteAlert(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Account deleted!"),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  showDeleteFailedAlert(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Ivalid email/Password!, Please try again"),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
     return new Scaffold(
-      appBar: AppBar(backgroundColor: Colors.red),
+      appBar: AppBar(
+        title: Text('Delete Account'),
+        backgroundColor: Colors.red,
+      ),
       resizeToAvoidBottomPadding: false,
       body: Column(
         children: <Widget>[
@@ -52,8 +28,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             child: Stack(
               children: <Widget>[
                 Container(
-                    padding: EdgeInsets.fromLTRB(8.0, 50.0, 0.0, 0.0),
-                    child: Text('Account Deletion Verification',
+                    padding: EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 30.0),
+                    child: Text('Account Verification',
                         style: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
@@ -73,7 +49,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       setState(() => email = val);
                     },
                     decoration: InputDecoration(
-                        labelText: 'email',
+                        labelText: 'Email',
                         labelStyle: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.grey),
                         focusedBorder: UnderlineInputBorder(
@@ -116,8 +92,6 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                           setState(() {
                             error = result.message.toString();
                           });
-                        } else {
-                          showDeleteAlert(context);
                         }
                       }
                     },
