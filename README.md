@@ -38,6 +38,11 @@ to be added...
 
 This project is planned to be an open-source project under the MIT license.
 
+### Disclaimer
+
+* The icon of this project is provided by [Orin zuu](https://thenounproject.com/qorinafiljan2121/) from Noun Project under the Creative Commons license.
+* more to be added
+
 ***
 <p align="center">
     &copy; Crimson Ministry
