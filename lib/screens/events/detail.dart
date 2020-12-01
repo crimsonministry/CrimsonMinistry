@@ -10,32 +10,6 @@ class DetailPage extends StatelessWidget {
   final Event event;
   DetailPage({Key key, @required this.event}) : super(key: key);
 
-  addedToRSVP(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("RSVPed!"),
-      content: Text("You've been added to the RSVP list :))"),
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  removedFromRSVP(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Un-RSVPed :("),
-      content: Text("You've been removed from the RSVP list :("),
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -98,15 +72,11 @@ class DetailPage extends StatelessWidget {
                               userData.rsvpedList.remove(event.id);
                               await _data.addToRSVP(user.uid,
                                   userData.rsvpedList, event.id, event.rsvp);
-                              Navigator.of(context).pop();
-                              removedFromRSVP(context);
                             } else {
                               event.rsvp.add(user.uid);
                               userData.rsvpedList.add(event.id);
                               await _data.addToRSVP(user.uid,
                                   userData.rsvpedList, event.id, event.rsvp);
-                              Navigator.of(context).pop();
-                              addedToRSVP(context);
                             }
                           },
                         ),

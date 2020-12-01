@@ -29,19 +29,6 @@ class _AddEventPageState extends State<AddEventPage> {
     time = TimeOfDay.now();
   }
 
-  showAlertDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Event added!"),
-      content: Text("Thanks for your submission :))"),
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   _pickDate() async {
     DateTime date = await showDatePicker(
       context: context,
@@ -191,7 +178,6 @@ class _AddEventPageState extends State<AddEventPage> {
                                 widget.point.latitude, widget.point.longitude),
                             description);
                         Navigator.of(context).pop();
-                        showAlertDialog(context);
                       }
                     },
                     child: Text('Create Event'),

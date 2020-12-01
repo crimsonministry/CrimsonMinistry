@@ -1,4 +1,4 @@
-import 'package:CrimsonMinistry/screens/account/friends/addfriend.dart';
+import 'package:CrimsonMinistry/screens/account/favorites/addfriend.dart';
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/models/user.dart';

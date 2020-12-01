@@ -42,7 +42,7 @@ class _SearchFriendPageState extends State<SearchFriendPage>
         style: TextStyle(fontSize: 18.0, color: Colors.white),
         controller: searchTextEditingController,
         decoration: InputDecoration(
-            hintText: "Search Friends here...",
+            hintText: "Search",
             hintStyle: TextStyle(color: Colors.grey),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -69,15 +69,15 @@ class _SearchFriendPageState extends State<SearchFriendPage>
             Icon(
               Icons.group,
               color: Colors.grey,
-              size: 100.0,
+              size: 80.0,
             ),
             Text(
-              "No Users Found :(",
+              "No Users Found",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.w400,
-                fontSize: 40.0,
+                fontSize: 20.0,
               ),
             ),
           ],

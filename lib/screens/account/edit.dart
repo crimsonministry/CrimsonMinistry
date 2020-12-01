@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/screens/account/delete.dart';
 
 class EditAccount extends StatefulWidget {
@@ -18,19 +17,6 @@ class _EditAccountPageState extends State<EditAccount> {
   final DatabaseService _data = DatabaseService();
   String email;
   String password;
-
-  showAlertDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      title: Text("Account edited!"),
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +138,7 @@ class _EditAccountPageState extends State<EditAccount> {
                     RaisedButton(
                       color: Colors.blue[300],
                       onPressed: () async {
-                        dynamic result = await _data.updateAccountPageData(
+                        await _data.updateAccountPageData(
                             user.uid,
                             firstName.text,
                             lastName.text,
@@ -163,7 +149,6 @@ class _EditAccountPageState extends State<EditAccount> {
                             facebookLink.text,
                             instaLink.text);
                         Navigator.of(context).pop();
-                        showAlertDialog(context);
                       },
                       child: const Text('Save Changes'),
                     ),

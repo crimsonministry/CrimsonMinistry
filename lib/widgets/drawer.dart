@@ -6,7 +6,7 @@ import 'package:CrimsonMinistry/services/database.dart';
 import 'package:CrimsonMinistry/screens/account/account.dart';
 import 'package:CrimsonMinistry/screens/account/events/events.dart';
 import 'package:CrimsonMinistry/screens/account/prayers/prayers.dart';
-import 'package:CrimsonMinistry/screens/account/friends/friends.dart';
+import 'package:CrimsonMinistry/screens/account/favorites/favorites.dart';
 
 class DrawerWidget extends StatefulWidget {
   @override
