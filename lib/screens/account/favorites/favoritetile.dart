@@ -3,21 +3,22 @@ import 'package:provider/provider.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/screens/account/account.dart';
 
-class RSVPTile extends StatefulWidget {
-  final String userID;
-  RSVPTile({this.userID});
+class FavoriteTile extends StatefulWidget {
+  final String username;
+  FavoriteTile({this.username});
 
   @override
-  _RSVPTileState createState() => _RSVPTileState();
+  _FavoriteTileState createState() => _FavoriteTileState();
 }
 
-class _RSVPTileState extends State<RSVPTile> {
+class _FavoriteTileState extends State<FavoriteTile> {
   List<UserData> users = List<UserData>();
 
   @override
   Widget build(BuildContext context) {
     users = Provider.of<List<UserData>>(context) ?? [];
-    int userIndex = users.indexWhere((user) => user.uid == widget.userID);
+    int userIndex =
+        users.indexWhere((user) => user.username == widget.username);
     UserData user = users[userIndex];
     return Card(
       child: ListTile(

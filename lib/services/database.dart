@@ -206,25 +206,6 @@ class DatabaseService {
     }).toList();
   }
 
-  List<UserData> _userListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return UserData(
-        uid: doc.documentID,
-        fname: doc.data['firstName'] ?? '',
-        lname: doc.data['lastName'] ?? '',
-        username: doc.data['username'] ?? '',
-        bio: doc.data['biography'] ?? '',
-        ministry: doc.data['ministry'] ?? '',
-        favoritesList: List<String>.from(doc.data['favorites']) ?? '',
-        rsvpedList: List<String>.from(doc.data['rsvped']) ?? '',
-        prayedList: List<String>.from(doc.data['prayed']) ?? '',
-        twitter: doc.data['twitterLink'] ?? '',
-        facebook: doc.data['facebookLink'] ?? '',
-        instagram: doc.data['instaLink'] ?? '',
-      );
-    }).toList();
-  }
-
   Future addPrayerRequest(
       String userid, bool anonymous, String title, String description) async {
     print('adding prayer');
