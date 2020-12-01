@@ -20,7 +20,7 @@ class _MyFriendsPageState extends State<MyFriends> {
             UserData userData = snapshot.data;
             return Scaffold(
                 appBar: AppBar(
-                  title: Text("My Friends"),
+                  title: Text("Favorited Users"),
                   backgroundColor: Colors.red,
                   actions: <Widget>[
                     FlatButton(
