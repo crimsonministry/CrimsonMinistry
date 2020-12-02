@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:CrimsonMinistry/screens/account/selectavatar.dart';
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/models/user.dart';
 import 'package:CrimsonMinistry/services/database.dart';
@@ -135,6 +136,17 @@ class _EditAccountPageState extends State<EditAccount> {
                               borderSide: BorderSide(color: Colors.red))),
                     ),
                     SizedBox(height: 30.0),
+                    RaisedButton(
+                        color: Colors.red,
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SelectAvatarPage(),
+                            ),
+                          );
+                        },
+                        child: const Text('Upload Profile Image')),
                     RaisedButton(
                       color: Colors.blue[300],
                       onPressed: () async {

@@ -16,6 +16,7 @@ class UserData {
   final String twitter;
   final String facebook;
   final String instagram;
+  final String avatarUrl;
 
   UserData(
       {this.uid,
@@ -29,5 +30,6 @@ class UserData {
       this.prayedList,
       this.twitter,
       this.facebook,
-      this.instagram});
+      this.instagram,
+      this.avatarUrl});
 }

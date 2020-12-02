@@ -1,4 +1,5 @@
 import 'package:CrimsonMinistry/screens/account/favorites/addfriend.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/services/auth.dart';
 import 'package:CrimsonMinistry/models/user.dart';
@@ -80,6 +81,7 @@ class _AccountPageState extends State<Account> {
   }
 
   final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -109,6 +111,7 @@ class _AccountPageState extends State<Account> {
                             child: CircleAvatar(
                               backgroundColor: Colors.grey,
                               child: Text('Avatar'),
+                              //backgroundImage: NetworkImage(value),
                               radius: 50.0,
                             ),
                           ),
