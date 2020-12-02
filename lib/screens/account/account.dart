@@ -79,7 +79,28 @@ class _AccountPageState extends State<Account> {
     }
   }
 
+  CircleAvatar showProfileAvatar(UserData userData) {
+    if (userData.avatarUrl != null) {
+      return CircleAvatar(
+        backgroundColor: Colors.grey,
+        backgroundImage: NetworkImage(userData.avatarUrl),
+        radius: 50.0,
+      );
+    } else {
+      return CircleAvatar(
+        backgroundColor: Colors.red,
+        child: Icon(
+          Icons.person_outline,
+          color: Colors.white,
+          size: 60.0,
+        ),
+        radius: 50.0,
+      );
+    }
+  }
+
   final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -106,11 +127,7 @@ class _AccountPageState extends State<Account> {
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.all(20.0),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.grey,
-                              child: Text('Avatar'),
-                              radius: 50.0,
-                            ),
+                            child: showProfileAvatar(userData),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,

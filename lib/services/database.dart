@@ -36,7 +36,8 @@ class DatabaseService {
       'prayed': empty,
       'twitterLink': '',
       'facebookLink': '',
-      'instaLink': ''
+      'instaLink': '',
+      'avatar': '',
     });
   }
 
@@ -74,6 +75,16 @@ class DatabaseService {
     });
   }
 
+  Future updateUserAvatar(String userId, String imageUrl) async {
+    print('updating avatar');
+    print('avatar : $imageUrl');
+    print('success');
+
+    return await userCollection
+        .document(userId)
+        .updateData({'avatar': imageUrl});
+  }
+
   Future favoriteUser(String userID, List<String> favorites) async {
     print('favorite user');
     print('userID : $userID');
@@ -86,35 +97,39 @@ class DatabaseService {
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
-        uid: uid,
-        fname: snapshot.data['firstName'],
-        lname: snapshot.data['lastName'],
-        username: snapshot.data['username'],
-        bio: snapshot.data['biography'],
-        ministry: snapshot.data['ministry'],
-        favoritesList: List<String>.from(snapshot.data['favorites']) ?? '',
-        rsvpedList: List<String>.from(snapshot.data['rsvped']) ?? '',
-        prayedList: List<String>.from(snapshot.data['prayed']) ?? '',
-        twitter: snapshot.data['twitterLink'],
-        facebook: snapshot.data['facebookLink'],
-        instagram: snapshot.data['instaLink']);
+      uid: uid,
+      fname: snapshot.data['firstName'],
+      lname: snapshot.data['lastName'],
+      username: snapshot.data['username'],
+      bio: snapshot.data['biography'],
+      ministry: snapshot.data['ministry'],
+      favoritesList: List<String>.from(snapshot.data['favorites']) ?? '',
+      rsvpedList: List<String>.from(snapshot.data['rsvped']) ?? '',
+      prayedList: List<String>.from(snapshot.data['prayed']) ?? '',
+      twitter: snapshot.data['twitterLink'],
+      facebook: snapshot.data['facebookLink'],
+      instagram: snapshot.data['instaLink'],
+      avatarUrl: snapshot.data['avatar'],
+    );
   }
 
   List<UserData> _userDataListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return UserData(
-          uid: doc.documentID,
-          fname: doc.data['firstName'],
-          lname: doc.data['lastName'],
-          username: doc.data['username'],
-          bio: doc.data['biography'],
-          ministry: doc.data['ministry'],
-          favoritesList: List<String>.from(doc.data['favorites']) ?? '',
-          rsvpedList: List<String>.from(doc.data['rsvped']) ?? '',
-          prayedList: List<String>.from(doc.data['prayed']) ?? '',
-          twitter: doc.data['twitterLink'],
-          facebook: doc.data['facebookLink'],
-          instagram: doc.data['instaLink']);
+        uid: doc.documentID,
+        fname: doc.data['firstName'],
+        lname: doc.data['lastName'],
+        username: doc.data['username'],
+        bio: doc.data['biography'],
+        ministry: doc.data['ministry'],
+        favoritesList: List<String>.from(doc.data['favorites']) ?? '',
+        rsvpedList: List<String>.from(doc.data['rsvped']) ?? '',
+        prayedList: List<String>.from(doc.data['prayed']) ?? '',
+        twitter: doc.data['twitterLink'],
+        facebook: doc.data['facebookLink'],
+        instagram: doc.data['instaLink'],
+        avatarUrl: doc.data['avatar'],
+      );
     }).toList();
   }
 
