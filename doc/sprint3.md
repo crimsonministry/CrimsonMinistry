@@ -64,5 +64,5 @@
   - [x] Store RSVPed list
   - [x] Store Prayed list
 - Account Profile
-  - [ ] Upload profile image
-  - [ ] Read profile image
+  - [x] Upload profile image
+  - [x] Read profile image
