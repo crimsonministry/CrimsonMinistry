@@ -22,28 +22,30 @@ class _UploaderState extends State<Uploader> {
   final DatabaseService _data = DatabaseService();
 
   StorageUploadTask _uploadTask;
+  var url;
 
-  _startUpload(String userId) {
+  startUpload(String userId) async {
     String filePath = 'images/$userId.png';
-
-    setState(() {
-      _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
-    });
+    final storageRef = FirebaseStorage.instance.ref().child(filePath);
+    _uploadTask = storageRef.putFile(widget.file);
+    final snapshot = await _uploadTask.onComplete;
+    if (snapshot.error != null) {
+      print('upload error code: ${snapshot.error}');
+      throw snapshot.error;
+    }
+    url = await snapshot.ref.getDownloadURL();
+    print('download URL: $url');
   }
 
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     String userId = user.uid;
-    String filePath = 'images/$userId.png';
     if (_uploadTask != null) {
       return StreamBuilder<StorageTaskEvent>(
           stream: _uploadTask.events,
           builder: (context, snapshot) {
             var event = snapshot?.data?.snapshot;
-            StorageReference ref =
-                FirebaseStorage.instance.ref().child(filePath);
-            String url = ref.getDownloadURL().toString();
             double progressPercent = event != null
                 ? event.bytesTransferred / event.totalByteCount
                 : 0;
@@ -56,14 +58,6 @@ class _UploaderState extends State<Uploader> {
                   value: progressPercent,
                 ),
                 Text('${(progressPercent * 100).toStringAsFixed(2)} %'),
-                RaisedButton(
-                  color: Colors.red,
-                  onPressed: () async {
-                    await _data.updateUserAvatar(userId, url);
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Save Profile Image'),
-                )
               ],
             );
           });
@@ -71,7 +65,11 @@ class _UploaderState extends State<Uploader> {
       return FlatButton.icon(
         label: Text('Upload Image'),
         icon: Icon(Icons.check_circle),
-        onPressed: _startUpload(userId),
+        onPressed: () async {
+          await startUpload(userId);
+          await _data.updateUserAvatar(userId, url);
+          Navigator.of(context).pop();
+        },
       );
     }
   }
