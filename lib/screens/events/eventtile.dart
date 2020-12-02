@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:CrimsonMinistry/models/event.dart';
 import 'detail.dart';
+import 'package:provider/provider.dart';
+import 'package:CrimsonMinistry/services/database.dart';
+import 'package:CrimsonMinistry/models/user.dart';
 
-class EventTile extends StatelessWidget {
+class EventTile extends StatefulWidget {
   final Event event;
   EventTile({this.event});
 
+  @override
+  _EventTileState createState() => _EventTileState();
+}
+
+class _EventTileState extends State<EventTile> {
   switchIcons(String eventType) {
     switch (eventType) {
       case 'Bible Study':
@@ -39,24 +47,33 @@ class EventTile extends StatelessWidget {
     }
   }
 
+  List<UserData> users = List<UserData>();
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-          leading: switchIcons(event.typeOfEvent),
-          title: Text(event.title),
-          subtitle: Text(
-              '${event.description}\nOn ${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} at ${event.dateTime.hour}:${event.dateTime.minute}'),
-          trailing: Icon(Icons.more_vert),
-          isThreeLine: true,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailPage(event: event),
-              ),
-            );
-          }),
+    users = Provider.of<List<UserData>>(context) ?? [];
+    int userIndex = users.indexWhere((user) => user.uid == widget.event.userID);
+    UserData creatorData = users[userIndex];
+
+    return StreamProvider<List<UserData>>.value(
+      value: DatabaseService().users,
+        child: Card(
+            child: ListTile(
+                leading: switchIcons(widget.event.typeOfEvent),
+                title: Text(widget.event.title),
+                subtitle: Text(
+                    '${widget.event.description}\nOn ${widget.event.dateTime.month}/${widget.event.dateTime.day}/${widget.event.dateTime.year} at ${widget.event.dateTime.hour}:${widget.event.dateTime.minute}'),
+                trailing: Icon(Icons.more_vert),
+                isThreeLine: true,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailPage(event: widget.event, creatorData: creatorData),
+                    ),
+                  );
+                }),
+    )
     );
   }
 }

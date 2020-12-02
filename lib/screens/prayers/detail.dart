@@ -5,30 +5,40 @@ import 'package:CrimsonMinistry/models/prayer.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import './prayedlist.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final DatabaseService _data = DatabaseService();
   final Prayer prayer;
-  DetailPage({Key key, @required this.prayer}) : super(key: key);
+  final UserData creatorData;
 
-  showUser(bool anonymous) {
-    if (anonymous) {
+  DetailPage({Key key, @required this.prayer, this.creatorData}) : super(key: key);
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  showUser(bool anonymous, UserData creatorData) {
+    if (anonymous == true) {
       return 'Anonymous User';
-    } else {
-      return prayer.userID;
+    }
+    else {
+      return '${creatorData.fname} ${creatorData.lname}';
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
+    User viewer = Provider.of<User>(context);
+
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user.uid).userData,
+        stream: DatabaseService(uid: viewer.uid).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
             return Scaffold(
               appBar: AppBar(
-                title: Text('${prayer.title}'),
+                title: Text('${widget.prayer.title}'),
                 backgroundColor: Colors.red,
               ),
               body: Column(children: <Widget>[
@@ -38,7 +48,7 @@ class DetailPage extends StatelessWidget {
                       ListTile(
                         title: Text('Description',
                             style: TextStyle(fontWeight: FontWeight.w500)),
-                        subtitle: Text('${prayer.description}'),
+                        subtitle: Text('${widget.prayer.description}'),
                         leading: Icon(Icons.description,
                             color: Colors.blueGrey[900], size: 35),
                       ),
@@ -46,24 +56,24 @@ class DetailPage extends StatelessWidget {
                       ListTile(
                         title: Text('Created by',
                             style: TextStyle(fontWeight: FontWeight.w500)),
-                        subtitle: Text(showUser(prayer.anonymous)),
+                        subtitle: Text(showUser(widget.prayer.anonymous, widget.creatorData)),
                         leading: Icon(Icons.account_circle,
                             color: Colors.blueGrey[900], size: 35),
                       ),
                       Container(
                           margin: EdgeInsets.only(top: 30),
-                          child: (prayer.prayerInteractions.contains(user.uid))
+                          child: (widget.prayer.prayerInteractions.contains(viewer.uid))
                               ? Text("Thanks for your prayer!")
                               : RaisedButton(
                                   child: Text('Pray'),
                                   onPressed: () async {
-                                    prayer.prayerInteractions.add(user.uid);
-                                    userData.prayedList.add(prayer.id);
-                                    await _data.addToPrayerInteractions(
-                                        user.uid,
+                                    widget.prayer.prayerInteractions.add(viewer.uid);
+                                    userData.prayedList.add(widget.prayer.id);
+                                    await widget._data.addToPrayerInteractions(
+                                        viewer.uid,
                                         userData.prayedList,
-                                        prayer.id,
-                                        prayer.prayerInteractions);
+                                        widget.prayer.id,
+                                        widget.prayer.prayerInteractions);
                                   })),
                       RaisedButton(
                         child: Text('View Prayed List'),
@@ -73,7 +83,7 @@ class DetailPage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  PrayedList(prayer.prayerInteractions),
+                                  PrayedList(widget.prayer.prayerInteractions),
                             ),
                           );
                         },

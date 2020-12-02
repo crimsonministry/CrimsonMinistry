@@ -5,11 +5,17 @@ import 'package:CrimsonMinistry/models/event.dart';
 import 'package:CrimsonMinistry/services/database.dart';
 import './rsvplist.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final DatabaseService _data = DatabaseService();
   final Event event;
-  DetailPage({Key key, @required this.event}) : super(key: key);
+  final UserData creatorData;
+  DetailPage({Key key, @required this.event, this.creatorData}) : super(key: key);
 
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
@@ -20,7 +26,7 @@ class DetailPage extends StatelessWidget {
             UserData userData = snapshot.data;
             return Scaffold(
               appBar: AppBar(
-                title: Text(event.typeOfEvent),
+                title: Text(widget.event.typeOfEvent),
                 backgroundColor: Colors.red,
               ),
               body: Column(children: <Widget>[
@@ -31,7 +37,7 @@ class DetailPage extends StatelessWidget {
                         title: Text('Date and Time',
                             style: TextStyle(fontWeight: FontWeight.w500)),
                         subtitle: Text(
-                            '${event.dateTime.month}/${event.dateTime.day}/${event.dateTime.year} @ ${event.dateTime.hour}:${event.dateTime.minute}'),
+                            '${widget.event.dateTime.month}/${widget.event.dateTime.day}/${widget.event.dateTime.year} @ ${widget.event.dateTime.hour}:${widget.event.dateTime.minute}'),
                         leading: Icon(Icons.date_range,
                             color: Colors.blueGrey[900], size: 35),
                       ),
@@ -40,14 +46,14 @@ class DetailPage extends StatelessWidget {
                         title: Text('Location',
                             style: TextStyle(fontWeight: FontWeight.w500)),
                         subtitle: Text(
-                            '${event.location.latitude.truncateToDouble()}, ${event.location.longitude.truncateToDouble()}'),
+                            '${widget.event.location.latitude.truncateToDouble()}, ${widget.event.location.longitude.truncateToDouble()}'),
                         leading: Icon(Icons.location_on,
                             color: Colors.blueGrey[900], size: 35),
                       ),
                       ListTile(
                         title: Text('Description',
                             style: TextStyle(fontWeight: FontWeight.w500)),
-                        subtitle: Text('${event.description}'),
+                        subtitle: Text('${widget.event.description}'),
                         leading: Icon(Icons.description,
                             color: Colors.blueGrey[900], size: 35),
                       ),
@@ -55,28 +61,28 @@ class DetailPage extends StatelessWidget {
                       ListTile(
                         title: Text('Created by',
                             style: TextStyle(fontWeight: FontWeight.w500)),
-                        subtitle: Text('${event.userID}'),
+                        subtitle: Text('${widget.creatorData.fname} ${widget.creatorData.lname}'),
                         leading: Icon(Icons.account_circle,
                             color: Colors.blueGrey[900], size: 35),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 30),
                         child: RaisedButton(
-                          child: (event.rsvp.contains(user.uid))
+                          child: (widget.event.rsvp.contains(user.uid))
                               ? const Text('Remove from RSVP')
                               : const Text('RSVP'),
                           color: Colors.red[300],
                           onPressed: () async {
-                            if (event.rsvp.contains(user.uid)) {
-                              event.rsvp.remove(user.uid);
-                              userData.rsvpedList.remove(event.id);
-                              await _data.addToRSVP(user.uid,
-                                  userData.rsvpedList, event.id, event.rsvp);
+                            if (widget.event.rsvp.contains(user.uid)) {
+                              widget.event.rsvp.remove(user.uid);
+                              userData.rsvpedList.remove(widget.event.id);
+                              await widget._data.addToRSVP(user.uid,
+                                  userData.rsvpedList, widget.event.id, widget.event.rsvp);
                             } else {
-                              event.rsvp.add(user.uid);
-                              userData.rsvpedList.add(event.id);
-                              await _data.addToRSVP(user.uid,
-                                  userData.rsvpedList, event.id, event.rsvp);
+                              widget.event.rsvp.add(user.uid);
+                              userData.rsvpedList.add(widget.event.id);
+                              await widget._data.addToRSVP(user.uid,
+                                  userData.rsvpedList, widget.event.id, widget.event.rsvp);
                             }
                           },
                         ),
@@ -88,7 +94,7 @@ class DetailPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => RSVPList(event.rsvp),
+                              builder: (context) => RSVPList(widget.event.rsvp),
                             ),
                           );
                         },

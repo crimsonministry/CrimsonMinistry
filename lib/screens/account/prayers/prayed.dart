@@ -24,20 +24,23 @@ class _PrayerListState extends State<PrayedList> {
                 .where((i) => userData.prayedList.contains(i.id))
                 .toList();
 
-            return RefreshIndicator(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: prayers.length,
-                itemBuilder: (context, index) {
-                  return PrayerTile(prayer: prayers[index]);
-                },
-              ),
-              onRefresh: () async {
-                prayers = Provider.of<List<Prayer>>(context) ?? [];
-                prayers = prayers
-                    .where((i) => userData.prayedList.contains(i.id))
-                    .toList();
-              },
+            return StreamProvider<List<UserData>>.value(
+              value: DatabaseService().users,
+                child: RefreshIndicator(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: prayers.length,
+                      itemBuilder: (context, index) {
+                        return PrayerTile(prayer: prayers[index]);
+                      },
+                    ),
+                    onRefresh: () async {
+                      prayers = Provider.of<List<Prayer>>(context) ?? [];
+                      prayers = prayers
+                          .where((i) => userData.prayedList.contains(i.id))
+                          .toList();
+                    },
+            )
             );
           } else {
             return Text('loading...');
