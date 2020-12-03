@@ -5,10 +5,14 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:CrimsonMinistry/screens/events/add.dart';
 import 'package:CrimsonMinistry/models/event.dart';
+import 'package:CrimsonMinistry/models/user.dart';
 import '../events/detail.dart';
 import './style.dart';
 
 class MapView extends StatefulWidget {
+  final List<UserData> users;
+  MapView({this.users});
+
   @override
   _MapPageState createState() => _MapPageState();
 }
@@ -22,6 +26,7 @@ class _MapPageState extends State<MapView> {
   List<Event> events = List<Event>();
   BitmapDescriptor missionIcon, readingIcon, volunteerIcon, worshipIcon;
   LocationData currentLocation;
+  UserData creatorData;
 
   @override
   void initState() {
@@ -93,7 +98,10 @@ class _MapPageState extends State<MapView> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailPage(event: event),
+                builder: (context) => DetailPage(
+                    event: event,
+                    creatorData: widget.users[widget.users
+                        .indexWhere((user) => user.uid == event.userID)]),
               ),
             );
           }
