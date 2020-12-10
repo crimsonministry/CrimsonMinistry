@@ -27,12 +27,10 @@ Crimson Ministry shifts the mission from the campus ministries at UA to individu
 * Add detailed account page
 
 ## Installation
-
-to be added...
+Set up a flutter environment in your local machine and clone this repository. Open a simulator or connect your device, and run `flutter run`.
 
 ## Demo
-
-to be added...
+[![alt text](https://i3.ytimg.com/vi/-XUbhA8pa3U/maxresdefault.jpg)](https://youtu.be/-XUbhA8pa3U "title")
 
 ## Contributions
 
