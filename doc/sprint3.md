@@ -45,12 +45,12 @@
   - [x] Add social media
   - [x] Favorite user
 - Website
-  - [ ] Add Sprint 2 Deliverables
-  - [ ] Add Sprint 3 Deliverables
-  - [ ] Demo Video
+  - [x] Add Sprint 2 Deliverables
+  - [x] Add Sprint 3 Deliverables
+  - [x] Demo Video
 - Presentation
-  - [ ] Slides
-  - [ ] Demo
+  - [x] Slides
+  - [x] Demo
 - GitHub
   - [x] Create App Icon
   - [x] Create social preview
